@@ -30,7 +30,14 @@ const MainLayout: FC<IMainLAyoutProps> = (props) => {
 
   return (
     <>
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: "#1976d269" }}>
+      <AppBar
+        position="fixed"
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backgroundColor: "#1976d269",
+          borderBottom: "2px solid white",
+        }}
+      >
         <Toolbar>
           <Link component={RouterLink} to="/" color="inherit" underline="none">
             <Stack direction="row" spacing={1} alignItems="center">
