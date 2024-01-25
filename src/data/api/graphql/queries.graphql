@@ -1,3 +1,108 @@
-query GetUsers {
+# Global
+query GetDateTime {
   getDateTime
+}
+
+# User
+query GetUser($getUserId: ID!) {
+  getUser(id: $getUserId) {
+    id
+    firstName
+    lastName
+    updatedAt
+    createdAt
+    active
+  }
+}
+
+query ListUsers($page: Int!, $perPage: Int!) {
+  listUsers(page: $page, perPage: $perPage) {
+    clients {
+      id
+      firstName
+      lastName
+      updatedAt
+      createdAt
+      active
+    }
+  }
+}
+
+# Client
+query GetClient($getClientId: ID!) {
+  getClient(id: $getClientId) {
+    id
+  }
+}
+
+query ListClients($page: Int!, $perPage: Int!) {
+  listClients(page: $page, perPage: $perPage) {
+    clients {
+      id
+      name
+      updatedAt
+      createdAt
+      active
+    }
+  }
+}
+
+#Product
+query GetProduct($page: Int!, $perPage: Int!, $getProductId: ID!) {
+  getProduct(id: $getProductId) {
+    active
+    createdAt
+    id
+    points
+    quantity
+    type
+    updatedAt
+  }
+}
+
+query ListProducts($page: Int!, $perPage: Int!) {
+  listProducts(page: $page, perPage: $perPage) {
+    page
+    perPage
+    products {
+      id
+      createdAt
+      active
+      points
+      quantity
+      type
+      updatedAt
+    }
+    total
+  }
+}
+
+# Invoice
+query GetInvoice($getInvoiceId: ID!) {
+  getInvoice(id: $getInvoiceId) {
+    id
+    number
+    payed
+    total
+    updatedAt
+    createdAt
+    client
+  }
+}
+
+query LisInvoices($page: Int!, $perPage: Int!) {
+  listInvoices(page: $page, perPage: $perPage) {
+    page
+    invoices {
+      id
+      createdAt
+      client
+      number
+      payed
+      total
+      updatedAt
+    }
+    perPage
+    total
+  }
 }
