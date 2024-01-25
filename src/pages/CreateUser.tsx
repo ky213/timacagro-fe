@@ -24,28 +24,26 @@ import {
   InputLabel,
 } from "@mui/material";
 
-import { IUser } from "src/data/types";
 import { createUser, resetUsers } from "src/data/store/reducers/users";
-import { EMAIL_REG_EXR, NATIONALITIES, PHONE_REG_EXR } from "src/config/constants";
+import { EMAIL_REG_EXR, PHONE_REG_EXR, Roles } from "src/config/constants";
 import { IRootState, useAppDispatch, useAppSelector } from "src/data/store";
-import { useLoginMutation } from "src/data/User.generated";
+import { CreateUserInput, Role, User } from "src/data/types/generated";
+import { useCreateUserMutation } from "src/data/api/graphql/mutations.generated";
 
 const CreateUserPage = () => {
   const { loading, success, error } = useAppSelector((state: IRootState) => state.users);
-  const [login, {}] = useLoginMutation();
+  const [createUser, {}] = useCreateUserMutation();
   const dispatch = useAppDispatch();
   const gotTo = useNavigate();
   const {
     handleSubmit,
     register: registerField,
     formState: { errors: fieldErrors, touchedFields },
-  } = useForm<IUser>();
+  } = useForm<CreateUserInput>();
 
-  const onSubmit = async (newUser: IUser) => {
+  const onSubmit = async (newUser: CreateUserInput) => {
     try {
-      login({ email: "dfghj", password: "rtyhj" });
-      newUser.id = { name: "id", value: (Math.random() * 1000).toFixed(0) };
-      dispatch(createUser(newUser));
+      createUser({ userInfo: newUser });
     } catch (error) {
       console.log(error);
     }
@@ -86,9 +84,9 @@ const CreateUserPage = () => {
                 id="firstName"
                 label="First Name"
                 autoFocus
-                {...registerField("name.first", { required: true })}
-                error={Boolean(fieldErrors.name?.first)}
-                helperText={Boolean(fieldErrors.name?.first) && "This field is required"}
+                {...registerField("firstName", { required: true })}
+                error={Boolean(fieldErrors.firstName)}
+                helperText={Boolean(fieldErrors.firstName) && "This field is required"}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -98,9 +96,9 @@ const CreateUserPage = () => {
                 id="lastName"
                 label="Last Name"
                 autoComplete="family-name"
-                {...registerField("name.last", { required: true })}
-                error={Boolean(fieldErrors.name?.last)}
-                helperText={Boolean(fieldErrors.name?.last) && "This field is required"}
+                {...registerField("lastName", { required: true })}
+                error={Boolean(fieldErrors.lastName)}
+                helperText={Boolean(fieldErrors.lastName) && "This field is required"}
               />
             </Grid>
           </Grid>
@@ -117,7 +115,7 @@ const CreateUserPage = () => {
             />
           </Grid>
 
-          <Grid item xs={12} mt={2}>
+          {/* <Grid item xs={12} mt={2}>
             <TextField
               required
               fullWidth
@@ -128,8 +126,8 @@ const CreateUserPage = () => {
               error={Boolean(fieldErrors.phone)}
               helperText={Boolean(fieldErrors.phone) && "Must be a valid phone number."}
             />
-          </Grid>
-          <Grid item xs={12} mt={2}>
+          </Grid> */}
+          {/* <Grid item xs={12} mt={2}>
             <FormControl error={Boolean(fieldErrors.gender)} fullWidth>
               <InputLabel id="gender-label">Gender</InputLabel>
               <Select id="gender" labelId="gender-label" fullWidth {...registerField("gender", { required: true })}>
@@ -138,18 +136,18 @@ const CreateUserPage = () => {
               </Select>
               {Boolean(fieldErrors.gender) && <FormHelperText color={"danger"}>Must select a gender</FormHelperText>}
             </FormControl>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} mt={2}>
-            <FormControl error={Boolean(fieldErrors.nat)} fullWidth>
-              <InputLabel id="nat-label">Nationality</InputLabel>
-              <Select id="nat" labelId="nat-label" fullWidth {...registerField("nat", { required: true })}>
-                {NATIONALITIES.map((nat) => (
-                  <MenuItem key={nat} value={nat}>
-                    {nat}
+            <FormControl error={Boolean(fieldErrors.role)} fullWidth>
+              <InputLabel id="role-label">Role</InputLabel>
+              <Select id="role" labelId="role-label" fullWidth {...registerField("role", { required: true })}>
+                {Roles.map((role) => (
+                  <MenuItem key={role} value={role}>
+                    {role}
                   </MenuItem>
                 ))}
               </Select>
-              {Boolean(fieldErrors.nat) && <FormHelperText color={"danger"}>Must select a gender</FormHelperText>}
+              {Boolean(fieldErrors.role) && <FormHelperText color={"danger"}>Must select a gender</FormHelperText>}
             </FormControl>
           </Grid>
 
