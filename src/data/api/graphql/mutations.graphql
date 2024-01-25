@@ -1,3 +1,93 @@
+#Global
+mutation Randomize {
+  randomize
+}
+
+#Auth
 mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password)
+}
+
+mutation Logout {
+  logout
+}
+
+mutation CreateUser($userInfo: CreateUserInput!) {
+  createUser(userInfo: $userInfo) {
+    id
+  }
+}
+
+mutation UpdateUser($updateUserId: ID!, $userInfo: UpdateUserInput!) {
+  updateUser(id: $updateUserId, userInfo: $userInfo)
+}
+
+mutation DeleteUser($deleteUserId: ID!) {
+  deleteUser(id: $deleteUserId)
+}
+
+mutation ConfirmEmail($token: String!) {
+  confirmEmail(token: $token)
+}
+
+mutation ForgotPassword($email: String!) {
+  forgotPassword(email: $email)
+}
+
+mutation ResetPassword($newPassword: String!, $token: String!) {
+  resetPassword(newPassword: $newPassword, token: $token)
+}
+
+#Client
+mutation CreateClient($productInfo: CreateClientInput!) {
+  createClient(productInfo: $productInfo) {
+    id
+  }
+}
+
+mutation UpdateClient($updateClientId: ID!, $productInfo: UpdateClientInput!) {
+  updateClient(id: $updateClientId, productInfo: $productInfo)
+}
+
+mutation DeleteClient($deleteClientId: ID!) {
+  deleteClient(id: $deleteClientId)
+}
+
+#Invoice
+mutation CreateInvoice($productInfo: CreateInvoiceInput!) {
+  createInvoice(productInfo: $productInfo) {
+    id
+  }
+}
+
+mutation UpdateInvoice($updateInvoiceId: ID!, $productInfo: UpdateInvoiceInput!) {
+  updateInvoice(id: $updateInvoiceId, productInfo: $productInfo)
+}
+
+mutation DeleteInvoice($deleteInvoiceId: ID!) {
+  deleteInvoice(id: $deleteInvoiceId)
+}
+
+#Product
+mutation CreateProduct($productInfo: CreateProductInput!) {
+  createProduct(productInfo: $productInfo) {
+    id
+  }
+}
+
+mutation UpdateProduct($updateProductId: ID!, $productInfo: UpdateProductInput!) {
+  updateProduct(id: $updateProductId, productInfo: $productInfo)
+}
+
+mutation DeleteProduct($deleteProductId: ID!) {
+  deleteProduct(id: $deleteProductId)
+}
+
+#File
+mutation ReadTextFile($file: File!) {
+  readTextFile(file: $file)
+}
+
+mutation SaveFile($file: File!) {
+  saveFile(file: $file)
 }

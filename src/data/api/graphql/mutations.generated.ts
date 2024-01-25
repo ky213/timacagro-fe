@@ -11,6 +11,11 @@
 import * as Types from '../../types/generated';
 
 import { api } from 'src/data/api';
+export type RandomizeMutationVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type RandomizeMutation = { __typename?: 'Mutation', randomize: number };
+
 export type LoginMutationVariables = Types.Exact<{
   email: Types.Scalars['String']['input'];
   password: Types.Scalars['String']['input'];
@@ -19,21 +24,310 @@ export type LoginMutationVariables = Types.Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login?: boolean };
 
+export type LogoutMutationVariables = Types.Exact<{ [key: string]: never; }>;
 
+
+export type LogoutMutation = { __typename?: 'Mutation', logout?: boolean };
+
+export type CreateUserMutationVariables = Types.Exact<{
+  userInfo: Types.CreateUserInput;
+}>;
+
+
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: number } };
+
+export type UpdateUserMutationVariables = Types.Exact<{
+  updateUserId: Types.Scalars['ID']['input'];
+  userInfo: Types.UpdateUserInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: boolean };
+
+export type DeleteUserMutationVariables = Types.Exact<{
+  deleteUserId: Types.Scalars['ID']['input'];
+}>;
+
+
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: boolean };
+
+export type ConfirmEmailMutationVariables = Types.Exact<{
+  token: Types.Scalars['String']['input'];
+}>;
+
+
+export type ConfirmEmailMutation = { __typename?: 'Mutation', confirmEmail?: boolean };
+
+export type ForgotPasswordMutationVariables = Types.Exact<{
+  email: Types.Scalars['String']['input'];
+}>;
+
+
+export type ForgotPasswordMutation = { __typename?: 'Mutation', forgotPassword?: string };
+
+export type ResetPasswordMutationVariables = Types.Exact<{
+  newPassword: Types.Scalars['String']['input'];
+  token: Types.Scalars['String']['input'];
+}>;
+
+
+export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword?: boolean };
+
+export type CreateClientMutationVariables = Types.Exact<{
+  productInfo: Types.CreateClientInput;
+}>;
+
+
+export type CreateClientMutation = { __typename?: 'Mutation', createClient: { __typename?: 'Client', id: number } };
+
+export type UpdateClientMutationVariables = Types.Exact<{
+  updateClientId: Types.Scalars['ID']['input'];
+  productInfo: Types.UpdateClientInput;
+}>;
+
+
+export type UpdateClientMutation = { __typename?: 'Mutation', updateClient: boolean };
+
+export type DeleteClientMutationVariables = Types.Exact<{
+  deleteClientId: Types.Scalars['ID']['input'];
+}>;
+
+
+export type DeleteClientMutation = { __typename?: 'Mutation', deleteClient: boolean };
+
+export type CreateInvoiceMutationVariables = Types.Exact<{
+  productInfo: Types.CreateInvoiceInput;
+}>;
+
+
+export type CreateInvoiceMutation = { __typename?: 'Mutation', createInvoice: { __typename?: 'Invoice', id: number } };
+
+export type UpdateInvoiceMutationVariables = Types.Exact<{
+  updateInvoiceId: Types.Scalars['ID']['input'];
+  productInfo: Types.UpdateInvoiceInput;
+}>;
+
+
+export type UpdateInvoiceMutation = { __typename?: 'Mutation', updateInvoice: boolean };
+
+export type DeleteInvoiceMutationVariables = Types.Exact<{
+  deleteInvoiceId: Types.Scalars['ID']['input'];
+}>;
+
+
+export type DeleteInvoiceMutation = { __typename?: 'Mutation', deleteInvoice: boolean };
+
+export type CreateProductMutationVariables = Types.Exact<{
+  productInfo: Types.CreateProductInput;
+}>;
+
+
+export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { __typename?: 'Product', id: number } };
+
+export type UpdateProductMutationVariables = Types.Exact<{
+  updateProductId: Types.Scalars['ID']['input'];
+  productInfo: Types.UpdateProductInput;
+}>;
+
+
+export type UpdateProductMutation = { __typename?: 'Mutation', updateProduct: boolean };
+
+export type DeleteProductMutationVariables = Types.Exact<{
+  deleteProductId: Types.Scalars['ID']['input'];
+}>;
+
+
+export type DeleteProductMutation = { __typename?: 'Mutation', deleteProduct: boolean };
+
+export type ReadTextFileMutationVariables = Types.Exact<{
+  file: Types.Scalars['File']['input'];
+}>;
+
+
+export type ReadTextFileMutation = { __typename?: 'Mutation', readTextFile: string };
+
+export type SaveFileMutationVariables = Types.Exact<{
+  file: Types.Scalars['File']['input'];
+}>;
+
+
+export type SaveFileMutation = { __typename?: 'Mutation', saveFile: boolean };
+
+
+export const RandomizeDocument = `
+    mutation Randomize {
+  randomize
+}
+    `;
 export const LoginDocument = `
     mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password)
 }
     `;
+export const LogoutDocument = `
+    mutation Logout {
+  logout
+}
+    `;
+export const CreateUserDocument = `
+    mutation CreateUser($userInfo: CreateUserInput!) {
+  createUser(userInfo: $userInfo) {
+    id
+  }
+}
+    `;
+export const UpdateUserDocument = `
+    mutation UpdateUser($updateUserId: ID!, $userInfo: UpdateUserInput!) {
+  updateUser(id: $updateUserId, userInfo: $userInfo)
+}
+    `;
+export const DeleteUserDocument = `
+    mutation DeleteUser($deleteUserId: ID!) {
+  deleteUser(id: $deleteUserId)
+}
+    `;
+export const ConfirmEmailDocument = `
+    mutation ConfirmEmail($token: String!) {
+  confirmEmail(token: $token)
+}
+    `;
+export const ForgotPasswordDocument = `
+    mutation ForgotPassword($email: String!) {
+  forgotPassword(email: $email)
+}
+    `;
+export const ResetPasswordDocument = `
+    mutation ResetPassword($newPassword: String!, $token: String!) {
+  resetPassword(newPassword: $newPassword, token: $token)
+}
+    `;
+export const CreateClientDocument = `
+    mutation CreateClient($productInfo: CreateClientInput!) {
+  createClient(productInfo: $productInfo) {
+    id
+  }
+}
+    `;
+export const UpdateClientDocument = `
+    mutation UpdateClient($updateClientId: ID!, $productInfo: UpdateClientInput!) {
+  updateClient(id: $updateClientId, productInfo: $productInfo)
+}
+    `;
+export const DeleteClientDocument = `
+    mutation DeleteClient($deleteClientId: ID!) {
+  deleteClient(id: $deleteClientId)
+}
+    `;
+export const CreateInvoiceDocument = `
+    mutation CreateInvoice($productInfo: CreateInvoiceInput!) {
+  createInvoice(productInfo: $productInfo) {
+    id
+  }
+}
+    `;
+export const UpdateInvoiceDocument = `
+    mutation UpdateInvoice($updateInvoiceId: ID!, $productInfo: UpdateInvoiceInput!) {
+  updateInvoice(id: $updateInvoiceId, productInfo: $productInfo)
+}
+    `;
+export const DeleteInvoiceDocument = `
+    mutation DeleteInvoice($deleteInvoiceId: ID!) {
+  deleteInvoice(id: $deleteInvoiceId)
+}
+    `;
+export const CreateProductDocument = `
+    mutation CreateProduct($productInfo: CreateProductInput!) {
+  createProduct(productInfo: $productInfo) {
+    id
+  }
+}
+    `;
+export const UpdateProductDocument = `
+    mutation UpdateProduct($updateProductId: ID!, $productInfo: UpdateProductInput!) {
+  updateProduct(id: $updateProductId, productInfo: $productInfo)
+}
+    `;
+export const DeleteProductDocument = `
+    mutation DeleteProduct($deleteProductId: ID!) {
+  deleteProduct(id: $deleteProductId)
+}
+    `;
+export const ReadTextFileDocument = `
+    mutation ReadTextFile($file: File!) {
+  readTextFile(file: $file)
+}
+    `;
+export const SaveFileDocument = `
+    mutation SaveFile($file: File!) {
+  saveFile(file: $file)
+}
+    `;
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
+    Randomize: build.mutation<RandomizeMutation, RandomizeMutationVariables | void>({
+      query: (variables) => ({ document: RandomizeDocument, variables })
+    }),
     Login: build.mutation<LoginMutation, LoginMutationVariables>({
       query: (variables) => ({ document: LoginDocument, variables })
+    }),
+    Logout: build.mutation<LogoutMutation, LogoutMutationVariables | void>({
+      query: (variables) => ({ document: LogoutDocument, variables })
+    }),
+    CreateUser: build.mutation<CreateUserMutation, CreateUserMutationVariables>({
+      query: (variables) => ({ document: CreateUserDocument, variables })
+    }),
+    UpdateUser: build.mutation<UpdateUserMutation, UpdateUserMutationVariables>({
+      query: (variables) => ({ document: UpdateUserDocument, variables })
+    }),
+    DeleteUser: build.mutation<DeleteUserMutation, DeleteUserMutationVariables>({
+      query: (variables) => ({ document: DeleteUserDocument, variables })
+    }),
+    ConfirmEmail: build.mutation<ConfirmEmailMutation, ConfirmEmailMutationVariables>({
+      query: (variables) => ({ document: ConfirmEmailDocument, variables })
+    }),
+    ForgotPassword: build.mutation<ForgotPasswordMutation, ForgotPasswordMutationVariables>({
+      query: (variables) => ({ document: ForgotPasswordDocument, variables })
+    }),
+    ResetPassword: build.mutation<ResetPasswordMutation, ResetPasswordMutationVariables>({
+      query: (variables) => ({ document: ResetPasswordDocument, variables })
+    }),
+    CreateClient: build.mutation<CreateClientMutation, CreateClientMutationVariables>({
+      query: (variables) => ({ document: CreateClientDocument, variables })
+    }),
+    UpdateClient: build.mutation<UpdateClientMutation, UpdateClientMutationVariables>({
+      query: (variables) => ({ document: UpdateClientDocument, variables })
+    }),
+    DeleteClient: build.mutation<DeleteClientMutation, DeleteClientMutationVariables>({
+      query: (variables) => ({ document: DeleteClientDocument, variables })
+    }),
+    CreateInvoice: build.mutation<CreateInvoiceMutation, CreateInvoiceMutationVariables>({
+      query: (variables) => ({ document: CreateInvoiceDocument, variables })
+    }),
+    UpdateInvoice: build.mutation<UpdateInvoiceMutation, UpdateInvoiceMutationVariables>({
+      query: (variables) => ({ document: UpdateInvoiceDocument, variables })
+    }),
+    DeleteInvoice: build.mutation<DeleteInvoiceMutation, DeleteInvoiceMutationVariables>({
+      query: (variables) => ({ document: DeleteInvoiceDocument, variables })
+    }),
+    CreateProduct: build.mutation<CreateProductMutation, CreateProductMutationVariables>({
+      query: (variables) => ({ document: CreateProductDocument, variables })
+    }),
+    UpdateProduct: build.mutation<UpdateProductMutation, UpdateProductMutationVariables>({
+      query: (variables) => ({ document: UpdateProductDocument, variables })
+    }),
+    DeleteProduct: build.mutation<DeleteProductMutation, DeleteProductMutationVariables>({
+      query: (variables) => ({ document: DeleteProductDocument, variables })
+    }),
+    ReadTextFile: build.mutation<ReadTextFileMutation, ReadTextFileMutationVariables>({
+      query: (variables) => ({ document: ReadTextFileDocument, variables })
+    }),
+    SaveFile: build.mutation<SaveFileMutation, SaveFileMutationVariables>({
+      query: (variables) => ({ document: SaveFileDocument, variables })
     }),
   }),
 });
 
 export { injectedRtkApi as api };
-export const { useLoginMutation } = injectedRtkApi;
+export const { useRandomizeMutation, useLoginMutation, useLogoutMutation, useCreateUserMutation, useUpdateUserMutation, useDeleteUserMutation, useConfirmEmailMutation, useForgotPasswordMutation, useResetPasswordMutation, useCreateClientMutation, useUpdateClientMutation, useDeleteClientMutation, useCreateInvoiceMutation, useUpdateInvoiceMutation, useDeleteInvoiceMutation, useCreateProductMutation, useUpdateProductMutation, useDeleteProductMutation, useReadTextFileMutation, useSaveFileMutation } = injectedRtkApi;
 
