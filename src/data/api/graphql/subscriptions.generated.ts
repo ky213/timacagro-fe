@@ -11,15 +11,25 @@
 import * as Types from '../../types/generated';
 
 import { api } from 'src/data/api';
-export type RdmSubscriptionSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
+export type RandomNumberSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type RdmSubscriptionSubscription = { __typename?: 'Subscription', randomNumber: number };
+export type RandomNumberSubscription = { __typename?: 'Subscription', randomNumber: number };
+
+export type TestConnectionSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export const RdmSubscriptionDocument = `
-    subscription RdmSubscription {
+export type TestConnectionSubscription = { __typename?: 'Subscription', testConnection: number };
+
+
+export const RandomNumberDocument = `
+    subscription RandomNumber {
   randomNumber
+}
+    `;
+export const TestConnectionDocument = `
+    subscription TestConnection {
+  testConnection
 }
     `;
 

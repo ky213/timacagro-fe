@@ -1,3 +1,7 @@
-subscription RdmSubscription {
+subscription RandomNumber {
   randomNumber
+}
+
+subscription TestConnection {
+  testConnection
 }
