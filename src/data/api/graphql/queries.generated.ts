@@ -11,26 +11,220 @@
 import * as Types from '../../types/generated';
 
 import { api } from 'src/data/api';
-export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetDateTimeQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetUsersQuery = { __typename?: 'Query', getDateTime: any };
+export type GetDateTimeQuery = { __typename?: 'Query', getDateTime: any };
+
+export type GetUserQueryVariables = Types.Exact<{
+  getUserId: Types.Scalars['ID']['input'];
+}>;
 
 
-export const GetUsersDocument = `
-    query GetUsers {
+export type GetUserQuery = { __typename?: 'Query', getUser?: { __typename?: 'User', id: number, firstName: string, lastName: string, updatedAt: any, createdAt: any, active: boolean } };
+
+export type ListUsersQueryVariables = Types.Exact<{
+  page: Types.Scalars['Int']['input'];
+  perPage: Types.Scalars['Int']['input'];
+}>;
+
+
+export type ListUsersQuery = { __typename?: 'Query', listUsers: { __typename?: 'UsersList', users: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, updatedAt: any, createdAt: any, active: boolean }> } };
+
+export type GetClientQueryVariables = Types.Exact<{
+  getClientId: Types.Scalars['ID']['input'];
+}>;
+
+
+export type GetClientQuery = { __typename?: 'Query', getClient?: { __typename?: 'Client', id: number } };
+
+export type ListClientsQueryVariables = Types.Exact<{
+  page: Types.Scalars['Int']['input'];
+  perPage: Types.Scalars['Int']['input'];
+}>;
+
+
+export type ListClientsQuery = { __typename?: 'Query', listClients: { __typename?: 'ClientsList', clients: Array<{ __typename?: 'Client', id: number, name: string, updatedAt: any, createdAt: any, active: boolean }> } };
+
+export type GetProductQueryVariables = Types.Exact<{
+  page: Types.Scalars['Int']['input'];
+  perPage: Types.Scalars['Int']['input'];
+  getProductId: Types.Scalars['ID']['input'];
+}>;
+
+
+export type GetProductQuery = { __typename?: 'Query', getProduct?: { __typename?: 'Product', active: boolean, createdAt: any, id: number, points: number, quantity: number, type: string, updatedAt: any } };
+
+export type ListProductsQueryVariables = Types.Exact<{
+  page: Types.Scalars['Int']['input'];
+  perPage: Types.Scalars['Int']['input'];
+}>;
+
+
+export type ListProductsQuery = { __typename?: 'Query', listProducts: { __typename?: 'ProductsList', page: number, perPage: number, total: number, products: Array<{ __typename?: 'Product', id: number, createdAt: any, active: boolean, points: number, quantity: number, type: string, updatedAt: any }> } };
+
+export type GetInvoiceQueryVariables = Types.Exact<{
+  getInvoiceId: Types.Scalars['ID']['input'];
+}>;
+
+
+export type GetInvoiceQuery = { __typename?: 'Query', getInvoice?: { __typename?: 'Invoice', id: number, number: string, payed: boolean, total: number, updatedAt: any, createdAt: any, client: number } };
+
+export type LisInvoicesQueryVariables = Types.Exact<{
+  page: Types.Scalars['Int']['input'];
+  perPage: Types.Scalars['Int']['input'];
+}>;
+
+
+export type LisInvoicesQuery = { __typename?: 'Query', listInvoices: { __typename?: 'InvoicesList', page: number, perPage: number, total: number, invoices: Array<{ __typename?: 'Invoice', id: number, createdAt: any, client: number, number: string, payed: boolean, total: number, updatedAt: any }> } };
+
+
+export const GetDateTimeDocument = `
+    query GetDateTime {
   getDateTime
+}
+    `;
+export const GetUserDocument = `
+    query GetUser($getUserId: ID!) {
+  getUser(id: $getUserId) {
+    id
+    firstName
+    lastName
+    updatedAt
+    createdAt
+    active
+  }
+}
+    `;
+export const ListUsersDocument = `
+    query ListUsers($page: Int!, $perPage: Int!) {
+  listUsers(page: $page, perPage: $perPage) {
+    users {
+      id
+      firstName
+      lastName
+      updatedAt
+      createdAt
+      active
+    }
+  }
+}
+    `;
+export const GetClientDocument = `
+    query GetClient($getClientId: ID!) {
+  getClient(id: $getClientId) {
+    id
+  }
+}
+    `;
+export const ListClientsDocument = `
+    query ListClients($page: Int!, $perPage: Int!) {
+  listClients(page: $page, perPage: $perPage) {
+    clients {
+      id
+      name
+      updatedAt
+      createdAt
+      active
+    }
+  }
+}
+    `;
+export const GetProductDocument = `
+    query GetProduct($page: Int!, $perPage: Int!, $getProductId: ID!) {
+  getProduct(id: $getProductId) {
+    active
+    createdAt
+    id
+    points
+    quantity
+    type
+    updatedAt
+  }
+}
+    `;
+export const ListProductsDocument = `
+    query ListProducts($page: Int!, $perPage: Int!) {
+  listProducts(page: $page, perPage: $perPage) {
+    page
+    perPage
+    products {
+      id
+      createdAt
+      active
+      points
+      quantity
+      type
+      updatedAt
+    }
+    total
+  }
+}
+    `;
+export const GetInvoiceDocument = `
+    query GetInvoice($getInvoiceId: ID!) {
+  getInvoice(id: $getInvoiceId) {
+    id
+    number
+    payed
+    total
+    updatedAt
+    createdAt
+    client
+  }
+}
+    `;
+export const LisInvoicesDocument = `
+    query LisInvoices($page: Int!, $perPage: Int!) {
+  listInvoices(page: $page, perPage: $perPage) {
+    page
+    invoices {
+      id
+      createdAt
+      client
+      number
+      payed
+      total
+      updatedAt
+    }
+    perPage
+    total
+  }
 }
     `;
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    GetUsers: build.query<GetUsersQuery, GetUsersQueryVariables | void>({
-      query: (variables) => ({ document: GetUsersDocument, variables })
+    GetDateTime: build.query<GetDateTimeQuery, GetDateTimeQueryVariables | void>({
+      query: (variables) => ({ document: GetDateTimeDocument, variables })
+    }),
+    GetUser: build.query<GetUserQuery, GetUserQueryVariables>({
+      query: (variables) => ({ document: GetUserDocument, variables })
+    }),
+    ListUsers: build.query<ListUsersQuery, ListUsersQueryVariables>({
+      query: (variables) => ({ document: ListUsersDocument, variables })
+    }),
+    GetClient: build.query<GetClientQuery, GetClientQueryVariables>({
+      query: (variables) => ({ document: GetClientDocument, variables })
+    }),
+    ListClients: build.query<ListClientsQuery, ListClientsQueryVariables>({
+      query: (variables) => ({ document: ListClientsDocument, variables })
+    }),
+    GetProduct: build.query<GetProductQuery, GetProductQueryVariables>({
+      query: (variables) => ({ document: GetProductDocument, variables })
+    }),
+    ListProducts: build.query<ListProductsQuery, ListProductsQueryVariables>({
+      query: (variables) => ({ document: ListProductsDocument, variables })
+    }),
+    GetInvoice: build.query<GetInvoiceQuery, GetInvoiceQueryVariables>({
+      query: (variables) => ({ document: GetInvoiceDocument, variables })
+    }),
+    LisInvoices: build.query<LisInvoicesQuery, LisInvoicesQueryVariables>({
+      query: (variables) => ({ document: LisInvoicesDocument, variables })
     }),
   }),
 });
 
 export { injectedRtkApi as api };
-export const { useGetUsersQuery, useLazyGetUsersQuery } = injectedRtkApi;
+export const { useGetDateTimeQuery, useLazyGetDateTimeQuery, useGetUserQuery, useLazyGetUserQuery, useListUsersQuery, useLazyListUsersQuery, useGetClientQuery, useLazyGetClientQuery, useListClientsQuery, useLazyListClientsQuery, useGetProductQuery, useLazyGetProductQuery, useListProductsQuery, useLazyListProductsQuery, useGetInvoiceQuery, useLazyGetInvoiceQuery, useLisInvoicesQuery, useLazyLisInvoicesQuery } = injectedRtkApi;
 

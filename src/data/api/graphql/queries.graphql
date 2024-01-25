@@ -17,7 +17,7 @@ query GetUser($getUserId: ID!) {
 
 query ListUsers($page: Int!, $perPage: Int!) {
   listUsers(page: $page, perPage: $perPage) {
-    clients {
+    users {
       id
       firstName
       lastName
