@@ -23,15 +23,15 @@ import { IRootState } from "src/data/store";
 const UserProfile = () => {
   const { id } = useParams();
   const users = useSelector((state: IRootState) => state.users.list);
-  const user = users.find((user) => user.id.value === id);
+  const user = users.find((user) => user.id === Number(id));
 
   return (
     <Box width={"90%"} mx={"auto"} pt={10}>
       <Card>
         <CardHeader
-          title={`${user?.name?.first} ${user?.name?.last}`}
+          title={`${user?.firstName} ${user?.lastName}`}
           subheader={user?.email}
-          avatar={<Avatar alt={`${user?.name?.first} ${user?.name?.last}`} src={user?.picture?.large} />}
+          avatar={<Avatar alt={`${user?.firstName} ${user?.lastName}`} src={""} />}
           sx={{ zoom: { xs: 1.2, sm: 2 }, display: "flex", flexDirection: { xs: "column", sm: "row" } }}
         />
         <CardContent sx={{ zoom: 1.2 }}>
@@ -44,7 +44,7 @@ const UserProfile = () => {
                       <PhoneIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary="Phone" secondary={user?.phone} />
+                  <ListItemText primary="Phone" secondary={"+213541784521"} />
                 </ListItem>
                 <ListItem>
                   <ListItemAvatar>
@@ -52,13 +52,15 @@ const UserProfile = () => {
                       <CakeIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary="Age" secondary={user?.dob?.age} />
+                  <ListItemText primary="Age" secondary={"25"} />
                 </ListItem>
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar>{user?.gender === "male" ? <ManIcon /> : <WomanIcon />}</Avatar>
+                    <Avatar>
+                      <ManIcon /> <WomanIcon />
+                    </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary="Gender" secondary={user?.gender} />
+                  <ListItemText primary="Gender" secondary={"Homme/Femme"} />
                 </ListItem>
               </List>
             </Grid>
@@ -70,16 +72,16 @@ const UserProfile = () => {
                       <LocationIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary="From" secondary={`${user?.location?.city}, ${user?.location?.state} `} />
+                  <ListItemText primary="From" secondary={`${user?.region} `} />
                 </ListItem>
-                <ListItem>
+                {/* <ListItem>
                   <ListItemAvatar>
                     <Avatar>
                       <TimezoneIcon />
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText primary="Timezone" secondary={`${user?.location?.timezone?.offset}`} />
-                </ListItem>
+                </ListItem> */}
               </List>
             </Grid>
           </Grid>

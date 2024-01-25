@@ -5,25 +5,25 @@ import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridValueGetterParams, GridInitialState, GridRowParams } from "@mui/x-data-grid";
 
 import { IRootState } from "src/data/store";
-import { useGetUsersQuery } from "src/data/api";
-import { IPagination, IUser } from "src/data/types";
+import { Pagination, User } from "src/data/types/generated";
+import { useListUsersQuery } from "src/data/api/graphql/queries.generated";
 
 export interface IDashboardProps {}
 
 const Dashboard = (props: IDashboardProps) => {
-  const [pagination, setPagination] = useState<IPagination>({ page: 0, pageSize: 10 });
+  const [pagination, setPagination] = useState<Pagination>({ page: 0, pageSize: 10 });
   const gotTo = useNavigate();
-  const { isLoading } = useGetUsersQuery(pagination);
+  const { isLoading } = useListUsersQuery({ page: pagination.page, perPage: pagination.pageSize });
   const users = useSelector((state: IRootState) => state.users.list);
 
   const columns: GridColDef[] = [
     {
       field: "First Name",
-      valueGetter: (param: GridValueGetterParams<IUser>) => param.row?.name.first,
+      valueGetter: (param: GridValueGetterParams<User>) => param.row?.firstName,
     },
     {
       field: "Last Name",
-      valueGetter: (param: GridValueGetterParams<IUser>) => param.row?.name.last,
+      valueGetter: (param: GridValueGetterParams<User>) => param.row?.lastName,
     },
     {
       field: "email",
@@ -51,12 +51,12 @@ const Dashboard = (props: IDashboardProps) => {
     },
   };
 
-  const handlePaginate = ({ page, pageSize }: IPagination) => {
-    setPagination({ page: page + 1, pageSize });
+  const handlePaginate = ({ page, pageSize: perPage }: Pagination) => {
+    setPagination({ page: page + 1, pageSize: perPage });
   };
 
-  const handleRowClick = ({ row }: GridRowParams<IUser>) => {
-    gotTo(`/dashboard/user/${row.id.value}`);
+  const handleRowClick = ({ row }: GridRowParams<User>) => {
+    gotTo(`/dashboard/user/${row.id}`);
   };
 
   return (
