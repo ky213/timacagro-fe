@@ -28,9 +28,11 @@ import { IUser } from "src/data/types";
 import { createUser, resetUsers } from "src/data/store/reducers/users";
 import { EMAIL_REG_EXR, NATIONALITIES, PHONE_REG_EXR } from "src/config/constants";
 import { IRootState, useAppDispatch, useAppSelector } from "src/data/store";
+import { useLoginMutation } from "src/data/User.generated";
 
 const CreateUserPage = () => {
   const { loading, success, error } = useAppSelector((state: IRootState) => state.users);
+  const [login, {}] = useLoginMutation();
   const dispatch = useAppDispatch();
   const gotTo = useNavigate();
   const {
@@ -41,6 +43,7 @@ const CreateUserPage = () => {
 
   const onSubmit = async (newUser: IUser) => {
     try {
+      login({ email: "dfghj", password: "rtyhj" });
       newUser.id = { name: "id", value: (Math.random() * 1000).toFixed(0) };
       dispatch(createUser(newUser));
     } catch (error) {
