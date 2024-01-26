@@ -3,11 +3,13 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import type { PreloadedState } from "@reduxjs/toolkit";
 
 import { api } from "../api";
+import globalReducer from "./reducers/global";
 import usersReducer from "./reducers/users";
 import { notificationMiddleware } from "./middlewares/notification";
 
 const rootReducer = combineReducers({
   [api.reducerPath]: api.reducer,
+  global: globalReducer,
   users: usersReducer,
 });
 
