@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { Outlet, createBrowserRouter } from "react-router-dom";
 
 import { ErrorBoundary } from "src/components";
 import { MainLayout } from "src/layouts";
@@ -34,18 +34,23 @@ export const router = createBrowserRouter([
     Component: DashboardLayout,
     children: [
       {
-        path: "overview",
-        Component: DashOverviewPage,
+        path: "",
+        element: <Outlet />,
         errorElement: <ErrorBoundary />,
-      },
-      {
-        path: "users",
-        Component: UserProfile,
-        errorElement: <ErrorBoundary />,
-      },
-      {
-        path: "*",
-        Component: NotFound,
+        children: [
+          {
+            path: "overview",
+            Component: DashOverviewPage,
+          },
+          {
+            path: "users",
+            Component: UserProfile,
+          },
+          {
+            path: "*",
+            Component: NotFound,
+          },
+        ],
       },
     ],
   },
