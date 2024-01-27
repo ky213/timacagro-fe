@@ -1,7 +1,3 @@
-import BellIcon from "@heroicons/react/24/solid/BellIcon";
-import UsersIcon from "@heroicons/react/24/solid/UsersIcon";
-import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
-import MagnifyingGlassIcon from "@heroicons/react/24/solid/MagnifyingGlassIcon";
 import {
   Avatar,
   Badge,
@@ -13,8 +9,11 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
+
 import { usePopover } from "src/shared/hooks/use-popover";
 import { AccountPopover } from "./AccountPopover";
+import { Bars3Icon, BellIcon, ChevronLeftIcon, UsersIcon } from "src/components/Icons";
 
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
@@ -24,6 +23,7 @@ export const TopNav = (props: { onNavOpen: any }) => {
   //@ts-ignore //TODO:fix theme types
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   const accountPopover = usePopover();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -61,10 +61,10 @@ export const TopNav = (props: { onNavOpen: any }) => {
                 </SvgIcon>
               </IconButton>
             )}
-            <Tooltip title="Search">
-              <IconButton>
+            <Tooltip title="Back">
+              <IconButton onClick={() => navigate(-1)}>
                 <SvgIcon fontSize="small">
-                  <MagnifyingGlassIcon />
+                  <ChevronLeftIcon />
                 </SvgIcon>
               </IconButton>
             </Tooltip>

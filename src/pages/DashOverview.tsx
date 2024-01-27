@@ -1,3 +1,5 @@
 import * as React from "react";
 
-export const DashOverviewPage = () => <h1>Over view</h1>;
+export const DashOverviewPage = () => {
+  return <h1>Over view</h1>;
+};

@@ -7,6 +7,7 @@ import {
   UserIcon,
   UsersIcon,
   SvgIcon,
+  CurrencyDollarIcon,
 } from "src/components/Icons";
 
 export interface SideMenuItem {
@@ -53,6 +54,15 @@ export const items: SideMenuItem[] = [
     icon: (
       <SvgIcon fontSize="small">
         <UserIcon />
+      </SvgIcon>
+    ),
+  },
+  {
+    title: "Invoices",
+    path: "invoices",
+    icon: (
+      <SvgIcon fontSize="small">
+        <CurrencyDollarIcon />
       </SvgIcon>
     ),
   },
