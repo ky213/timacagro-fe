@@ -1,26 +1,21 @@
 import { Link } from "react-router-dom";
 import { Box, ButtonBase } from "@mui/material";
 
-export const SideNavItem = (props: {
-  active?: boolean;
-  disabled?: boolean;
-  external?: boolean;
-  icon: any;
-  path: any;
-  title: any;
-}) => {
+import { SideMenuItem } from "./Config";
+
+export const SideNavItem = (props: SideMenuItem) => {
   const { active = false, disabled, external, icon, path, title } = props;
 
   const linkProps = path
     ? external
       ? {
           component: "a",
-          href: path,
+          to: path,
           target: "_blank",
         }
       : {
           component: Link,
-          href: path,
+          to: path,
         }
     : {};
 

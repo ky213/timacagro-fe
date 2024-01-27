@@ -1,14 +1,11 @@
-import { OverridableComponent } from "@mui/material/OverridableComponent";
-import { SvgIconTypeMap } from "@mui/material/SvgIcon/SvgIcon";
 import {
   ChartBarIcon,
   CogIcon,
   LockClosedIcon,
+  MapIcon,
   ShoppingBagIcon,
   UserIcon,
-  UserPlusIcon,
   UsersIcon,
-  XCircleIcon,
   SvgIcon,
 } from "src/components/Icons";
 
@@ -33,8 +30,8 @@ export const items: SideMenuItem[] = [
     ),
   },
   {
-    title: "Customers",
-    path: "/customers",
+    title: "Users",
+    path: "users",
     icon: (
       <SvgIcon fontSize="small">
         <UsersIcon />
@@ -42,8 +39,8 @@ export const items: SideMenuItem[] = [
     ),
   },
   {
-    title: "Companies",
-    path: "/companies",
+    title: "Products",
+    path: "products",
     icon: (
       <SvgIcon fontSize="small">
         <ShoppingBagIcon />
@@ -51,8 +48,8 @@ export const items: SideMenuItem[] = [
     ),
   },
   {
-    title: "Account",
-    path: "/account",
+    title: "Clients",
+    path: "clients",
     icon: (
       <SvgIcon fontSize="small">
         <UserIcon />
@@ -60,38 +57,20 @@ export const items: SideMenuItem[] = [
     ),
   },
   {
+    title: "Regions",
+    path: "regions",
+    icon: (
+      <SvgIcon fontSize="small">
+        <MapIcon />
+      </SvgIcon>
+    ),
+  },
+  {
     title: "Settings",
-    path: "/settings",
+    path: "settings",
     icon: (
       <SvgIcon fontSize="small">
         <CogIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: "Login",
-    path: "/auth/login",
-    icon: (
-      <SvgIcon fontSize="small">
-        <LockClosedIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: "Register",
-    path: "/auth/register",
-    icon: (
-      <SvgIcon fontSize="small">
-        <UserPlusIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: "Error",
-    path: "/404",
-    icon: (
-      <SvgIcon fontSize="small">
-        <XCircleIcon />
       </SvgIcon>
     ),
   },

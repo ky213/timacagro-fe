@@ -1,16 +1,7 @@
-import { useLocation, Link } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Divider,
-  Drawer,
-  Stack,
-  SvgIcon,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { useLocation, NavLink } from "react-router-dom";
+import { Box, Divider, Drawer, Stack, Typography, useMediaQuery } from "@mui/material";
+import "simplebar-react/dist/simplebar.min.css";
 
-import { ChevronUpDownIcon, ArrowTopRightOnSquareIcon } from "src/components/Icons";
 import { Logo, Scrollbar } from "src/components";
 import { items } from "./Config";
 import { SideNavItem } from "./SideNavItem";
@@ -42,7 +33,7 @@ export const SideNav = (props: { open: any; onClose: any }) => {
       >
         <Box sx={{ p: 3 }}>
           <Box
-            component={Link}
+            component={NavLink}
             to="/"
             sx={{
               display: "inline-flex",
@@ -50,31 +41,7 @@ export const SideNav = (props: { open: any; onClose: any }) => {
               width: 32,
             }}
           >
-            {/* <Logo /> */}
-          </Box>
-          <Box
-            sx={{
-              alignItems: "center",
-              backgroundColor: "rgba(255, 255, 255, 0.04)",
-              borderRadius: 1,
-              cursor: "pointer",
-              display: "flex",
-              justifyContent: "space-between",
-              mt: 2,
-              p: "12px",
-            }}
-          >
-            <div>
-              <Typography color="inherit" variant="subtitle1">
-                Devias
-              </Typography>
-              <Typography color="neutral.400" variant="body2">
-                Production
-              </Typography>
-            </div>
-            <SvgIcon fontSize="small" sx={{ color: "neutral.500" }}>
-              <ChevronUpDownIcon />
-            </SvgIcon>
+            <Logo />
           </Box>
         </Box>
         <Divider sx={{ borderColor: "neutral.700" }} />
@@ -96,11 +63,9 @@ export const SideNav = (props: { open: any; onClose: any }) => {
             }}
           >
             {items.map((item) => {
-              const active = item.path ? pathname === item.path : false;
-
               return (
                 <SideNavItem
-                  active={active}
+                  active={pathname === item.path}
                   disabled={item.disabled}
                   external={item.external}
                   icon={item.icon}
@@ -112,7 +77,7 @@ export const SideNav = (props: { open: any; onClose: any }) => {
             })}
           </Stack>
         </Box>
-        <Divider sx={{ borderColor: "neutral.700" }} />
+        <Divider sx={{ borderColor: "neutral.700", mt: "auto" }} />
         <Box
           sx={{
             px: 2,
@@ -120,39 +85,11 @@ export const SideNav = (props: { open: any; onClose: any }) => {
           }}
         >
           <Typography color="neutral.100" variant="subtitle2">
-            Need more features?
+            Support center
           </Typography>
           <Typography color="neutral.500" variant="body2">
-            Check out our Pro solution template.
+            support@timacagro.com <br /> +213 540 74 78 96
           </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              mt: 2,
-              mx: "auto",
-              width: "160px",
-              "& img": {
-                width: "100%",
-              },
-            }}
-          >
-            <img alt="Go to pro" src="/assets/devias-kit-pro.png" />
-          </Box>
-          <Button
-            component="a"
-            endIcon={
-              <SvgIcon fontSize="small">
-                <ArrowTopRightOnSquareIcon />
-              </SvgIcon>
-            }
-            fullWidth
-            href="https://material-kit-pro-react.devias.io/"
-            sx={{ mt: 2 }}
-            target="_blank"
-            variant="contained"
-          >
-            Pro Live Preview
-          </Button>
         </Box>
       </Box>
     </Scrollbar>
@@ -161,8 +98,9 @@ export const SideNav = (props: { open: any; onClose: any }) => {
   if (lgUp) {
     return (
       <Drawer
-        anchor="left"
         open
+        anchor="left"
+        variant="permanent"
         PaperProps={{
           sx: {
             backgroundColor: "neutral.800",
@@ -170,7 +108,6 @@ export const SideNav = (props: { open: any; onClose: any }) => {
             width: 280,
           },
         }}
-        variant="permanent"
       >
         {content}
       </Drawer>
