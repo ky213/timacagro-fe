@@ -22,7 +22,7 @@ export interface SideMenuItem {
 export const items: SideMenuItem[] = [
   {
     title: "Overview",
-    path: "/",
+    path: "overview",
     icon: (
       <SvgIcon fontSize="small">
         <ChartBarIcon />

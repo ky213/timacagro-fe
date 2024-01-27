@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { SideNav } from "./SideNav";
 import { TopNav } from "./TopNav";
@@ -46,7 +46,9 @@ export const Layout = (props: any) => {
       <TopNav onNavOpen={() => setOpenNav(true)} />
       <SideNav onClose={() => setOpenNav(false)} open={openNav} />
       <LayoutRoot>
-        <LayoutContainer>{children}</LayoutContainer>
+        <LayoutContainer>
+          <Outlet />
+        </LayoutContainer>
       </LayoutRoot>
     </>
   );

@@ -4,7 +4,13 @@ import { createBrowserRouter } from "react-router-dom";
 import { ErrorBoundary } from "src/components";
 import { MainLayout } from "src/layouts";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/Layout";
-import { HomePage, DashboardMainPage, NotFound, UserProfile } from "src/pages";
+import {
+  HomePage,
+  DashboardMainPage,
+  NotFound,
+  UserProfile,
+  DashOverviewPage,
+} from "src/pages";
 import CreateUserPage from "src/pages/CreateUser";
 
 export const router = createBrowserRouter([
@@ -28,17 +34,12 @@ export const router = createBrowserRouter([
     Component: DashboardLayout,
     children: [
       {
-        path: "/dashboard/",
-        Component: DashboardMainPage,
+        path: "overview",
+        Component: DashOverviewPage,
         errorElement: <ErrorBoundary />,
       },
       {
-        path: "/dashboard/new-user",
-        Component: CreateUserPage,
-        errorElement: <ErrorBoundary />,
-      },
-      {
-        path: "/dashboard/user/:id",
+        path: "users",
         Component: UserProfile,
         errorElement: <ErrorBoundary />,
       },
