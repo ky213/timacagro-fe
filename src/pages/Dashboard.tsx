@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef, GridValueGetterParams, GridInitialState, GridRowParams } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridValueGetterParams,
+  GridInitialState,
+  GridRowParams,
+} from "@mui/x-data-grid";
 
 import { IRootState } from "src/data/store";
 import { Pagination, User } from "src/data/types/generated";
@@ -10,10 +16,13 @@ import { useListUsersQuery } from "src/data/api/graphql/queries.generated";
 
 export interface IDashboardProps {}
 
-const Dashboard = (props: IDashboardProps) => {
+const DashboardMainPage = (props: IDashboardProps) => {
   const [pagination, setPagination] = useState<Pagination>({ page: 0, pageSize: 10 });
   const gotTo = useNavigate();
-  const { isLoading } = useListUsersQuery({ page: pagination.page, perPage: pagination.pageSize });
+  const { isLoading } = useListUsersQuery({
+    page: pagination.page,
+    perPage: pagination.pageSize,
+  });
   const users = useSelector((state: IRootState) => state.users.list);
 
   const columns: GridColDef[] = [
@@ -75,4 +84,4 @@ const Dashboard = (props: IDashboardProps) => {
   );
 };
 
-export default Dashboard;
+export default DashboardMainPage;

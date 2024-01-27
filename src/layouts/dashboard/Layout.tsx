@@ -22,7 +22,7 @@ const LayoutContainer = styled("div")({
   width: "100%",
 });
 
-export const Layout = (props: { children: any }) => {
+export const Layout = (props: any) => {
   const { children } = props;
   const { pathname } = useLocation();
   const [openNav, setOpenNav] = useState(false);

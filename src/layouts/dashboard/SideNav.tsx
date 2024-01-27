@@ -50,7 +50,7 @@ export const SideNav = (props: { open: any; onClose: any }) => {
               width: 32,
             }}
           >
-            <Logo />
+            {/* <Logo /> */}
           </Box>
           <Box
             sx={{
