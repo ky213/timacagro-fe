@@ -44,7 +44,6 @@ export const LoginPage = () => {
         }}
       >
         <Box component="form" noValidate onSubmit={handleSubmit(login)} sx={{ mt: 3 }}>
-          <Alert severity="error">{"errorMessage"}</Alert>
           <Stack spacing={1} sx={{ mb: 3 }}>
             <Typography variant="h4">Login</Typography>
             <Typography color="text.secondary" variant="body2">

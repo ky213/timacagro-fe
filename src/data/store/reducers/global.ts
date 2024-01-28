@@ -5,11 +5,11 @@ import { User } from "src/data/types/generated";
 
 type IGlobalState = {
   loading: boolean;
-  error: string | null;
+  errors: string[] | null;
   success: boolean;
 };
 
-const initialState: IGlobalState = { loading: false, success: false, error: null };
+const initialState: IGlobalState = { loading: false, success: false, errors: null };
 
 const slice = createSlice({
   name: "global",
@@ -18,22 +18,22 @@ const slice = createSlice({
     resetGlobalState: (state) => {
       state.loading = false;
       state.success = false;
-      state.error = null;
+      state.errors = null;
     },
     setLoading: (state) => {
       state.loading = true;
       state.success = false;
-      state.error = null;
+      state.errors = null;
     },
     setSucess: (state) => {
       state.loading = false;
       state.success = true;
-      state.error = null;
+      state.errors = null;
     },
     setError: (state, { payload }) => {
       state.loading = false;
       state.success = false;
-      state.error = payload;
+      state.errors = payload;
     },
   },
   extraReducers: (builder) => {},

@@ -1,9 +1,12 @@
 import * as React from "react";
-import { Box, Typography, Unstable_Grid2 as Grid, LinearProgress } from "@mui/material";
 import { Outlet, NavLink } from "react-router-dom";
-import { grey } from "@mui/material/colors";
+
+import { Box, Typography, Grid, LinearProgress, Alert, Stack } from "src/components";
+import { useAppSelector } from "src/data/store";
 
 export const AuthLayout = (props: any) => {
+  const { errors } = useAppSelector((state) => state.global);
+
   return (
     <Box
       component="main"
@@ -45,6 +48,14 @@ export const AuthLayout = (props: any) => {
             ></Box>
           </Box>
           <LinearProgress />
+          <Box mt={"auto"} mb={0} justifyContent={"center"}>
+            <Alert variant="filled" severity="error">
+              {errors?.map((error) => (
+                <Typography key={error}>{error}.</Typography>
+              ))}
+            </Alert>
+          </Box>
+
           <Outlet />
         </Grid>
         <Grid

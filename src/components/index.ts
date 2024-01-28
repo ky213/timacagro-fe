@@ -6,6 +6,7 @@ export { default as TextField } from "@mui/material/TextField";
 export { default as Typography } from "@mui/material/Typography";
 export { default as Alert } from "@mui/material/Alert";
 export { default as Link } from "@mui/material/Link";
+export { default as LinearProgress } from "@mui/material/LinearProgress";
 
 export { default as ErrorBoundary } from "./ErrorBoundry";
 export * from "./Logo";
