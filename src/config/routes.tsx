@@ -14,6 +14,7 @@ import {
   RegionsPage,
   SettingsPage,
   LoginPage,
+  RegisterPage,
 } from "src/pages";
 
 export const router = createBrowserRouter([
@@ -39,6 +40,11 @@ export const router = createBrowserRouter([
       {
         path: "login",
         Component: LoginPage,
+        errorElement: <ErrorBoundary />,
+      },
+      {
+        path: "register",
+        Component: RegisterPage,
         errorElement: <ErrorBoundary />,
       },
       {

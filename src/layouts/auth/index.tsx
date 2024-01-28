@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Typography, Unstable_Grid2 as Grid } from "@mui/material";
+import { Box, Typography, Unstable_Grid2 as Grid, LinearProgress } from "@mui/material";
 import { Outlet, NavLink } from "react-router-dom";
 
 import { Logo } from "src/components";
@@ -47,6 +47,7 @@ export const AuthLayout = (props: any) => {
               {/* <Logo /> */}
             </Box>
           </Box>
+          <LinearProgress />
           <Outlet />
         </Grid>
         <Grid

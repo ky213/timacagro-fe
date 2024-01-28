@@ -8,4 +8,5 @@ export { RegionsPage } from "./Regions";
 export { SettingsPage } from "./Settings";
 export { UserProfile } from "./UserProfile";
 export { LoginPage } from "./Login";
+export { RegisterPage } from "./Register";
 export { NotFound } from "./NotFound";
