@@ -8,6 +8,7 @@ export { default as Alert } from "@mui/material/Alert";
 export { default as Link } from "@mui/material/Link";
 export { default as LinearProgress } from "@mui/material/LinearProgress";
 
-export { default as ErrorBoundary } from "./ErrorBoundry";
+export { ErrorBoundary } from "./ErrorBoundry";
+export { RenderIf } from "./Utils";
 export * from "./Logo";
 export * from "./ScrollBar";

@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Outlet, NavLink } from "react-router-dom";
 
-import { Box, Typography, Grid, LinearProgress, Alert, Stack } from "src/components";
+import { Box, Typography, Grid, LinearProgress, Alert, RenderIf } from "src/components";
 import { useAppSelector } from "src/data/store";
 
 export const AuthLayout = (props: any) => {
-  const { errors } = useAppSelector((state) => state.global);
+  const { errors, loading } = useAppSelector((state) => state.global);
 
   return (
     <Box
@@ -47,13 +47,15 @@ export const AuthLayout = (props: any) => {
               }}
             ></Box>
           </Box>
-          <LinearProgress />
-          <Box mt={"auto"} mb={0} justifyContent={"center"}>
-            <Alert variant="filled" severity="error">
-              {errors?.map((error) => (
-                <Typography key={error}>{error}.</Typography>
-              ))}
-            </Alert>
+          <RenderIf isTrue={loading} component={<LinearProgress />} />
+          <Box pt={5} px={5} justifyContent={"center"}>
+            {errors && (
+              <Alert variant="filled" severity="error">
+                {errors?.map((error) => (
+                  <Typography key={error}>{error}.</Typography>
+                ))}
+              </Alert>
+            )}
           </Box>
 
           <Outlet />
