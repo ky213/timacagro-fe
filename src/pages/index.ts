@@ -1,5 +1,10 @@
 export { default as HomePage } from "./Home";
-export { default as DashboardMainPage } from "./Dashboard";
-export { DashOverviewPage } from "./DashOverview";
+export { default as DashOverviewPage } from "./DashOverview";
+export { default as UsersPage } from "./Users";
+export { default as ProductsPage } from "./Products";
+export { default as ClientsPage } from "./Clients";
+export { default as InvoicesPage } from "./Invoices";
+export { default as RegionsPage } from "./Regions";
+export { default as SettingsPage } from "./Settings";
 export { default as UserProfile } from "./UserProfile";
 export { default as NotFound } from "./NotFound";

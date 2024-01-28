@@ -16,7 +16,7 @@ import { useListUsersQuery } from "src/data/api/graphql/queries.generated";
 
 export interface IDashboardProps {}
 
-const DashboardMainPage = (props: IDashboardProps) => {
+const UsersPage = (props: IDashboardProps) => {
   const [pagination, setPagination] = useState<Pagination>({ page: 0, pageSize: 10 });
   const gotTo = useNavigate();
   const { isLoading } = useListUsersQuery({
@@ -84,4 +84,4 @@ const DashboardMainPage = (props: IDashboardProps) => {
   );
 };
 
-export default DashboardMainPage;
+export default UsersPage;

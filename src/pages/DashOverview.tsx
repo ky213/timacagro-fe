@@ -1,7 +1,7 @@
 import * as React from "react";
 
-export const DashOverviewPage = () => {
-  throw new Error("kjhg");
-
+const DashOverviewPage = () => {
   return <h1>Over view</h1>;
 };
+
+export default DashOverviewPage;

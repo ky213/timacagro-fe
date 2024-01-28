@@ -6,12 +6,15 @@ import { MainLayout } from "src/layouts";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/Layout";
 import {
   HomePage,
-  DashboardMainPage,
+  UsersPage,
   NotFound,
-  UserProfile,
   DashOverviewPage,
+  ProductsPage,
+  ClientsPage,
+  InvoicesPage,
+  RegionsPage,
+  SettingsPage,
 } from "src/pages";
-import CreateUserPage from "src/pages/CreateUser";
 
 export const router = createBrowserRouter([
   {
@@ -44,7 +47,27 @@ export const router = createBrowserRouter([
           },
           {
             path: "users",
-            Component: UserProfile,
+            Component: UsersPage,
+          },
+          {
+            path: "products",
+            Component: ProductsPage,
+          },
+          {
+            path: "clients",
+            Component: ClientsPage,
+          },
+          {
+            path: "invoices",
+            Component: InvoicesPage,
+          },
+          {
+            path: "regions",
+            Component: RegionsPage,
+          },
+          {
+            path: "settings",
+            Component: SettingsPage,
           },
           {
             path: "*",
