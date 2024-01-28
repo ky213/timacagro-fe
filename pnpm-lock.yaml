@@ -38,6 +38,9 @@ dependencies:
   '@testing-library/user-event':
     specifier: ^13.5.0
     version: 13.5.0(@testing-library/dom@9.3.4)
+  graphql-request:
+    specifier: ^6.1.0
+    version: 6.1.0(graphql@16.8.1)
   notistack:
     specifier: ^3.0.1
     version: 3.0.1(csstype@3.1.3)(react-dom@18.2.0)(react@18.2.0)
@@ -90,7 +93,7 @@ devDependencies:
     version: 4.0.1(graphql@16.8.1)
   '@graphql-codegen/typescript-rtk-query':
     specifier: ^3.1.1
-    version: 3.1.1(@reduxjs/toolkit@1.9.7)(graphql-tag@2.12.6)(graphql@16.8.1)
+    version: 3.1.1(@reduxjs/toolkit@1.9.7)(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.8.1)
   '@playwright/test':
     specifier: ^1.40.1
     version: 1.40.1
@@ -2184,7 +2187,7 @@ packages:
       - supports-color
     dev: true
 
-  /@graphql-codegen/typescript-rtk-query@3.1.1(@reduxjs/toolkit@1.9.7)(graphql-tag@2.12.6)(graphql@16.8.1):
+  /@graphql-codegen/typescript-rtk-query@3.1.1(@reduxjs/toolkit@1.9.7)(graphql-request@6.1.0)(graphql-tag@2.12.6)(graphql@16.8.1):
     resolution: {integrity: sha512-vU3uA3DUJ7GcWExanMxlhtupTySQkSxPNV7RemeRWAPbwCv0REmX/fLumfmp/cqSALGteB3z3n/c+5dvJ/xdiA==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
@@ -2202,6 +2205,7 @@ packages:
       auto-bind: 4.0.0
       change-case-all: 1.0.15
       graphql: 16.8.1
+      graphql-request: 6.1.0(graphql@16.8.1)
       graphql-tag: 2.12.6(graphql@16.8.1)
       tslib: 2.6.2
     transitivePeerDependencies:

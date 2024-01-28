@@ -49,15 +49,17 @@ export const AuthLayout = (props: any) => {
           </Box>
           <RenderIf isTrue={loading} component={<LinearProgress />} />
           <Box pt={5} px={5} justifyContent={"center"}>
-            {errors && (
-              <Alert variant="filled" severity="error">
-                {errors?.map((error) => (
-                  <Typography key={error}>{error}.</Typography>
-                ))}
-              </Alert>
-            )}
+            <RenderIf
+              isTrue={Boolean(errors)}
+              component={
+                <Alert variant="filled" severity="error">
+                  {errors?.map((error) => (
+                    <Typography key={error}>{error}.</Typography>
+                  ))}
+                </Alert>
+              }
+            />
           </Box>
-
           <Outlet />
         </Grid>
         <Grid

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import { Alert, Box, Button, Link, Stack, TextField, Typography } from "src/components";
+import { Box, Button, Link, Stack, TextField, Typography } from "src/components";
 import {
   LoginMutationVariables,
   useLoginMutation,
@@ -12,7 +12,8 @@ import { useDispatch } from "react-redux";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
-  const [login] = useLoginMutation();
+  const goTo = useNavigate();
+  const [login, { isLoading, isSuccess }] = useLoginMutation();
   const {
     register: registerField,
     handleSubmit,
@@ -20,10 +21,12 @@ export const LoginPage = () => {
   } = useForm<LoginMutationVariables>();
 
   useEffect(() => {
+    if (isSuccess && !isLoading) goTo("/dashboard/overview");
+
     return () => {
       dispatch(resetGlobalState());
     };
-  }, []);
+  }, [isSuccess]);
 
   return (
     <Box
@@ -83,7 +86,14 @@ export const LoginPage = () => {
               helperText={Boolean(fieldErrors.password) && "Password required"}
             />
           </Stack>
-          <Button fullWidth size="large" sx={{ mt: 3 }} type="submit" variant="contained">
+          <Button
+            fullWidth
+            size="large"
+            sx={{ mt: 3 }}
+            type="submit"
+            variant="contained"
+            disabled={isLoading}
+          >
             Login
           </Button>
           <NavLink to="/auth/password-reset">
