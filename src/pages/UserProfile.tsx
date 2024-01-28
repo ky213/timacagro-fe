@@ -20,7 +20,7 @@ import TimezoneIcon from "@mui/icons-material/Timelapse";
 
 import { IRootState } from "src/data/store";
 
-const UserProfile = () => {
+export const UserProfile = () => {
   const { id } = useParams();
   const users = useSelector((state: IRootState) => state.users.list);
   const user = users.find((user) => user.id === Number(id));
@@ -32,7 +32,11 @@ const UserProfile = () => {
           title={`${user?.firstName} ${user?.lastName}`}
           subheader={user?.email}
           avatar={<Avatar alt={`${user?.firstName} ${user?.lastName}`} src={""} />}
-          sx={{ zoom: { xs: 1.2, sm: 2 }, display: "flex", flexDirection: { xs: "column", sm: "row" } }}
+          sx={{
+            zoom: { xs: 1.2, sm: 2 },
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+          }}
         />
         <CardContent sx={{ zoom: 1.2 }}>
           <Grid container justifyContent={"center"}>
@@ -90,5 +94,3 @@ const UserProfile = () => {
     </Box>
   );
 };
-
-export default UserProfile;

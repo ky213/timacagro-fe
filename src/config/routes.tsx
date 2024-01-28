@@ -2,8 +2,7 @@ import * as React from "react";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 
 import { ErrorBoundary } from "src/components";
-import { MainLayout } from "src/layouts";
-import { Layout as DashboardLayout } from "src/layouts/dashboard/Layout";
+import { MainLayout, AuthLayout, DashboardLayout } from "src/layouts";
 import {
   HomePage,
   UsersPage,
@@ -14,6 +13,7 @@ import {
   InvoicesPage,
   RegionsPage,
   SettingsPage,
+  LoginPage,
 } from "src/pages";
 
 export const router = createBrowserRouter([
@@ -24,6 +24,21 @@ export const router = createBrowserRouter([
       {
         path: "/",
         Component: HomePage,
+        errorElement: <ErrorBoundary />,
+      },
+      {
+        path: "*",
+        Component: NotFound,
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    Component: AuthLayout,
+    children: [
+      {
+        path: "login",
+        Component: LoginPage,
         errorElement: <ErrorBoundary />,
       },
       {

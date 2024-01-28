@@ -11,7 +11,7 @@ import { IRootState } from "src/data/store";
 
 export interface IMainLAyoutProps extends PropsWithChildren {}
 
-const MainLayout: FC<IMainLAyoutProps> = (props) => {
+export const MainLayout: FC<IMainLAyoutProps> = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const gotTo = useNavigate();
 
@@ -44,12 +44,26 @@ const MainLayout: FC<IMainLAyoutProps> = (props) => {
               <img
                 src={"./timacagro_logo.svg"}
                 alt="logo"
-                style={{ width: "174px", height: "height", filter: "brightness(0) invert(1)" }}
+                style={{
+                  width: "174px",
+                  height: "height",
+                  filter: "brightness(0) invert(1)",
+                }}
               />
-              <Typography variant="h6" color="inherit" noWrap component="div"></Typography>
+              <Typography
+                variant="h6"
+                color="inherit"
+                noWrap
+                component="div"
+              ></Typography>
             </Stack>
           </Link>
-          <Menu id="menu-appbar" anchorEl={anchorEl} open={Boolean(anchorEl)} onClick={() => gotTo("/dashboard")}>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClick={() => gotTo("/dashboard")}
+          >
             <MenuItem onClick={gotToDashboard}>Dashboard</MenuItem>
           </Menu>
         </Toolbar>
@@ -58,5 +72,3 @@ const MainLayout: FC<IMainLAyoutProps> = (props) => {
     </>
   );
 };
-
-export default MainLayout;

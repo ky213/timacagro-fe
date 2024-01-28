@@ -30,7 +30,7 @@ import { IRootState, useAppDispatch, useAppSelector } from "src/data/store";
 import { CreateUserInput, Role, User } from "src/data/types/generated";
 import { useCreateUserMutation } from "src/data/api/graphql/mutations.generated";
 
-const CreateUserPage = () => {
+export const CreateUserPage = () => {
   const { loading, success, error } = useAppSelector((state: IRootState) => state.users);
   const [createUser, {}] = useCreateUserMutation();
   const dispatch = useAppDispatch();
@@ -140,18 +140,31 @@ const CreateUserPage = () => {
           <Grid item xs={12} mt={2}>
             <FormControl error={Boolean(fieldErrors.role)} fullWidth>
               <InputLabel id="role-label">Role</InputLabel>
-              <Select id="role" labelId="role-label" fullWidth {...registerField("role", { required: true })}>
+              <Select
+                id="role"
+                labelId="role-label"
+                fullWidth
+                {...registerField("role", { required: true })}
+              >
                 {Roles.map((role) => (
                   <MenuItem key={role} value={role}>
                     {role}
                   </MenuItem>
                 ))}
               </Select>
-              {Boolean(fieldErrors.role) && <FormHelperText color={"danger"}>Must select a gender</FormHelperText>}
+              {Boolean(fieldErrors.role) && (
+                <FormHelperText color={"danger"}>Must select a gender</FormHelperText>
+              )}
             </FormControl>
           </Grid>
 
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} disabled={Boolean(loading)}>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            disabled={Boolean(loading)}
+          >
             Submit
           </Button>
         </Box>
@@ -159,5 +172,3 @@ const CreateUserPage = () => {
     </Container>
   );
 };
-
-export default CreateUserPage;
