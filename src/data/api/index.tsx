@@ -6,6 +6,11 @@ import { API_URL } from "src/config/constants";
 export const api = createApi({
   baseQuery: graphqlRequestBaseQuery({
     url: `${API_URL}`,
+    customErrors({ response }) {
+      return {
+        message: response.errors?.map(({ message }) => message),
+      };
+    },
   }),
   endpoints: () => ({}),
 });

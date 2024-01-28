@@ -1,31 +1,29 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import {
-  Alert,
-  Box,
-  Button,
-  LinearProgress,
-  Link,
-  Stack,
-  Tab,
-  Tabs,
-  TextField,
-  Typography,
-} from "@mui/material";
-
-import { LoginMutationVariables } from "src/data/api/graphql/mutations.generated";
 import { useForm } from "react-hook-form";
 
+import { Alert, Box, Button, Link, Stack, TextField, Typography } from "src/components";
+import {
+  LoginMutationVariables,
+  useLoginMutation,
+} from "src/data/api/graphql/mutations.generated";
+import { resetGlobalState } from "src/data/store/reducers/global";
+import { useDispatch } from "react-redux";
+
 export const LoginPage = () => {
+  const dispatch = useDispatch();
+  const [login] = useLoginMutation();
   const {
     register: registerField,
     handleSubmit,
     formState: { errors: fieldErrors },
   } = useForm<LoginMutationVariables>();
 
-  const onSubmit = async (credentials: LoginMutationVariables) => {
-    console.log(credentials);
-  };
+  useEffect(() => {
+    return () => {
+      dispatch(resetGlobalState());
+    };
+  }, []);
 
   return (
     <Box
@@ -45,7 +43,7 @@ export const LoginPage = () => {
           width: "100%",
         }}
       >
-        <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
+        <Box component="form" noValidate onSubmit={handleSubmit(login)} sx={{ mt: 3 }}>
           <Alert severity="error">{"errorMessage"}</Alert>
           <Stack spacing={1} sx={{ mb: 3 }}>
             <Typography variant="h4">Login</Typography>

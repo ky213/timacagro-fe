@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Box, Typography, Unstable_Grid2 as Grid, LinearProgress } from "@mui/material";
 import { Outlet, NavLink } from "react-router-dom";
-
-import { Logo } from "src/components";
+import { grey } from "@mui/material/colors";
 
 export const AuthLayout = (props: any) => {
   return (
@@ -43,9 +42,7 @@ export const AuthLayout = (props: any) => {
                 height: 32,
                 width: 32,
               }}
-            >
-              {/* <Logo /> */}
-            </Box>
+            ></Box>
           </Box>
           <LinearProgress />
           <Outlet />
@@ -77,13 +74,12 @@ export const AuthLayout = (props: any) => {
             >
               Welcome to{" "}
               <Box component="a" sx={{ color: "#15B79E" }} target="_blank">
-                Devias Kit
+                Timacagro Algérie
               </Box>
             </Typography>
             <Typography align="center" sx={{ mb: 3 }} variant="subtitle1">
-              A professional kit that comes with ready-to-use MUI components.
+              An intuitive dashboard to manage ATCs and products in real time.
             </Typography>
-            <img alt="" src="/assets/auth-illustration.svg" />
           </Box>
         </Grid>
       </Grid>

@@ -10,7 +10,7 @@ export const notificationMiddleware: Middleware =
     if (isPending(action)) dispatch(setLoading());
 
     if (isRejected(action)) {
-      dispatch(setError(action.error.message));
+      dispatch(setError(action.payload.message));
       enqueueSnackbar(action.error.message, { variant: "error" });
     }
 
