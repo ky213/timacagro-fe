@@ -2,9 +2,12 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Divider, MenuItem, MenuList, Popover, Typography } from "@mui/material";
 
+import { useAppSelector } from "src/data/store";
+
 export const AccountPopover = (props: { anchorEl: any; onClose: any; open: any }) => {
   const { anchorEl, onClose, open } = props;
   const gotTo = useNavigate();
+  const user = useAppSelector((state) => state.global.session);
 
   const handleSignOut = useCallback(() => {
     onClose?.();
@@ -30,7 +33,7 @@ export const AccountPopover = (props: { anchorEl: any; onClose: any; open: any }
       >
         <Typography variant="overline">Account</Typography>
         <Typography color="text.secondary" variant="body2">
-          Anika Visser
+          {`${user?.firstName} ${user?.lastName}`}
         </Typography>
       </Box>
       <Divider />

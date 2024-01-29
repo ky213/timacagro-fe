@@ -28,10 +28,6 @@ const slice = createSlice({
     },
     clearSession: (state) => {
       state.session = null;
-
-      //clear cookie
-      // document.cookie =
-      //   "connect.sid" + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     },
     setLoading: (state) => {
       state.loading = true;
