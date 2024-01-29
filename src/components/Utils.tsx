@@ -2,7 +2,7 @@ import React, { ReactElement, PropsWithChildren } from "react";
 
 export interface RenderIfProps extends PropsWithChildren {
   isTrue: boolean;
-  component: ReactElement;
+  component: JSX.Element;
 }
 
 export const RenderIf = ({ isTrue, component }: RenderIfProps) => {

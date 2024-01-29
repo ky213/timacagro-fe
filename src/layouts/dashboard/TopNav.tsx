@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import {
   Avatar,
   Badge,
@@ -14,6 +16,8 @@ import { useNavigate } from "react-router-dom";
 import { usePopover } from "src/shared/hooks/use-popover";
 import { AccountPopover } from "./AccountPopover";
 import { Bars3Icon, BellIcon, ChevronLeftIcon, UsersIcon } from "src/components/Icons";
+import { useLogoutMutation } from "src/data/api/graphql/mutations.generated";
+import { resetGlobalState } from "src/data/store/reducers/global";
 
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
@@ -23,7 +27,17 @@ export const TopNav = (props: { onNavOpen: any }) => {
   //@ts-ignore //TODO:fix theme types
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   const accountPopover = usePopover();
-  const navigate = useNavigate();
+  const goTo = useNavigate();
+  const [logout, { isLoading, isSuccess }] = useLogoutMutation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isSuccess && !isLoading) {
+      dispatch(resetGlobalState());
+
+      goTo("/");
+    }
+  }, [isSuccess]);
 
   return (
     <>
@@ -62,7 +76,7 @@ export const TopNav = (props: { onNavOpen: any }) => {
               </IconButton>
             )}
             <Tooltip title="Back">
-              <IconButton onClick={() => navigate(-1)}>
+              <IconButton onClick={() => goTo(-1)}>
                 <SvgIcon fontSize="small">
                   <ChevronLeftIcon />
                 </SvgIcon>
@@ -102,7 +116,7 @@ export const TopNav = (props: { onNavOpen: any }) => {
       <AccountPopover
         anchorEl={accountPopover.anchorRef.current}
         open={accountPopover.open}
-        onClose={accountPopover.handleClose}
+        onClose={logout}
       />
     </>
   );

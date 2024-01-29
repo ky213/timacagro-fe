@@ -1,15 +1,21 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { api as mutations } from "src/data/api/graphql/mutations.generated";
 
-import { api } from "src/data/api";
 import { User } from "src/data/types/generated";
 
 type IGlobalState = {
   loading: boolean;
   errors: string[] | null;
   success: boolean;
+  session: User | null;
 };
 
-const initialState: IGlobalState = { loading: false, success: false, errors: null };
+const initialState: IGlobalState = {
+  loading: false,
+  success: false,
+  errors: null,
+  session: null,
+};
 
 const slice = createSlice({
   name: "global",
@@ -19,6 +25,13 @@ const slice = createSlice({
       state.loading = false;
       state.success = false;
       state.errors = null;
+    },
+    clearSession: (state) => {
+      state.session = null;
+
+      //clear cookie
+      // document.cookie =
+      //   "connect.sid" + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     },
     setLoading: (state) => {
       state.loading = true;
@@ -36,9 +49,25 @@ const slice = createSlice({
       state.errors = payload;
     },
   },
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder.addMatcher(mutations.endpoints.Login.matchFulfilled, (state, { payload }) => {
+      if (payload.login?.__typename) {
+        const { __typename, ...user } = payload.login;
+        state.session = user;
+      } else {
+        state.session = payload.login || null;
+      }
+    });
+    builder.addMatcher(mutations.endpoints.Logout.matchFulfilled, (state) => {
+      document.cookie =
+        "connect.sid" + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+
+      state.session = null;
+    });
+  },
 });
 
 export default slice.reducer;
 
-export const { resetGlobalState, setLoading, setSucess, setError } = slice.actions;
+export const { resetGlobalState, setLoading, setSucess, setError, clearSession } =
+  slice.actions;

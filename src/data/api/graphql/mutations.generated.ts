@@ -22,7 +22,7 @@ export type LoginMutationVariables = Types.Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login?: boolean };
+export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'User', id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any } };
 
 export type LogoutMutationVariables = Types.Exact<{ [key: string]: never; }>;
 
@@ -161,7 +161,20 @@ export const RandomizeDocument = `
     `;
 export const LoginDocument = `
     mutation Login($email: String!, $password: String!) {
-  login(email: $email, password: $password)
+  login(email: $email, password: $password) {
+    id
+    firstName
+    lastName
+    email
+    role
+    currentPoints
+    targetPoints
+    region
+    active
+    emailConfirmed
+    createdAt
+    updatedAt
+  }
 }
     `;
 export const LogoutDocument = `

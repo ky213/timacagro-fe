@@ -5,7 +5,20 @@ mutation Randomize {
 
 #Auth
 mutation Login($email: String!, $password: String!) {
-  login(email: $email, password: $password)
+  login(email: $email, password: $password) {
+    id
+    firstName
+    lastName
+    email
+    role
+    currentPoints
+    targetPoints
+    region
+    active
+    emailConfirmed
+    createdAt
+    updatedAt
+  }
 }
 
 mutation Logout {

@@ -8,6 +8,7 @@ import {
   GridValueGetterParams,
   GridInitialState,
   GridRowParams,
+  GridPaginationModel,
 } from "@mui/x-data-grid";
 
 import { IRootState } from "src/data/store";
@@ -17,11 +18,11 @@ import { useListUsersQuery } from "src/data/api/graphql/queries.generated";
 export interface IDashboardProps {}
 
 export const UsersPage = (props: IDashboardProps) => {
-  const [pagination, setPagination] = useState<Pagination>({ page: 0, pageSize: 10 });
+  const [pagination, setPagination] = useState<Pagination>({ page: 0, perPage: 10 });
   const gotTo = useNavigate();
   const { isLoading } = useListUsersQuery({
     page: pagination.page,
-    perPage: pagination.pageSize,
+    perPage: pagination.perPage,
   });
   const users = useSelector((state: IRootState) => state.users.list);
 
@@ -60,8 +61,8 @@ export const UsersPage = (props: IDashboardProps) => {
     },
   };
 
-  const handlePaginate = ({ page, pageSize: perPage }: Pagination) => {
-    setPagination({ page: page + 1, pageSize: perPage });
+  const handlePaginate = ({ page, pageSize }: GridPaginationModel) => {
+    setPagination({ page: page + 1, perPage: pageSize });
   };
 
   const handleRowClick = ({ row }: GridRowParams<User>) => {
