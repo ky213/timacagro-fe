@@ -4,7 +4,6 @@ import { Typography } from "@mui/material";
 
 import { router } from "src/config/routes";
 import { useGetSessionQuery } from "./data/api/graphql/queries.generated";
-import { useAppSelector } from "./data/store";
 
 function App() {
   const { isLoading } = useGetSessionQuery();
