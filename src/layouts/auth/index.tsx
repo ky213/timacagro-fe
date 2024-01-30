@@ -18,6 +18,7 @@ export const AuthLayout = (props: any) => {
     >
       <Grid container sx={{ flex: "1 1 auto" }}>
         <Grid
+          item
           xs={12}
           lg={6}
           sx={{
@@ -63,6 +64,7 @@ export const AuthLayout = (props: any) => {
           <Outlet />
         </Grid>
         <Grid
+          item
           xs={12}
           lg={6}
           sx={{

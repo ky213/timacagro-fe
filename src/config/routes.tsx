@@ -113,8 +113,25 @@ export const router = createBrowserRouter([
 ]);
 
 //TODO: set RBAC
-function PrivateRoute({ request }: LoaderFunctionArgs) {
-  const { session } = store.getState().global;
+async function PrivateRoute({ request }: LoaderFunctionArgs) {
+  const waitForSession = new Promise((resolve, reject) => {
+    let times = 50;
+
+    const interval = setInterval(() => {
+      const session = store.getState().global.session;
+
+      if (session) {
+        clearInterval(interval);
+        resolve(session);
+      }
+
+      if (times === 0) reject(null);
+
+      times--;
+    }, 100);
+  });
+
+  const session = await waitForSession;
 
   if (!session) {
     let params = new URLSearchParams();
