@@ -7,7 +7,7 @@ export { default as Typography } from "@mui/material/Typography";
 export { default as Alert } from "@mui/material/Alert";
 export { default as Link } from "@mui/material/Link";
 export { default as LinearProgress } from "@mui/material/LinearProgress";
-
+export { default as CircularProgress } from "@mui/material/CircularProgress";
 export { ErrorBoundary } from "./ErrorBoundry";
 export { RenderIf } from "./Utils";
 export * from "./Logo";
