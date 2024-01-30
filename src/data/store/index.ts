@@ -16,13 +16,16 @@ const rootReducer = combineReducers({
 export const setupStore = (preloadedState?: PreloadedState<IRootState>) => {
   return configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware, notificationMiddleware),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(api.middleware, notificationMiddleware),
     preloadedState,
   });
 };
 
 export const useAppDispatch = () => useDispatch<IAppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector;
+//TODO: set Redux-persist,
+export const store = setupStore();
 
 export type IRootState = ReturnType<typeof rootReducer>;
 export type IAppStore = ReturnType<typeof setupStore>;

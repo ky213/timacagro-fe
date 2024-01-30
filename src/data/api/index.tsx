@@ -6,6 +6,7 @@ import { API_URL } from "src/config/constants";
 
 const client = new GraphQLClient(`${API_URL}`, { credentials: "include" });
 
+//TODO:Set timeout
 export const api = createApi({
   baseQuery: graphqlRequestBaseQuery({
     client,

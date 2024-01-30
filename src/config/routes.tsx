@@ -1,7 +1,13 @@
 import * as React from "react";
-import { Outlet, createBrowserRouter } from "react-router-dom";
+import {
+  LoaderFunctionArgs,
+  Outlet,
+  createBrowserRouter,
+  redirect,
+} from "react-router-dom";
 
 import { ErrorBoundary } from "src/components";
+import { store } from "src/data/store";
 import { MainLayout, AuthLayout, DashboardLayout } from "src/layouts";
 import {
   HomePage,
@@ -56,6 +62,8 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     Component: DashboardLayout,
+    loader: PrivateRoute,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: "",
@@ -103,3 +111,16 @@ export const router = createBrowserRouter([
     Component: NotFound,
   },
 ]);
+
+//TODO: set RBAC
+function PrivateRoute({ request }: LoaderFunctionArgs) {
+  const { session } = store.getState().global;
+
+  if (!session) {
+    let params = new URLSearchParams();
+    params.set("from", new URL(request.url).pathname);
+    return redirect("/auth/login?" + params.toString());
+  }
+
+  return null;
+}
