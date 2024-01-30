@@ -137,14 +137,21 @@ async function LoginRedirect({ params }: LoaderFunctionArgs) {
 
   return null;
 }
-
+//TODO: to be refactored
 async function getCurrentSession() {
   var interval: NodeJS.Timer;
-  let count = 100; //check for 5 seconds
+  let count = 40; //check for 2 seconds
 
   return new Promise((resolve) => {
+    store.subscribe(() => {
+      const { session, loading, success, errors } = store.getState().global;
+
+      if (success) resolve(session);
+      if (errors) resolve(null);
+    });
+
     interval = setInterval(() => {
-      const session = store.getState().global.session;
+      const { session, loading, success, errors } = store.getState().global;
 
       if (session) {
         clearInterval(interval);

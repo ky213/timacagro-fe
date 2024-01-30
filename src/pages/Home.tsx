@@ -45,7 +45,7 @@ export const HomePage = (props: IHomePageProps) => {
               <Button
                 variant="contained"
                 color="success"
-                onClick={() => gotTo("/dashboard")}
+                onClick={() => gotTo("dashboard/overview")}
               >
                 Go to dashboard
               </Button>

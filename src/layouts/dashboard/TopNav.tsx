@@ -33,7 +33,7 @@ export const TopNav = (props: { onNavOpen: any }) => {
 
   useEffect(() => {
     if (isSuccess && !isLoading) {
-      dispatch(resetGlobalState());
+      dispatch(resetGlobalState({}));
 
       goTo("/");
     }

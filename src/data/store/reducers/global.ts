@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Slice, createSlice } from "@reduxjs/toolkit";
 import { api as mutations } from "src/data/api/graphql/mutations.generated";
 import { api as queries } from "src/data/api/graphql/queries.generated";
 
@@ -18,7 +18,7 @@ const initialState: IGlobalState = {
   session: null,
 };
 
-const slice = createSlice({
+const slice: Slice<IGlobalState> = createSlice({
   name: "global",
   initialState,
   reducers: {
@@ -71,6 +71,7 @@ const slice = createSlice({
         } else {
           state.session = payload.getSession || null;
         }
+        state.loading = false;
       }
     );
   },

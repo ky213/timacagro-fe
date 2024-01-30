@@ -24,7 +24,7 @@ export const LoginPage = () => {
     if (isSuccess && !isLoading) goTo("/dashboard/overview");
 
     return () => {
-      dispatch(resetGlobalState());
+      dispatch(resetGlobalState({}));
     };
   }, [isSuccess]);
 

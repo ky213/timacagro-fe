@@ -1,13 +1,14 @@
 import { isPending, isRejected, isFulfilled } from "@reduxjs/toolkit";
 import type { MiddlewareAPI, Middleware } from "@reduxjs/toolkit";
 import { enqueueSnackbar } from "notistack";
+
 import { setError, setLoading, setSucess } from "../reducers/global";
 
 export const notificationMiddleware: Middleware =
   ({ dispatch }: MiddlewareAPI) =>
   (next) =>
   (action) => {
-    if (isPending(action)) dispatch(setLoading());
+    if (isPending(action)) dispatch(setLoading({}));
 
     if (isRejected(action)) {
       dispatch(setError(action.payload.message));
@@ -15,7 +16,7 @@ export const notificationMiddleware: Middleware =
     }
 
     if (isFulfilled(action) && action.meta.arg?.type !== "query") {
-      dispatch(setSucess());
+      dispatch(setSucess({}));
       enqueueSnackbar("Success ", { variant: "success" });
     }
 
