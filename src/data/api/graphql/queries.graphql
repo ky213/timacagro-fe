@@ -3,6 +3,23 @@ query GetDateTime {
   getDateTime
 }
 
+query GetSession {
+  getSession {
+    id
+    firstName
+    lastName
+    email
+    role
+    currentPoints
+    targetPoints
+    region
+    active
+    emailConfirmed
+    createdAt
+    updatedAt
+  }
+}
+
 # User
 query GetUser($getUserId: ID!) {
   getUser(id: $getUserId) {

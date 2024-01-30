@@ -16,6 +16,11 @@ export type GetDateTimeQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 export type GetDateTimeQuery = { __typename?: 'Query', getDateTime: any };
 
+export type GetSessionQueryVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type GetSessionQuery = { __typename?: 'Query', getSession?: { __typename?: 'User', id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any } };
+
 export type GetUserQueryVariables = Types.Exact<{
   getUserId: Types.Scalars['ID']['input'];
 }>;
@@ -82,6 +87,24 @@ export type LisInvoicesQuery = { __typename?: 'Query', listInvoices: { __typenam
 export const GetDateTimeDocument = `
     query GetDateTime {
   getDateTime
+}
+    `;
+export const GetSessionDocument = `
+    query GetSession {
+  getSession {
+    id
+    firstName
+    lastName
+    email
+    role
+    currentPoints
+    targetPoints
+    region
+    active
+    emailConfirmed
+    createdAt
+    updatedAt
+  }
 }
     `;
 export const GetUserDocument = `
@@ -198,6 +221,9 @@ const injectedRtkApi = api.injectEndpoints({
     GetDateTime: build.query<GetDateTimeQuery, GetDateTimeQueryVariables | void>({
       query: (variables) => ({ document: GetDateTimeDocument, variables })
     }),
+    GetSession: build.query<GetSessionQuery, GetSessionQueryVariables | void>({
+      query: (variables) => ({ document: GetSessionDocument, variables })
+    }),
     GetUser: build.query<GetUserQuery, GetUserQueryVariables>({
       query: (variables) => ({ document: GetUserDocument, variables })
     }),
@@ -226,5 +252,5 @@ const injectedRtkApi = api.injectEndpoints({
 });
 
 export { injectedRtkApi as api };
-export const { useGetDateTimeQuery, useLazyGetDateTimeQuery, useGetUserQuery, useLazyGetUserQuery, useListUsersQuery, useLazyListUsersQuery, useGetClientQuery, useLazyGetClientQuery, useListClientsQuery, useLazyListClientsQuery, useGetProductQuery, useLazyGetProductQuery, useListProductsQuery, useLazyListProductsQuery, useGetInvoiceQuery, useLazyGetInvoiceQuery, useLisInvoicesQuery, useLazyLisInvoicesQuery } = injectedRtkApi;
+export const { useGetDateTimeQuery, useLazyGetDateTimeQuery, useGetSessionQuery, useLazyGetSessionQuery, useGetUserQuery, useLazyGetUserQuery, useListUsersQuery, useLazyListUsersQuery, useGetClientQuery, useLazyGetClientQuery, useListClientsQuery, useLazyListClientsQuery, useGetProductQuery, useLazyGetProductQuery, useListProductsQuery, useLazyListProductsQuery, useGetInvoiceQuery, useLazyGetInvoiceQuery, useLisInvoicesQuery, useLazyLisInvoicesQuery } = injectedRtkApi;
 

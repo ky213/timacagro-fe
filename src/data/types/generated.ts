@@ -242,6 +242,7 @@ export type Query = {
   getDateTime: Scalars['DateTime']['output'];
   getInvoice?: Maybe<Invoice>;
   getProduct?: Maybe<Product>;
+  getSession?: Maybe<User>;
   getUser?: Maybe<User>;
   listClients: ClientsList;
   listInvoices: InvoicesList;

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { api as mutations } from "src/data/api/graphql/mutations.generated";
+import { api as queries } from "src/data/api/graphql/queries.generated";
 
 import { User } from "src/data/types/generated";
 
@@ -60,6 +61,18 @@ const slice = createSlice({
 
       state.session = null;
     });
+
+    builder.addMatcher(
+      queries.endpoints.GetSession.matchFulfilled,
+      (state, { payload }) => {
+        if (payload.getSession?.__typename) {
+          const { __typename, ...user } = payload.getSession;
+          state.session = user;
+        } else {
+          state.session = payload.getSession || null;
+        }
+      }
+    );
   },
 });
 
