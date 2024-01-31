@@ -11,8 +11,8 @@ export const notificationMiddleware: Middleware =
     if (isPending(action)) dispatch(setLoading({}));
 
     if (isRejected(action)) {
-      dispatch(setError(action.payload.message));
-      enqueueSnackbar(action.error.message, { variant: "error" });
+      dispatch(setError(action.payload?.message || "Unknown error."));
+      enqueueSnackbar(action.error?.message || "Unknown error.", { variant: "error" });
     }
 
     if (isFulfilled(action) && action.meta.arg?.type !== "query") {

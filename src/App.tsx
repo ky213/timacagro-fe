@@ -6,7 +6,7 @@ import { router } from "src/config/routes";
 import { useGetSessionQuery } from "./data/api/graphql/queries.generated";
 
 function App() {
-  const { isLoading } = useGetSessionQuery();
+  const { isLoading, isError } = useGetSessionQuery();
 
   if (isLoading)
     return (
@@ -21,6 +21,22 @@ function App() {
 
           <Typography ml={-2} mt={3} variant="h5">
             loading...
+          </Typography>
+        </Stack>
+      </Box>
+    );
+
+  if (isError)
+    return (
+      <Box
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        height={"90vh"}
+      >
+        <Stack>
+          <Typography ml={-2} mt={3} variant="h5">
+            Error initializing!
           </Typography>
         </Stack>
       </Box>
