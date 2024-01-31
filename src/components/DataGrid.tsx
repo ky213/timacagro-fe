@@ -50,7 +50,7 @@ function EditToolbar(props: EditToolbarProps) {
   );
 }
 
-export default function FullFeaturedCrudGrid() {
+export function FullFeaturedCrudGrid() {
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
 

@@ -5,13 +5,8 @@ import Box from "@mui/material/Box";
 import {
   DataGrid,
   GridColDef,
-  GridInitialState,
   GridPaginationModel,
   GridEventListener,
-  GridEventLookup,
-  MuiEvent,
-  MuiBaseEvent,
-  GridPreProcessEditCellProps,
 } from "@mui/x-data-grid";
 
 import { useAppSelector } from "src/data/store";
@@ -20,6 +15,7 @@ import { useListUsersQuery } from "src/data/api/graphql/queries.generated";
 import { useUpdateUserMutation } from "src/data/api/graphql/mutations.generated";
 import { resetUsers } from "src/data/store/reducers/users";
 import { Roles } from "src/config/constants";
+import { FullFeaturedCrudGrid } from "src/components";
 
 export interface IDashboardProps {}
 
@@ -101,16 +97,10 @@ export const UsersPage = (props: IDashboardProps) => {
       field: "createdAt",
       headerName: "Created In",
       type: "dateTime",
-      valueGetter: (value) => new Date(),
+      valueGetter: ({ value }) => new Date(`${value}`),
       flex: 1,
     },
   ];
-
-  const initialState: GridInitialState = {
-    pagination: {
-      paginationModel: pagination,
-    },
-  };
 
   const handlePaginate = ({ page, pageSize }: GridPaginationModel) => {
     setPagination({ page: page, perPage: pageSize });
@@ -118,24 +108,31 @@ export const UsersPage = (props: IDashboardProps) => {
 
   const handleEdit: GridEventListener<"cellEditStop"> = (
     { id, field, value },
-    { target }: any
+    { target }: any //TODO: fix type
   ) => {
-    console.log(value, target.value);
     if (target && target.value != value)
       updateUser({ updateUserId: `${id}`, userInfo: { [field]: target.value } });
   };
 
   return (
     <Box mt={10} mx={1} overflow={"auto"}>
+      {/* //TODO: to be changed with the fully featured data grid */}
       <DataGrid
         rows={users}
         columns={columns}
-        initialState={initialState}
         getRowId={(row) => row.id}
         loading={isLoading}
         pageSizeOptions={[10, 20, 50]}
         onPaginationModelChange={handlePaginate}
         onCellEditStop={handleEdit}
+        sx={{
+          boxShadow: 2,
+          border: 2,
+          borderColor: "primary.light",
+          "& .MuiDataGrid-cell:hover": {
+            color: "primary.main",
+          },
+        }}
       />
     </Box>
   );

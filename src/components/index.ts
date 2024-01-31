@@ -10,5 +10,7 @@ export { default as LinearProgress } from "@mui/material/LinearProgress";
 export { default as CircularProgress } from "@mui/material/CircularProgress";
 export { ErrorBoundary } from "./ErrorBoundry";
 export { RenderIf } from "./Utils";
+export { FullFeaturedCrudGrid } from "./DataGrid";
+
 export * from "./Logo";
 export * from "./ScrollBar";
