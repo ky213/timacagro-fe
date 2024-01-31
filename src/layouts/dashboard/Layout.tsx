@@ -10,6 +10,7 @@ const LayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
   flex: "1 1 auto",
   maxWidth: "100%",
+  padding: "1px 5px",
   [theme.breakpoints.up("lg")]: {
     paddingLeft: SIDE_NAV_WIDTH,
   },

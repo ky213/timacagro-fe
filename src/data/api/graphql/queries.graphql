@@ -38,9 +38,16 @@ query ListUsers($page: Int!, $perPage: Int!) {
       id
       firstName
       lastName
-      updatedAt
-      createdAt
+      email
+      password
+      role
+      currentPoints
+      targetPoints
+      region
       active
+      emailConfirmed
+      createdAt
+      updatedAt
     }
   }
 }

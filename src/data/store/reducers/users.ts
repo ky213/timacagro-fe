@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { api } from "src/data/api";
+import { api as queries } from "src/data/api/graphql/queries.generated";
 import { User } from "src/data/types/generated";
 
 type IUsersState = {
@@ -10,17 +10,25 @@ type IUsersState = {
   success: boolean;
 };
 
-export const createUser = createAsyncThunk<User, User>("users/createUser", async (newUser: User) => {
-  return new Promise<User>((resolve, reject) => {
-    try {
-      const t = setTimeout(() => resolve(newUser), 3000);
-    } catch (error) {
-      reject(error);
-    }
-  });
-});
+export const createUser = createAsyncThunk<User, User>(
+  "users/createUser",
+  async (newUser: User) => {
+    return new Promise<User>((resolve, reject) => {
+      try {
+        const t = setTimeout(() => resolve(newUser), 3000);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+);
 
-const initialState: IUsersState = { list: [], loading: false, success: false, error: null };
+const initialState: IUsersState = {
+  list: [],
+  loading: false,
+  success: false,
+  error: null,
+};
 
 const slice = createSlice({
   name: "users",
@@ -33,23 +41,14 @@ const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(createUser.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(createUser.fulfilled, (state, action) => {
-      state.loading = false;
-      state.success = true;
-      state.error = null;
-      state.list.unshift(action.payload);
-    });
-    builder.addCase(createUser.rejected, (state, action) => {
-      state.loading = false;
-      state.success = false;
-      state.error = action.error.message || "unknown error.";
-    });
-    // builder.addMatcher(api.endpoints.getUsers.matchFulfilled, (state, { payload }) => {
-    //   state.list.push(...payload.results);
-    // });
+    builder.addMatcher(
+      queries.endpoints.ListUsers.matchFulfilled,
+      (state, { payload }) => {
+        state.list = payload.listUsers.users.map(({ __typename, ...rest }) => ({
+          ...rest,
+        }));
+      }
+    );
   },
 });
 

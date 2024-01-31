@@ -5,53 +5,74 @@ import Box from "@mui/material/Box";
 import {
   DataGrid,
   GridColDef,
-  GridValueGetterParams,
   GridInitialState,
-  GridRowParams,
   GridPaginationModel,
+  GridCellParams,
+  GridEventListener,
 } from "@mui/x-data-grid";
 
-import { IRootState } from "src/data/store";
+import { useAppSelector } from "src/data/store";
 import { Pagination, User } from "src/data/types/generated";
 import { useListUsersQuery } from "src/data/api/graphql/queries.generated";
+import { useUpdateUserMutation } from "src/data/api/graphql/mutations.generated";
 
 export interface IDashboardProps {}
 
 export const UsersPage = (props: IDashboardProps) => {
+  const { list: users } = useAppSelector((state) => state.users);
   const [pagination, setPagination] = useState<Pagination>({ page: 0, perPage: 10 });
-  const gotTo = useNavigate();
-  const { isLoading } = useListUsersQuery({
+  const [updateUser, { isLoading }] = useUpdateUserMutation();
+  const data = useListUsersQuery({
     page: pagination.page,
     perPage: pagination.perPage,
   });
-  const users = useSelector((state: IRootState) => state.users.list);
 
-  const columns: GridColDef[] = [
+  const columns: GridColDef<User>[] = [
     {
-      field: "First Name",
-      valueGetter: (param: GridValueGetterParams<User>) => param.row?.firstName,
+      field: "firstName",
+      headerName: "First Name",
+      editable: true,
     },
     {
-      field: "Last Name",
-      valueGetter: (param: GridValueGetterParams<User>) => param.row?.lastName,
+      field: "lastName",
+      headerName: "Last Name",
+      editable: true,
     },
     {
       field: "email",
       headerName: "Email",
-      width: 300,
+      flex: 1,
+      editable: true,
     },
     {
-      field: "phone",
-      headerName: "Phone",
-      width: 300,
+      field: "role",
+      headerName: "Role",
     },
     {
-      field: "gender",
-      headerName: "Gender",
+      field: "region",
+      headerName: "Region",
     },
     {
-      field: "nat",
-      headerName: "Nationality",
+      field: "active",
+      headerName: "Active",
+    },
+    {
+      field: "emailConfirmed",
+      headerName: "Email Confirmed",
+      editable: true,
+    },
+    {
+      field: "currentPoints",
+      headerName: "Current Points",
+    },
+    {
+      field: "targetPoint",
+      headerName: "Target Points",
+    },
+    {
+      field: "createdAt",
+      headerName: "Created In",
+      flex: 1,
     },
   ];
 
@@ -62,11 +83,15 @@ export const UsersPage = (props: IDashboardProps) => {
   };
 
   const handlePaginate = ({ page, pageSize }: GridPaginationModel) => {
-    setPagination({ page: page + 1, perPage: pageSize });
+    setPagination({ page: page, perPage: pageSize });
   };
 
-  const handleRowClick = ({ row }: GridRowParams<User>) => {
-    gotTo(`/dashboard/user/${row.id}`);
+  const handleEdit: GridEventListener<"cellEditStop"> = (
+    { id, value, field, ...rest }: GridCellParams<User>,
+    event: any
+  ) => {
+    if (value !== event.target.value)
+      updateUser({ updateUserId: `${id}`, userInfo: { [field]: event.target.value } });
   };
 
   return (
@@ -75,11 +100,11 @@ export const UsersPage = (props: IDashboardProps) => {
         rows={users}
         columns={columns}
         initialState={initialState}
-        getRowId={(row) => row.email}
+        getRowId={(row) => row.id}
         loading={isLoading}
         pageSizeOptions={[10, 20, 50]}
         onPaginationModelChange={handlePaginate}
-        onRowClick={handleRowClick}
+        onCellEditStop={handleEdit}
       />
     </Box>
   );

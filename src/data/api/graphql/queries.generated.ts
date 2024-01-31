@@ -34,7 +34,7 @@ export type ListUsersQueryVariables = Types.Exact<{
 }>;
 
 
-export type ListUsersQuery = { __typename?: 'Query', listUsers: { __typename?: 'UsersList', users: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, updatedAt: any, createdAt: any, active: boolean }> } };
+export type ListUsersQuery = { __typename?: 'Query', listUsers: { __typename?: 'UsersList', users: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, email: string, password?: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any }> } };
 
 export type GetClientQueryVariables = Types.Exact<{
   getClientId: Types.Scalars['ID']['input'];
@@ -126,9 +126,16 @@ export const ListUsersDocument = `
       id
       firstName
       lastName
-      updatedAt
-      createdAt
+      email
+      password
+      role
+      currentPoints
+      targetPoints
+      region
       active
+      emailConfirmed
+      createdAt
+      updatedAt
     }
   }
 }
