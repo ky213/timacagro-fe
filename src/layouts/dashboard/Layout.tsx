@@ -3,6 +3,8 @@ import { Outlet, useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { SideNav } from "./SideNav";
 import { TopNav } from "./TopNav";
+import { Alert, Box, RenderIf, Typography } from "src/components";
+import { useAppSelector } from "src/data/store";
 
 const SIDE_NAV_WIDTH = 280;
 
@@ -24,7 +26,8 @@ const LayoutContainer = styled("div")({
 });
 
 export const DashboardLayout = (props: any) => {
-  const { children } = props;
+  const { errors, loading } = useAppSelector((state) => state.global);
+
   const { pathname } = useLocation();
   const [openNav, setOpenNav] = useState(false);
 
@@ -48,6 +51,18 @@ export const DashboardLayout = (props: any) => {
       <SideNav onClose={() => setOpenNav(false)} open={openNav} />
       <LayoutRoot>
         <LayoutContainer>
+          <Box pt={5} px={5} justifyContent={"center"}>
+            <RenderIf
+              isTrue={Boolean(errors)}
+              component={
+                <Alert variant="filled" severity="error">
+                  {errors?.map((error) => (
+                    <Typography key={error}>{error}.</Typography>
+                  ))}
+                </Alert>
+              }
+            />
+          </Box>
           <Outlet />
         </LayoutContainer>
       </LayoutRoot>

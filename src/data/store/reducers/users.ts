@@ -38,6 +38,7 @@ const slice = createSlice({
       state.loading = false;
       state.success = false;
       state.error = null;
+      state.list = [];
     },
   },
   extraReducers: (builder) => {

@@ -17,7 +17,7 @@ export const notificationMiddleware: Middleware =
 
     if (isFulfilled(action) && action.meta.arg?.type !== "query") {
       dispatch(setSucess({}));
-      enqueueSnackbar("Success ", { variant: "success" });
+      enqueueSnackbar("Success ", { variant: "success", autoHideDuration: 2000 });
     }
 
     return next(action);
