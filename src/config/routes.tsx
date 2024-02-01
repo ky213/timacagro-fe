@@ -11,7 +11,7 @@ import { store } from "src/data/store";
 import { MainLayout, AuthLayout, DashboardLayout } from "src/layouts";
 import {
   HomePage,
-  UsersPage,
+  UsersMainPage,
   NotFound,
   DashOverviewPage,
   ProductsPage,
@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "users",
-            Component: UsersPage,
+            Component: UsersMainPage,
           },
           {
             path: "products",
