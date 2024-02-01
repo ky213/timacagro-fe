@@ -1,4 +1,12 @@
-import { useCallback, useState } from "react";
+import {
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+  useCallback,
+  useState,
+} from "react";
 import {
   Box,
   Button,
@@ -14,50 +22,17 @@ import {
   Container,
   Stack,
 } from "@mui/material";
+import { useAppSelector } from "src/data/store";
+import { useParams } from "react-router-dom";
+import { useGetUserQuery } from "src/data/api/graphql/queries.generated";
+import { Role } from "src/data/types/generated";
 
-const states = [
-  {
-    value: "alabama",
-    label: "Alabama",
-  },
-  {
-    value: "new-york",
-    label: "New York",
-  },
-  {
-    value: "san-francisco",
-    label: "San Francisco",
-  },
-  {
-    value: "los-angeles",
-    label: "Los Angeles",
-  },
-];
-
-const user = {
-  avatar: "/default-man-avatar.png",
-  city: "Los Angeles",
-  country: "USA",
-  jobTitle: "Senior Developer",
-  name: "Anika Visser",
-  timezone: "GTM-7",
-};
 export const UserProfile = () => {
-  const [values, setValues] = useState({
-    firstName: "Anika",
-    lastName: "Visser",
-    email: "demo@devias.io",
-    phone: "",
-    state: "los-angeles",
-    country: "USA",
-  });
+  const params = useParams<string>();
+  const { currentUser } = useAppSelector((state) => state.users);
+  const { isLoading, isSuccess } = useGetUserQuery({ getUserId: params.id || "" });
 
-  const handleChange = useCallback((event: { target: { name: any; value: any } }) => {
-    setValues((prevState) => ({
-      ...prevState,
-      [event.target.name]: event.target.value,
-    }));
-  }, []);
+  const handleChange = useCallback((evenst: any) => {}, []);
 
   const handleSubmit = useCallback((event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -82,7 +57,7 @@ export const UserProfile = () => {
                     }}
                   >
                     <Avatar
-                      src={user.avatar}
+                      src={"/default-man-avatar.png"}
                       sx={{
                         height: 80,
                         mb: 2,
@@ -90,13 +65,13 @@ export const UserProfile = () => {
                       }}
                     />
                     <Typography gutterBottom variant="h5">
-                      {user.name}
+                      {currentUser?.firstName + " " + currentUser?.lastName}
                     </Typography>
                     <Typography color="text.secondary" variant="body2">
-                      {user.city} {user.country}
+                      {"Algiers"} {"Algeria"}
                     </Typography>
                     <Typography color="text.secondary" variant="body2">
-                      {user.timezone}
+                      {"GMT+1"}
                     </Typography>
                   </Box>
                 </CardContent>
@@ -123,7 +98,7 @@ export const UserProfile = () => {
                             name="firstName"
                             onChange={handleChange}
                             required
-                            value={values.firstName}
+                            value={currentUser?.firstName}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
@@ -133,7 +108,7 @@ export const UserProfile = () => {
                             name="lastName"
                             onChange={handleChange}
                             required
-                            value={values.lastName}
+                            value={currentUser?.lastName}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
@@ -143,17 +118,7 @@ export const UserProfile = () => {
                             name="email"
                             onChange={handleChange}
                             required
-                            value={values.email}
-                          />
-                        </Grid>
-                        <Grid xs={12} md={6}>
-                          <TextField
-                            fullWidth
-                            label="Phone Number"
-                            name="phone"
-                            onChange={handleChange}
-                            type="number"
-                            value={values.phone}
+                            value={currentUser?.email}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
@@ -163,23 +128,23 @@ export const UserProfile = () => {
                             name="country"
                             onChange={handleChange}
                             required
-                            value={values.country}
+                            value={"Algeria"}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
                           <TextField
                             fullWidth
-                            label="Select State"
+                            label="Select Role"
                             name="state"
                             onChange={handleChange}
                             required
                             select
                             SelectProps={{ native: true }}
-                            value={values.state}
+                            value={currentUser?.role}
                           >
-                            {states.map((option) => (
-                              <option key={option.value} value={option.value}>
-                                {option.label}
+                            {Object.values(Role).map((role) => (
+                              <option key={role} value={role}>
+                                {role}
                               </option>
                             ))}
                           </TextField>
@@ -190,6 +155,9 @@ export const UserProfile = () => {
                   <Divider />
                   <CardActions sx={{ justifyContent: "flex-end" }}>
                     <Button variant="contained">Save details</Button>
+                    <Button variant="outlined" color="error">
+                      Delete user
+                    </Button>
                   </CardActions>
                 </Card>
               </form>

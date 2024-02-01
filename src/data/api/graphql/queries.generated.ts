@@ -26,7 +26,7 @@ export type GetUserQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', getUser?: { __typename?: 'User', id: number, firstName: string, lastName: string, updatedAt: any, createdAt: any, active: boolean } };
+export type GetUserQuery = { __typename?: 'Query', getUser?: { __typename?: 'User', id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any } };
 
 export type ListUsersQueryVariables = Types.Exact<{
   page: Types.Scalars['Int']['input'];
@@ -34,7 +34,7 @@ export type ListUsersQueryVariables = Types.Exact<{
 }>;
 
 
-export type ListUsersQuery = { __typename?: 'Query', listUsers: { __typename?: 'UsersList', page: number, perPage: number, total: number, users: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, email: string, password?: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any }> } };
+export type ListUsersQuery = { __typename?: 'Query', listUsers: { __typename?: 'UsersList', page: number, perPage: number, total: number, users: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any }> } };
 
 export type GetClientQueryVariables = Types.Exact<{
   getClientId: Types.Scalars['ID']['input'];
@@ -113,9 +113,15 @@ export const GetUserDocument = `
     id
     firstName
     lastName
-    updatedAt
-    createdAt
+    email
+    role
+    currentPoints
+    targetPoints
+    region
     active
+    emailConfirmed
+    createdAt
+    updatedAt
   }
 }
     `;
@@ -127,7 +133,6 @@ export const ListUsersDocument = `
       firstName
       lastName
       email
-      password
       role
       currentPoints
       targetPoints

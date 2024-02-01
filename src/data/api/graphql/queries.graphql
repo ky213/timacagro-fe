@@ -26,9 +26,15 @@ query GetUser($getUserId: ID!) {
     id
     firstName
     lastName
-    updatedAt
-    createdAt
+    email
+    role
+    currentPoints
+    targetPoints
+    region
     active
+    emailConfirmed
+    createdAt
+    updatedAt
   }
 }
 
@@ -39,7 +45,6 @@ query ListUsers($page: Int!, $perPage: Int!) {
       firstName
       lastName
       email
-      password
       role
       currentPoints
       targetPoints

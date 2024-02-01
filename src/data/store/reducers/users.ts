@@ -5,6 +5,7 @@ import { User, UsersList } from "src/data/types/generated";
 
 type IUsersState = {
   list: UsersList;
+  currentUser: User | null;
   loading: boolean;
   error: string | null;
   success: boolean;
@@ -25,6 +26,7 @@ export const createUser = createAsyncThunk<User, User>(
 
 const initialState: IUsersState = {
   list: { page: 0, perPage: 0, users: [], total: 0 },
+  currentUser: null,
   loading: false,
   success: false,
   error: null,
@@ -48,6 +50,18 @@ const slice = createSlice({
         state.list = payload.listUsers;
       }
     );
+
+    builder.addMatcher(queries.endpoints.GetUser.matchFulfilled, (state, { payload }) => {
+      //TODO: to be refactored
+      if (payload.getUser?.__typename) {
+        const { __typename, ...user } = payload.getUser;
+        console.log(user);
+        state.currentUser = user;
+      } else {
+        //@ts-ignore TODO:: fix types
+        state.currentUser = { ...payload.getUser };
+      }
+    });
   },
 });
 
