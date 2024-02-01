@@ -25,14 +25,13 @@ import {
 } from "src/components";
 
 import { createUser, resetUsers } from "src/data/store/reducers/users";
-import { EMAIL_REG_EXR, PHONE_REG_EXR, Roles } from "src/config/constants";
+import { EMAIL_REG_EXR, PHONE_REG_EXR } from "src/config/constants";
 import { IRootState, useAppDispatch, useAppSelector } from "src/data/store";
-import { CreateUserInput, Role, User } from "src/data/types/generated";
+import { CreateUserInput, Region, Role, User } from "src/data/types/generated";
 import { useCreateUserMutation } from "src/data/api/graphql/mutations.generated";
 
 export const UserAdd = () => {
-  const { loading, success, error } = useAppSelector((state: IRootState) => state.users);
-  const [createUser, {}] = useCreateUserMutation();
+  const [createUser, { isLoading, isSuccess }] = useCreateUserMutation();
   const dispatch = useAppDispatch();
   const gotTo = useNavigate();
   const {
@@ -43,6 +42,10 @@ export const UserAdd = () => {
 
   const onSubmit = async (newUser: CreateUserInput) => {
     try {
+      //TODO: refactor
+      newUser.active = true;
+      newUser.password = "1qwerty";
+      newUser.targetPoints = Number(newUser.targetPoints || 0);
       createUser({ userInfo: newUser });
     } catch (error) {
       console.log(error);
@@ -50,12 +53,12 @@ export const UserAdd = () => {
   };
 
   useEffect(() => {
-    if (!loading && success) gotTo("/dashboard");
+    if (!isLoading && isSuccess) gotTo(-1);
 
     return () => {
       dispatch(resetUsers());
     };
-  }, [loading, success]);
+  }, [isLoading, isSuccess]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -112,29 +115,6 @@ export const UserAdd = () => {
               helperText={Boolean(fieldErrors.email) && "Must be a valid email address."}
             />
           </Grid>
-
-          {/* <Grid item xs={12} mt={2}>
-            <TextField
-              required
-              fullWidth
-              id="phone"
-              label="Phone"
-              autoComplete="phone"
-              {...registerField("phone", { pattern: PHONE_REG_EXR })}
-              error={Boolean(fieldErrors.phone)}
-              helperText={Boolean(fieldErrors.phone) && "Must be a valid phone number."}
-            />
-          </Grid> */}
-          {/* <Grid item xs={12} mt={2}>
-            <FormControl error={Boolean(fieldErrors.gender)} fullWidth>
-              <InputLabel id="gender-label">Gender</InputLabel>
-              <Select id="gender" labelId="gender-label" fullWidth {...registerField("gender", { required: true })}>
-                <MenuItem value="male">Male</MenuItem>
-                <MenuItem value="female">Female</MenuItem>
-              </Select>
-              {Boolean(fieldErrors.gender) && <FormHelperText color={"danger"}>Must select a gender</FormHelperText>}
-            </FormControl>
-          </Grid> */}
           <Grid item xs={12} mt={2}>
             <FormControl error={Boolean(fieldErrors.role)} fullWidth>
               <InputLabel id="role-label">Role</InputLabel>
@@ -144,16 +124,50 @@ export const UserAdd = () => {
                 fullWidth
                 {...registerField("role", { required: true })}
               >
-                {Roles.map((role) => (
+                {Object.values(Role).map((role) => (
                   <MenuItem key={role} value={role}>
                     {role}
                   </MenuItem>
                 ))}
               </Select>
               {Boolean(fieldErrors.role) && (
-                <FormHelperText color={"danger"}>Must select a gender</FormHelperText>
+                <FormHelperText color={"danger"}>Must select a role</FormHelperText>
               )}
             </FormControl>
+          </Grid>
+          <Grid item xs={12} mt={2}>
+            <FormControl error={Boolean(fieldErrors.region)} fullWidth>
+              <InputLabel id="region-label">Region</InputLabel>
+              <Select
+                id="region"
+                labelId="region-label"
+                fullWidth
+                {...registerField("region", { required: true })}
+              >
+                {Object.values(Region).map((region) => (
+                  <MenuItem key={region} value={region}>
+                    {region}
+                  </MenuItem>
+                ))}
+              </Select>
+              {Boolean(fieldErrors.region) && (
+                <FormHelperText color={"danger"}>Must select a region</FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} mt={2}>
+            <TextField
+              fullWidth
+              type="number"
+              id="targetPoints"
+              label="Target points"
+              {...registerField("targetPoints")}
+              error={Boolean(fieldErrors.targetPoints)}
+              helperText={
+                Boolean(fieldErrors.targetPoints) &&
+                "Target points if ATC role is selected"
+              }
+            />
           </Grid>
 
           <Button
@@ -161,7 +175,7 @@ export const UserAdd = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            disabled={Boolean(loading)}
+            disabled={Boolean(isLoading)}
           >
             Submit
           </Button>
