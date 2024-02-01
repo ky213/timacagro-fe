@@ -31,7 +31,7 @@ export const UsersPage = (props: IDashboardProps) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const { list: users } = useAppSelector((state) => state.users);
+  const { list } = useAppSelector((state) => state.users);
   const [pagination, setPagination] = useState<Pagination>({ page: 0, perPage: 10 });
   const [updateUser, { isLoading }] = useUpdateUserMutation();
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ export const UsersPage = (props: IDashboardProps) => {
     perPage: pagination.perPage,
   });
 
-  const usersIds = useUserIds(users);
+  const usersIds = useUserIds(list.users);
   const customersSelection = useSelection(usersIds);
 
   useEffect(() => {
@@ -114,8 +114,8 @@ export const UsersPage = (props: IDashboardProps) => {
           </Stack>
           <UsersSearch />
           <UsersTable
-            count={users.length}
-            items={users}
+            count={list.total}
+            items={list.users}
             onDeselectAll={customersSelection.handleDeselectAll}
             onDeselectOne={customersSelection.handleDeselectOne}
             onPageChange={handlePageChange}

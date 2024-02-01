@@ -49,6 +49,9 @@ query ListUsers($page: Int!, $perPage: Int!) {
       createdAt
       updatedAt
     }
+    page
+    perPage
+    total
   }
 }
 
