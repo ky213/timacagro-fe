@@ -19,12 +19,6 @@ import { useSelection } from "src/shared/hooks/use-selection";
 
 export interface IDashboardProps {}
 
-const useUserIds = (users: User[]) => {
-  return useMemo(() => {
-    return users.map((user) => user.id);
-  }, [users]);
-};
-
 export const UsersMainPage = (props: IDashboardProps) => {
   const [page, setPage] = useState(0);
   const [perPage, setRowsPerPage] = useState(5);
@@ -35,9 +29,6 @@ export const UsersMainPage = (props: IDashboardProps) => {
     page,
     perPage,
   });
-
-  const usersIds = useUserIds(list.users);
-  const customersSelection = useSelection(usersIds);
 
   useEffect(() => {
     return () => {
@@ -113,15 +104,10 @@ export const UsersMainPage = (props: IDashboardProps) => {
           <UsersTable
             count={list.total}
             items={list.users}
-            onDeselectAll={customersSelection.handleDeselectAll}
-            onDeselectOne={customersSelection.handleDeselectOne}
             onPageChange={handlePageChange}
             onRowsPerPageChange={handleRowsPerPageChange}
-            onSelectAll={customersSelection.handleSelectAll}
-            onSelectOne={customersSelection.handleSelectOne}
             page={page}
             rowsPerPage={perPage}
-            selected={customersSelection.selected}
           />
         </Stack>
       </Container>

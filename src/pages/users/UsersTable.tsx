@@ -16,30 +16,24 @@ import {
   Typography,
   Scrollbar,
   RenderIf,
+  LinearProgress,
 } from "src/components";
 import { User } from "src/data/types/generated";
 import { CheckIcon } from "src/components/Icons";
 import { useNavigate } from "react-router-dom";
+import { type } from "os";
 //TODO: set props type
 export const UsersTable = (props: any) => {
   const {
     count = 0,
     items = [],
-    onDeselectAll,
-    onDeselectOne,
     onPageChange = () => {},
     onRowsPerPageChange,
-    onSelectAll,
-    onSelectOne,
     page = 0,
     rowsPerPage = 0,
-    selected = [],
   } = props;
 
   const goTo = useNavigate();
-
-  const selectedSome = selected.length > 0 && selected.length < items.length;
-  const selectedAll = items.length > 0 && selected.length === items.length;
 
   return (
     <Card>
@@ -48,52 +42,29 @@ export const UsersTable = (props: any) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <CheckBox
-                    checked={selectedAll}
-                    indeterminate={selectedSome}
-                    onChange={(event) => {
-                      if (event.target.checked) {
-                        onSelectAll?.();
-                      } else {
-                        onDeselectAll?.();
-                      }
-                    }}
-                  />
-                </TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Email</TableCell>
+                <TableCell>Role</TableCell>
+                <TableCell>Progress</TableCell>
                 <TableCell>Active</TableCell>
                 <TableCell>Joined</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {items.map((user: User) => {
-                const isSelected = selected.includes(user.id);
                 const createdAt = format(user.createdAt, "dd/MM/yyyy");
+                const progress =
+                  ((user.currentPoints || 0) / (user.targetPoints || 1)) * 100;
 
                 return (
                   <TableRow
                     hover
                     key={user.id}
-                    selected={isSelected}
                     sx={{
                       cursor: "pointer",
                     }}
                     onClick={() => goTo(`${user.id}`)}
                   >
-                    <TableCell padding="checkbox">
-                      <CheckBox
-                        checked={isSelected}
-                        onChange={(event) => {
-                          if (event.target.checked) {
-                            onSelectOne?.(user.id);
-                          } else {
-                            onDeselectOne?.(user.id);
-                          }
-                        }}
-                      />
-                    </TableCell>
                     <TableCell>
                       <Stack alignItems="center" direction="row" spacing={2}>
                         <Avatar src={"/default-man-avatar.png"}>
@@ -105,6 +76,11 @@ export const UsersTable = (props: any) => {
                       </Stack>
                     </TableCell>
                     <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.role}</TableCell>
+                    <TableCell>
+                      <LinearProgress variant="determinate" value={progress} />
+                      {progress.toFixed(1)} %
+                    </TableCell>
                     <TableCell>
                       <RenderIf
                         isTrue={user.active}
