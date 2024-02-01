@@ -30,7 +30,7 @@ const useUserIds = (users: User[]) => {
 export const UsersMainPage = (props: IDashboardProps) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  const goTo = useNavigate();
   const { list } = useAppSelector((state) => state.users);
   const [pagination, setPagination] = useState<Pagination>({ page: 0, perPage: 10 });
   const [updateUser, { isLoading }] = useUpdateUserMutation();
@@ -107,6 +107,7 @@ export const UsersMainPage = (props: IDashboardProps) => {
                   </SvgIcon>
                 }
                 variant="contained"
+                onClick={() => goTo("add")}
               >
                 Add
               </Button>

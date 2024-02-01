@@ -20,6 +20,14 @@ export { default as TablePagination } from "@mui/material/TablePagination";
 export { default as TableRow } from "@mui/material/TableRow";
 export { default as CheckBox } from "@mui/material/Checkbox";
 export { default as OutlinedInput } from "@mui/material/OutlinedInput";
+export { default as FormControlLabel } from "@mui/material/FormControlLabel";
+export { default as Checkbox } from "@mui/material/Checkbox";
+export { default as Select } from "@mui/material/Select";
+export { default as FormControl } from "@mui/material/FormControl";
+export { default as FormHelperText } from "@mui/material/FormHelperText";
+export { default as MenuItem } from "@mui/material/MenuItem";
+export { default as Snackbar } from "@mui/material/Snackbar";
+export { default as InputLabel } from "@mui/material/InputLabel";
 
 export { ErrorBoundary } from "./ErrorBoundry";
 export { RenderIf } from "./Utils";

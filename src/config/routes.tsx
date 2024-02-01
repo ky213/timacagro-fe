@@ -21,6 +21,7 @@ import {
   SettingsPage,
   LoginPage,
   RegisterPage,
+  UserAdd,
 } from "src/pages";
 
 export const router = createBrowserRouter([
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
           {
             path: "users",
             Component: UsersMainPage,
+          },
+          {
+            path: "users/add",
+            Component: UserAdd,
           },
           {
             path: "products",

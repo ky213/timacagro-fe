@@ -22,7 +22,7 @@ import {
   LinearProgress,
   Snackbar,
   InputLabel,
-} from "@mui/material";
+} from "src/components";
 
 import { createUser, resetUsers } from "src/data/store/reducers/users";
 import { EMAIL_REG_EXR, PHONE_REG_EXR, Roles } from "src/config/constants";
@@ -30,7 +30,7 @@ import { IRootState, useAppDispatch, useAppSelector } from "src/data/store";
 import { CreateUserInput, Role, User } from "src/data/types/generated";
 import { useCreateUserMutation } from "src/data/api/graphql/mutations.generated";
 
-export const CreateUserPage = () => {
+export const UserAdd = () => {
   const { loading, success, error } = useAppSelector((state: IRootState) => state.users);
   const [createUser, {}] = useCreateUserMutation();
   const dispatch = useAppDispatch();
@@ -61,7 +61,6 @@ export const CreateUserPage = () => {
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -73,7 +72,6 @@ export const CreateUserPage = () => {
         <Typography component="h1" variant="h5">
           Create new user
         </Typography>
-        {<LinearProgress />}
         <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
           <Grid container spacing={2} mt={2}>
             <Grid item xs={12} sm={6}>
