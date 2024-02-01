@@ -25,7 +25,7 @@ import {
 import { useAppSelector } from "src/data/store";
 import { useParams } from "react-router-dom";
 import { useGetUserQuery } from "src/data/api/graphql/queries.generated";
-import { Role } from "src/data/types/generated";
+import { Region, Role } from "src/data/types/generated";
 
 export const UserProfile = () => {
   const params = useParams<string>();
@@ -124,18 +124,26 @@ export const UserProfile = () => {
                         <Grid xs={12} md={6}>
                           <TextField
                             fullWidth
-                            label="Country"
-                            name="country"
+                            label="Region"
+                            name="region"
                             onChange={handleChange}
                             required
-                            value={"Algeria"}
-                          />
+                            select
+                            SelectProps={{ native: true }}
+                            value={currentUser?.role}
+                          >
+                            {Object.values(Region).map((region) => (
+                              <option key={region} value={region}>
+                                {region}
+                              </option>
+                            ))}
+                          </TextField>
                         </Grid>
                         <Grid xs={12} md={6}>
                           <TextField
                             fullWidth
-                            label="Select Role"
-                            name="state"
+                            label="Role"
+                            name="role"
                             onChange={handleChange}
                             required
                             select
