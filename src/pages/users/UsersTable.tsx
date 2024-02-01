@@ -19,7 +19,8 @@ import {
 } from "src/components";
 import { User } from "src/data/types/generated";
 import { CheckIcon } from "src/components/Icons";
-
+import { useNavigate } from "react-router-dom";
+//TODO: set props type
 export const UsersTable = (props: any) => {
   const {
     count = 0,
@@ -34,6 +35,8 @@ export const UsersTable = (props: any) => {
     rowsPerPage = 0,
     selected = [],
   } = props;
+
+  const goTo = useNavigate();
 
   const selectedSome = selected.length > 0 && selected.length < items.length;
   const selectedAll = items.length > 0 && selected.length === items.length;
@@ -70,7 +73,15 @@ export const UsersTable = (props: any) => {
                 const createdAt = format(user.createdAt, "dd/MM/yyyy");
 
                 return (
-                  <TableRow hover key={user.id} selected={isSelected}>
+                  <TableRow
+                    hover
+                    key={user.id}
+                    selected={isSelected}
+                    sx={{
+                      cursor: "pointer",
+                    }}
+                    onClick={() => goTo(`${user.id}`)}
+                  >
                     <TableCell padding="checkbox">
                       <CheckBox
                         checked={isSelected}

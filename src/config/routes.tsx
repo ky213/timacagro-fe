@@ -22,6 +22,7 @@ import {
   LoginPage,
   RegisterPage,
   UserAdd,
+  UserProfile,
 } from "src/pages";
 
 export const router = createBrowserRouter([
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
           {
             path: "users",
             Component: UsersMainPage,
+          },
+          {
+            path: "users/:id",
+            Component: UserProfile,
           },
           {
             path: "users/add",

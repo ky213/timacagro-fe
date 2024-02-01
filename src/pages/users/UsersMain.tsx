@@ -1,17 +1,15 @@
-import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "src/data/store";
-import { Pagination, User } from "src/data/types/generated";
+import { User } from "src/data/types/generated";
 import { useListUsersQuery } from "src/data/api/graphql/queries.generated";
-import { useUpdateUserMutation } from "src/data/api/graphql/mutations.generated";
 import { resetUsers } from "src/data/store/reducers/users";
 import { Button, Container, Stack, Typography, Box } from "src/components";
 import {
   ArrowDownOnSquareIcon,
   ArrowUpOnSquareIcon,
-  MagnifyingGlassIcon,
   PlusIcon,
   SvgIcon,
 } from "src/components/Icons";
@@ -29,15 +27,13 @@ const useUserIds = (users: User[]) => {
 
 export const UsersMainPage = (props: IDashboardProps) => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [perPage, setRowsPerPage] = useState(5);
+  const dispatch = useDispatch();
   const goTo = useNavigate();
   const { list } = useAppSelector((state) => state.users);
-  const [pagination, setPagination] = useState<Pagination>({ page: 0, perPage: 10 });
-  const [updateUser, { isLoading }] = useUpdateUserMutation();
-  const dispatch = useDispatch();
-  const { refetch } = useListUsersQuery({
-    page: pagination.page,
-    perPage: pagination.perPage,
+  const data = useListUsersQuery({
+    page,
+    perPage,
   });
 
   const usersIds = useUserIds(list.users);
@@ -124,7 +120,7 @@ export const UsersMainPage = (props: IDashboardProps) => {
             onSelectAll={customersSelection.handleSelectAll}
             onSelectOne={customersSelection.handleSelectOne}
             page={page}
-            rowsPerPage={rowsPerPage}
+            rowsPerPage={perPage}
             selected={customersSelection.selected}
           />
         </Stack>

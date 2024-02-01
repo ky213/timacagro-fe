@@ -1,96 +1,202 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import PhoneIcon from "@mui/icons-material/Phone";
-import CakeIcon from "@mui/icons-material/Cake";
-import ManIcon from "@mui/icons-material/Man4";
-import WomanIcon from "@mui/icons-material/Woman2";
-import LocationIcon from "@mui/icons-material/LocationOn";
-import TimezoneIcon from "@mui/icons-material/Timelapse";
+import { useCallback, useState } from "react";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Divider,
+  TextField,
+  Unstable_Grid2 as Grid,
+  Avatar,
+  Typography,
+  Container,
+  Stack,
+} from "@mui/material";
 
-import { IRootState } from "src/data/store";
+const states = [
+  {
+    value: "alabama",
+    label: "Alabama",
+  },
+  {
+    value: "new-york",
+    label: "New York",
+  },
+  {
+    value: "san-francisco",
+    label: "San Francisco",
+  },
+  {
+    value: "los-angeles",
+    label: "Los Angeles",
+  },
+];
 
+const user = {
+  avatar: "/default-man-avatar.png",
+  city: "Los Angeles",
+  country: "USA",
+  jobTitle: "Senior Developer",
+  name: "Anika Visser",
+  timezone: "GTM-7",
+};
 export const UserProfile = () => {
-  const { id } = useParams();
-  const { list } = useSelector((state: IRootState) => state.users);
-  const user = list.users.find((user) => user.id === Number(id));
+  const [values, setValues] = useState({
+    firstName: "Anika",
+    lastName: "Visser",
+    email: "demo@devias.io",
+    phone: "",
+    state: "los-angeles",
+    country: "USA",
+  });
+
+  const handleChange = useCallback((event: { target: { name: any; value: any } }) => {
+    setValues((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
+  }, []);
+
+  const handleSubmit = useCallback((event: { preventDefault: () => void }) => {
+    event.preventDefault();
+  }, []);
 
   return (
-    <Box width={"90%"} mx={"auto"} pt={10}>
-      <Card>
-        <CardHeader
-          title={`${user?.firstName} ${user?.lastName}`}
-          subheader={user?.email}
-          avatar={<Avatar alt={`${user?.firstName} ${user?.lastName}`} src={""} />}
-          sx={{
-            zoom: { xs: 1.2, sm: 2 },
-            display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
-          }}
-        />
-        <CardContent sx={{ zoom: 1.2 }}>
-          <Grid container justifyContent={"center"}>
-            <Grid item flex={1}>
-              <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <PhoneIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="Phone" secondary={"+213541784521"} />
-                </ListItem>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <CakeIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="Age" secondary={"25"} />
-                </ListItem>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <ManIcon /> <WomanIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="Gender" secondary={"Homme/Femme"} />
-                </ListItem>
-              </List>
+    <Container maxWidth="lg">
+      <Stack spacing={3}>
+        <div>
+          <Typography variant="h4">Account</Typography>
+        </div>
+        <div>
+          <Grid container spacing={3}>
+            <Grid xs={12} md={6} lg={4}>
+              <Card>
+                <CardContent>
+                  <Box
+                    sx={{
+                      alignItems: "center",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Avatar
+                      src={user.avatar}
+                      sx={{
+                        height: 80,
+                        mb: 2,
+                        width: 80,
+                      }}
+                    />
+                    <Typography gutterBottom variant="h5">
+                      {user.name}
+                    </Typography>
+                    <Typography color="text.secondary" variant="body2">
+                      {user.city} {user.country}
+                    </Typography>
+                    <Typography color="text.secondary" variant="body2">
+                      {user.timezone}
+                    </Typography>
+                  </Box>
+                </CardContent>
+                <Divider />
+                <CardActions>
+                  <Button fullWidth variant="text">
+                    Upload picture
+                  </Button>
+                </CardActions>
+              </Card>
             </Grid>
-            <Grid item flex={2}>
-              <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <LocationIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="From" secondary={`${user?.region} `} />
-                </ListItem>
-                {/* <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <TimezoneIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="Timezone" secondary={`${user?.location?.timezone?.offset}`} />
-                </ListItem> */}
-              </List>
+            <Grid xs={12} md={6} lg={8}>
+              <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+                <Card>
+                  <CardHeader subheader="The information can be edited" title="Profile" />
+                  <CardContent sx={{ pt: 0 }}>
+                    <Box sx={{ m: -1.5 }}>
+                      <Grid container spacing={3}>
+                        <Grid xs={12} md={6}>
+                          <TextField
+                            fullWidth
+                            helperText="Please specify the first name"
+                            label="First name"
+                            name="firstName"
+                            onChange={handleChange}
+                            required
+                            value={values.firstName}
+                          />
+                        </Grid>
+                        <Grid xs={12} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Last name"
+                            name="lastName"
+                            onChange={handleChange}
+                            required
+                            value={values.lastName}
+                          />
+                        </Grid>
+                        <Grid xs={12} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Email Address"
+                            name="email"
+                            onChange={handleChange}
+                            required
+                            value={values.email}
+                          />
+                        </Grid>
+                        <Grid xs={12} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Phone Number"
+                            name="phone"
+                            onChange={handleChange}
+                            type="number"
+                            value={values.phone}
+                          />
+                        </Grid>
+                        <Grid xs={12} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Country"
+                            name="country"
+                            onChange={handleChange}
+                            required
+                            value={values.country}
+                          />
+                        </Grid>
+                        <Grid xs={12} md={6}>
+                          <TextField
+                            fullWidth
+                            label="Select State"
+                            name="state"
+                            onChange={handleChange}
+                            required
+                            select
+                            SelectProps={{ native: true }}
+                            value={values.state}
+                          >
+                            {states.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </TextField>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </CardContent>
+                  <Divider />
+                  <CardActions sx={{ justifyContent: "flex-end" }}>
+                    <Button variant="contained">Save details</Button>
+                  </CardActions>
+                </Card>
+              </form>
             </Grid>
           </Grid>
-        </CardContent>
-      </Card>
-    </Box>
+        </div>
+      </Stack>
+    </Container>
   );
 };

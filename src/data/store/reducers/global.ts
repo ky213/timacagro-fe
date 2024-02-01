@@ -40,10 +40,10 @@ const slice: Slice<IGlobalState> = createSlice({
       state.success = true;
       state.errors = null;
     },
-    setError: (state, { payload }) => {
+    setError: (state, { payload }: { payload: string[] }) => {
       state.loading = false;
       state.success = false;
-      state.errors = payload;
+      state.errors = [...payload];
     },
   },
   extraReducers: (builder) => {
