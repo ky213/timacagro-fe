@@ -15,7 +15,6 @@ import { useListUsersQuery } from "src/data/api/graphql/queries.generated";
 import { useUpdateUserMutation } from "src/data/api/graphql/mutations.generated";
 import { resetUsers } from "src/data/store/reducers/users";
 import { Roles } from "src/config/constants";
-import { FullFeaturedCrudGrid } from "src/components";
 
 export interface IDashboardProps {}
 
@@ -116,7 +115,6 @@ export const UsersPage = (props: IDashboardProps) => {
 
   return (
     <Box mt={10} mx={1} overflow={"auto"}>
-      {/* //TODO: to be changed with the fully featured data grid */}
       <DataGrid
         rows={users}
         columns={columns}
