@@ -1,6 +1,6 @@
 export { HomePage } from "./Home";
 export { DashOverviewPage } from "./DashOverview";
-export { UsersPage } from "./Users";
+export { UsersPage } from "./users";
 export { ProductsPage } from "./Products";
 export { ClientsPage } from "./Clients";
 export { InvoicesPage } from "./Invoices";

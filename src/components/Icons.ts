@@ -13,5 +13,9 @@ export { default as ChevronLeftIcon } from "@heroicons/react/24/solid/ChevronLef
 export { default as CurrencyDollarIcon } from "@heroicons/react/24/solid/CurrencyDollarIcon";
 export { default as BellIcon } from "@heroicons/react/24/solid/BellIcon";
 export { default as Bars3Icon } from "@heroicons/react/24/solid/Bars3Icon";
-
-export { SvgIcon } from "@mui/material";
+export { default as ArrowDownOnSquareIcon } from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
+export { default as ArrowUpOnSquareIcon } from "@heroicons/react/24/solid/ArrowUpOnSquareIcon";
+export { default as PlusIcon } from "@heroicons/react/24/solid/PlusIcon";
+export { default as MagnifyingGlassIcon } from "@heroicons/react/24/solid/MagnifyingGlassIcon";
+export { default as CheckIcon } from "@heroicons/react/24/solid/CheckIcon";
+export { default as SvgIcon } from "@mui/material/SvgIcon";
