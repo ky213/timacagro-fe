@@ -57,7 +57,7 @@ export const ProductDetails = () => {
                     }}
                   >
                     <Avatar
-                      src={"/default-product-avatar.jpg"}
+                      src={`/product-${currentProduct?.type}.jpg`}
                       sx={{
                         height: 80,
                         mb: 2,

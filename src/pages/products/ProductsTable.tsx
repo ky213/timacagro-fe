@@ -42,8 +42,10 @@ export const ProductsTable = (props: any) => {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCell>Label</TableCell>
                 <TableCell>Type</TableCell>
-                <TableCell>Quantity</TableCell>
+                <TableCell>Quantity (Tonne)</TableCell>
+                <TableCell>Available (Tonne)</TableCell>
                 <TableCell>Points</TableCell>
                 <TableCell>Active</TableCell>
                 <TableCell>Added in</TableCell>
@@ -52,6 +54,7 @@ export const ProductsTable = (props: any) => {
             <TableBody>
               {items.map((product: Product) => {
                 const createdAt = format(product.createdAt, "dd/MM/yyyy");
+                const available = (product.available / product.quantity) * 100;
 
                 return (
                   <TableRow
@@ -64,14 +67,17 @@ export const ProductsTable = (props: any) => {
                   >
                     <TableCell>
                       <Stack alignItems="center" direction="row" spacing={2}>
-                        <Avatar src={"/default-man-avatar.png"}>
-                          {getInitials(product.type)}
-                        </Avatar>
-                        <Typography variant="subtitle2">{product.type}</Typography>
+                        <Avatar src={`/product-${product.type}.jpg`} />
+                        <Typography variant="subtitle2">{product.label}</Typography>
                       </Stack>
                     </TableCell>
-                    <TableCell>{product.quantity}</TableCell>
-                    <TableCell>{product.points}</TableCell>
+                    <TableCell>{product.type}</TableCell>
+                    <TableCell>{product.quantity.toLocaleString()}</TableCell>
+                    <TableCell>
+                      {available.toFixed(1)} %
+                      <LinearProgress variant="determinate" value={available} />
+                    </TableCell>
+                    <TableCell>{product.points.toLocaleString()}</TableCell>
                     <TableCell>
                       <RenderIf
                         isTrue={product.active}

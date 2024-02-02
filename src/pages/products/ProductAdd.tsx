@@ -11,11 +11,16 @@ import {
   Typography,
   TextField,
   Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
 } from "src/components";
 
 import { createProduct, resetProducts } from "src/data/store/reducers/products";
 import { IRootState, useAppDispatch, useAppSelector } from "src/data/store";
-import { CreateProductInput, Product } from "src/data/types/generated";
+import { CreateProductInput, Product, ProductType } from "src/data/types/generated";
 import { useCreateProductMutation } from "src/data/api/graphql/mutations.generated";
 import { ShoppingBagIcon } from "src/components/Icons";
 
@@ -32,6 +37,9 @@ export const ProductAdd = () => {
   const onSubmit = async (newProduct: CreateProductInput) => {
     try {
       newProduct.active = true;
+      newProduct.quantity = Number(newProduct.quantity);
+      newProduct.available = Number(newProduct.quantity);
+      newProduct.points = Number(newProduct.points);
       createProduct({ productInfo: newProduct });
     } catch (error) {
       console.log(error);
@@ -71,18 +79,37 @@ export const ProductAdd = () => {
           <Grid container spacing={2} mt={2}>
             <Grid item xs={12}>
               <TextField
-                autoComplete="product-type"
+                autoComplete="product-label"
                 required
                 fullWidth
-                id="type"
-                label="Product type"
+                id="label"
+                label=" Label"
                 autoFocus
-                {...registerField("type", { required: true })}
-                error={Boolean(fieldErrors.type)}
-                helperText={Boolean(fieldErrors.type) && "This field is required"}
+                {...registerField("label", { required: true })}
+                error={Boolean(fieldErrors.label)}
+                helperText={Boolean(fieldErrors.label) && "This field is required"}
               />
             </Grid>
-
+            <Grid item xs={12} mt={2}>
+              <FormControl error={Boolean(fieldErrors.type)} fullWidth>
+                <InputLabel id="role-label">Type</InputLabel>
+                <Select
+                  id="type"
+                  labelId="type-label"
+                  fullWidth
+                  {...registerField("type", { required: true })}
+                >
+                  {Object.values(ProductType).map((type) => (
+                    <MenuItem key={type} value={type}>
+                      {type}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {Boolean(fieldErrors.type) && (
+                  <FormHelperText color={"danger"}>Must select a tye</FormHelperText>
+                )}
+              </FormControl>
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 required
@@ -107,7 +134,6 @@ export const ProductAdd = () => {
                 helperText={Boolean(fieldErrors.points) && "Points are required"}
               />
             </Grid>
-
             <Button
               type="submit"
               fullWidth

@@ -6,7 +6,7 @@ export const ProductsSearch = () => (
     <OutlinedInput
       defaultValue=""
       fullWidth
-      placeholder="Search customer"
+      placeholder="Search product"
       startAdornment={
         <InputAdornment position="start">
           <SvgIcon color="action" fontSize="small">
