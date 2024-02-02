@@ -45,10 +45,12 @@ export type CreateInvoiceInput = {
 };
 
 export type CreateProductInput = {
-  active?: InputMaybe<Scalars['Boolean']['input']>;
+  active: Scalars['Boolean']['input'];
+  available: Scalars['Float']['input'];
+  label: Scalars['String']['input'];
   points: Scalars['Int']['input'];
   quantity: Scalars['Float']['input'];
-  type: Scalars['String']['input'];
+  type: ProductType;
 };
 
 export type CreateUserInput = {
@@ -213,13 +215,21 @@ export type Pagination = {
 
 export type Product = {
   active: Scalars['Boolean']['output'];
+  available: Scalars['Float']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['Int']['output'];
+  label: Scalars['String']['output'];
   points: Scalars['Int']['output'];
   quantity: Scalars['Float']['output'];
-  type: Scalars['String']['output'];
+  type: ProductType;
   updatedAt: Scalars['DateTime']['output'];
 };
+
+export enum ProductType {
+  Gas = 'GAS',
+  Liquid = 'LIQUID',
+  Solid = 'SOLID'
+}
 
 export type ProductsList = Pagination & {
   page: Scalars['Int']['output'];
@@ -323,9 +333,11 @@ export type UpdateInvoiceInput = {
 
 export type UpdateProductInput = {
   active?: InputMaybe<Scalars['Boolean']['input']>;
+  available?: InputMaybe<Scalars['Float']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
   points?: InputMaybe<Scalars['Int']['input']>;
   quantity?: InputMaybe<Scalars['Float']['input']>;
-  type?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<ProductType>;
 };
 
 export type UpdateUserInput = {

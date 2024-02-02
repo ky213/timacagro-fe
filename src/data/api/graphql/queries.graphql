@@ -82,12 +82,14 @@ query ListClients($page: Int!, $perPage: Int!) {
 #Product
 query GetProduct($getProductId: ID!) {
   getProduct(id: $getProductId) {
+    id
+    label
+    type
+    quantity
+    available
+    points
     active
     createdAt
-    id
-    points
-    quantity
-    type
     updatedAt
   }
 }
@@ -96,16 +98,18 @@ query ListProducts($page: Int!, $perPage: Int!) {
   listProducts(page: $page, perPage: $perPage) {
     page
     perPage
+    total
     products {
       id
-      createdAt
-      active
-      points
-      quantity
+      label
       type
+      quantity
+      available
+      points
+      active
+      createdAt
       updatedAt
     }
-    total
   }
 }
 
