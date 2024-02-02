@@ -52,15 +52,7 @@ const slice = createSlice({
     );
 
     builder.addMatcher(queries.endpoints.GetUser.matchFulfilled, (state, { payload }) => {
-      //TODO: to be refactored
-      if (payload.getUser?.__typename) {
-        const { __typename, ...user } = payload.getUser;
-        console.log(user);
-        state.currentUser = user;
-      } else {
-        //@ts-ignore TODO:: fix types
-        state.currentUser = { ...payload.getUser };
-      }
+      state.currentUser = payload.getUser || null;
     });
   },
 });

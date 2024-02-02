@@ -14,19 +14,19 @@ import { api } from 'src/data/api';
 export type GetDateTimeQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetDateTimeQuery = { __typename?: 'Query', getDateTime: any };
+export type GetDateTimeQuery = { getDateTime: any };
 
 export type GetSessionQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetSessionQuery = { __typename?: 'Query', getSession?: { __typename?: 'User', id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any } };
+export type GetSessionQuery = { getSession?: { id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any } };
 
 export type GetUserQueryVariables = Types.Exact<{
   getUserId: Types.Scalars['ID']['input'];
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', getUser?: { __typename?: 'User', id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any } };
+export type GetUserQuery = { getUser?: { id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any } };
 
 export type ListUsersQueryVariables = Types.Exact<{
   page: Types.Scalars['Int']['input'];
@@ -34,14 +34,14 @@ export type ListUsersQueryVariables = Types.Exact<{
 }>;
 
 
-export type ListUsersQuery = { __typename?: 'Query', listUsers: { __typename?: 'UsersList', page: number, perPage: number, total: number, users: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any }> } };
+export type ListUsersQuery = { listUsers: { page: number, perPage: number, total: number, users: Array<{ id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any }> } };
 
 export type GetClientQueryVariables = Types.Exact<{
   getClientId: Types.Scalars['ID']['input'];
 }>;
 
 
-export type GetClientQuery = { __typename?: 'Query', getClient?: { __typename?: 'Client', id: number } };
+export type GetClientQuery = { getClient?: { id: number } };
 
 export type ListClientsQueryVariables = Types.Exact<{
   page: Types.Scalars['Int']['input'];
@@ -49,7 +49,7 @@ export type ListClientsQueryVariables = Types.Exact<{
 }>;
 
 
-export type ListClientsQuery = { __typename?: 'Query', listClients: { __typename?: 'ClientsList', clients: Array<{ __typename?: 'Client', id: number, name: string, updatedAt: any, createdAt: any, active: boolean }> } };
+export type ListClientsQuery = { listClients: { clients: Array<{ id: number, name: string, updatedAt: any, createdAt: any, active: boolean }> } };
 
 export type GetProductQueryVariables = Types.Exact<{
   page: Types.Scalars['Int']['input'];
@@ -58,7 +58,7 @@ export type GetProductQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetProductQuery = { __typename?: 'Query', getProduct?: { __typename?: 'Product', active: boolean, createdAt: any, id: number, points: number, quantity: number, type: string, updatedAt: any } };
+export type GetProductQuery = { getProduct?: { active: boolean, createdAt: any, id: number, points: number, quantity: number, type: string, updatedAt: any } };
 
 export type ListProductsQueryVariables = Types.Exact<{
   page: Types.Scalars['Int']['input'];
@@ -66,14 +66,14 @@ export type ListProductsQueryVariables = Types.Exact<{
 }>;
 
 
-export type ListProductsQuery = { __typename?: 'Query', listProducts: { __typename?: 'ProductsList', page: number, perPage: number, total: number, products: Array<{ __typename?: 'Product', id: number, createdAt: any, active: boolean, points: number, quantity: number, type: string, updatedAt: any }> } };
+export type ListProductsQuery = { listProducts: { page: number, perPage: number, total: number, products: Array<{ id: number, createdAt: any, active: boolean, points: number, quantity: number, type: string, updatedAt: any }> } };
 
 export type GetInvoiceQueryVariables = Types.Exact<{
   getInvoiceId: Types.Scalars['ID']['input'];
 }>;
 
 
-export type GetInvoiceQuery = { __typename?: 'Query', getInvoice?: { __typename?: 'Invoice', id: number, number: string, payed: boolean, total: number, updatedAt: any, createdAt: any, client: number } };
+export type GetInvoiceQuery = { getInvoice?: { id: number, number: string, payed: boolean, total: number, updatedAt: any, createdAt: any, client: number } };
 
 export type LisInvoicesQueryVariables = Types.Exact<{
   page: Types.Scalars['Int']['input'];
@@ -81,7 +81,7 @@ export type LisInvoicesQueryVariables = Types.Exact<{
 }>;
 
 
-export type LisInvoicesQuery = { __typename?: 'Query', listInvoices: { __typename?: 'InvoicesList', page: number, perPage: number, total: number, invoices: Array<{ __typename?: 'Invoice', id: number, createdAt: any, client: number, number: string, payed: boolean, total: number, updatedAt: any }> } };
+export type LisInvoicesQuery = { listInvoices: { page: number, perPage: number, total: number, invoices: Array<{ id: number, createdAt: any, client: number, number: string, payed: boolean, total: number, updatedAt: any }> } };
 
 
 export const GetDateTimeDocument = `

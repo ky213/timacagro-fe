@@ -9,6 +9,7 @@ const config: CodegenConfig = {
       plugins: ["typescript"],
       config: {
         maybeValue: "T",
+        skipTypename: true,
       },
     },
     "src/": {
@@ -39,6 +40,7 @@ const config: CodegenConfig = {
       ],
       config: {
         maybeValue: "T",
+        skipTypename: true,
       },
     },
     "src/data/api/.introspection.json": {

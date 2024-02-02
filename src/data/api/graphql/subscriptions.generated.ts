@@ -14,12 +14,12 @@ import { api } from 'src/data/api';
 export type RandomNumberSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type RandomNumberSubscription = { __typename?: 'Subscription', randomNumber: number };
+export type RandomNumberSubscription = { randomNumber: number };
 
 export type TestConnectionSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type TestConnectionSubscription = { __typename?: 'Subscription', testConnection: number };
+export type TestConnectionSubscription = { testConnection: number };
 
 
 export const RandomNumberDocument = `

@@ -14,7 +14,7 @@ import { api } from 'src/data/api';
 export type RandomizeMutationVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type RandomizeMutation = { __typename?: 'Mutation', randomize: number };
+export type RandomizeMutation = { randomize: number };
 
 export type LoginMutationVariables = Types.Exact<{
   email: Types.Scalars['String']['input'];
@@ -22,19 +22,19 @@ export type LoginMutationVariables = Types.Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'User', id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any } };
+export type LoginMutation = { login?: { id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any } };
 
 export type LogoutMutationVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type LogoutMutation = { __typename?: 'Mutation', logout?: boolean };
+export type LogoutMutation = { logout?: boolean };
 
 export type CreateUserMutationVariables = Types.Exact<{
   userInfo: Types.CreateUserInput;
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: number } };
+export type CreateUserMutation = { createUser: { id: number } };
 
 export type UpdateUserMutationVariables = Types.Exact<{
   updateUserId: Types.Scalars['ID']['input'];
@@ -42,28 +42,28 @@ export type UpdateUserMutationVariables = Types.Exact<{
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: boolean };
+export type UpdateUserMutation = { updateUser: boolean };
 
 export type DeleteUserMutationVariables = Types.Exact<{
   deleteUserId: Types.Scalars['ID']['input'];
 }>;
 
 
-export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: boolean };
+export type DeleteUserMutation = { deleteUser: boolean };
 
 export type ConfirmEmailMutationVariables = Types.Exact<{
   token: Types.Scalars['String']['input'];
 }>;
 
 
-export type ConfirmEmailMutation = { __typename?: 'Mutation', confirmEmail?: boolean };
+export type ConfirmEmailMutation = { confirmEmail?: boolean };
 
 export type ForgotPasswordMutationVariables = Types.Exact<{
   email: Types.Scalars['String']['input'];
 }>;
 
 
-export type ForgotPasswordMutation = { __typename?: 'Mutation', forgotPassword?: string };
+export type ForgotPasswordMutation = { forgotPassword?: string };
 
 export type ResetPasswordMutationVariables = Types.Exact<{
   newPassword: Types.Scalars['String']['input'];
@@ -71,14 +71,14 @@ export type ResetPasswordMutationVariables = Types.Exact<{
 }>;
 
 
-export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword?: boolean };
+export type ResetPasswordMutation = { resetPassword?: boolean };
 
 export type CreateClientMutationVariables = Types.Exact<{
   productInfo: Types.CreateClientInput;
 }>;
 
 
-export type CreateClientMutation = { __typename?: 'Mutation', createClient: { __typename?: 'Client', id: number } };
+export type CreateClientMutation = { createClient: { id: number } };
 
 export type UpdateClientMutationVariables = Types.Exact<{
   updateClientId: Types.Scalars['ID']['input'];
@@ -86,21 +86,21 @@ export type UpdateClientMutationVariables = Types.Exact<{
 }>;
 
 
-export type UpdateClientMutation = { __typename?: 'Mutation', updateClient: boolean };
+export type UpdateClientMutation = { updateClient: boolean };
 
 export type DeleteClientMutationVariables = Types.Exact<{
   deleteClientId: Types.Scalars['ID']['input'];
 }>;
 
 
-export type DeleteClientMutation = { __typename?: 'Mutation', deleteClient: boolean };
+export type DeleteClientMutation = { deleteClient: boolean };
 
 export type CreateInvoiceMutationVariables = Types.Exact<{
   productInfo: Types.CreateInvoiceInput;
 }>;
 
 
-export type CreateInvoiceMutation = { __typename?: 'Mutation', createInvoice: { __typename?: 'Invoice', id: number } };
+export type CreateInvoiceMutation = { createInvoice: { id: number } };
 
 export type UpdateInvoiceMutationVariables = Types.Exact<{
   updateInvoiceId: Types.Scalars['ID']['input'];
@@ -108,21 +108,21 @@ export type UpdateInvoiceMutationVariables = Types.Exact<{
 }>;
 
 
-export type UpdateInvoiceMutation = { __typename?: 'Mutation', updateInvoice: boolean };
+export type UpdateInvoiceMutation = { updateInvoice: boolean };
 
 export type DeleteInvoiceMutationVariables = Types.Exact<{
   deleteInvoiceId: Types.Scalars['ID']['input'];
 }>;
 
 
-export type DeleteInvoiceMutation = { __typename?: 'Mutation', deleteInvoice: boolean };
+export type DeleteInvoiceMutation = { deleteInvoice: boolean };
 
 export type CreateProductMutationVariables = Types.Exact<{
   productInfo: Types.CreateProductInput;
 }>;
 
 
-export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { __typename?: 'Product', id: number } };
+export type CreateProductMutation = { createProduct: { id: number } };
 
 export type UpdateProductMutationVariables = Types.Exact<{
   updateProductId: Types.Scalars['ID']['input'];
@@ -130,28 +130,28 @@ export type UpdateProductMutationVariables = Types.Exact<{
 }>;
 
 
-export type UpdateProductMutation = { __typename?: 'Mutation', updateProduct: boolean };
+export type UpdateProductMutation = { updateProduct: boolean };
 
 export type DeleteProductMutationVariables = Types.Exact<{
   deleteProductId: Types.Scalars['ID']['input'];
 }>;
 
 
-export type DeleteProductMutation = { __typename?: 'Mutation', deleteProduct: boolean };
+export type DeleteProductMutation = { deleteProduct: boolean };
 
 export type ReadTextFileMutationVariables = Types.Exact<{
   file: Types.Scalars['File']['input'];
 }>;
 
 
-export type ReadTextFileMutation = { __typename?: 'Mutation', readTextFile: string };
+export type ReadTextFileMutation = { readTextFile: string };
 
 export type SaveFileMutationVariables = Types.Exact<{
   file: Types.Scalars['File']['input'];
 }>;
 
 
-export type SaveFileMutation = { __typename?: 'Mutation', saveFile: boolean };
+export type SaveFileMutation = { saveFile: boolean };
 
 
 export const RandomizeDocument = `

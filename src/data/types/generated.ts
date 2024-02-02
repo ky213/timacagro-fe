@@ -17,7 +17,6 @@ export type Scalars = {
 };
 
 export type Client = {
-  __typename?: 'Client';
   active: Scalars['Boolean']['output'];
   createdAt: Scalars['DateTime']['output'];
   files: Array<Maybe<Scalars['String']['output']>>;
@@ -27,7 +26,6 @@ export type Client = {
 };
 
 export type ClientsList = Pagination & {
-  __typename?: 'ClientsList';
   clients: Array<Maybe<Client>>;
   page: Scalars['Int']['output'];
   perPage: Scalars['Int']['output'];
@@ -66,14 +64,12 @@ export type CreateUserInput = {
 };
 
 export type Entity = {
-  __typename?: 'Entity';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['ID']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 export type Invoice = {
-  __typename?: 'Invoice';
   client: Scalars['Int']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['Int']['output'];
@@ -84,7 +80,6 @@ export type Invoice = {
 };
 
 export type InvoicesList = Pagination & {
-  __typename?: 'InvoicesList';
   invoices: Array<Maybe<Invoice>>;
   page: Scalars['Int']['output'];
   perPage: Scalars['Int']['output'];
@@ -92,7 +87,6 @@ export type InvoicesList = Pagination & {
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
   confirmEmail?: Maybe<Scalars['Boolean']['output']>;
   createClient: Client;
   createInvoice: Invoice;
@@ -218,7 +212,6 @@ export type Pagination = {
 };
 
 export type Product = {
-  __typename?: 'Product';
   active: Scalars['Boolean']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['Int']['output'];
@@ -229,7 +222,6 @@ export type Product = {
 };
 
 export type ProductsList = Pagination & {
-  __typename?: 'ProductsList';
   page: Scalars['Int']['output'];
   perPage: Scalars['Int']['output'];
   products: Array<Maybe<Product>>;
@@ -237,7 +229,6 @@ export type ProductsList = Pagination & {
 };
 
 export type Query = {
-  __typename?: 'Query';
   getClient?: Maybe<Client>;
   getDateTime: Scalars['DateTime']['output'];
   getInvoice?: Maybe<Invoice>;
@@ -313,7 +304,6 @@ export enum Role {
 }
 
 export type Subscription = {
-  __typename?: 'Subscription';
   randomNumber: Scalars['Float']['output'];
   testConnection: Scalars['Int']['output'];
 };
@@ -351,7 +341,6 @@ export type UpdateUserInput = {
 };
 
 export type User = {
-  __typename?: 'User';
   active: Scalars['Boolean']['output'];
   createdAt: Scalars['DateTime']['output'];
   currentPoints?: Maybe<Scalars['Int']['output']>;
@@ -368,7 +357,6 @@ export type User = {
 };
 
 export type UsersList = Pagination & {
-  __typename?: 'UsersList';
   page: Scalars['Int']['output'];
   perPage: Scalars['Int']['output'];
   total: Scalars['Int']['output'];

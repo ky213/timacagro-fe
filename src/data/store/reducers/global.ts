@@ -48,12 +48,7 @@ const slice: Slice<IGlobalState> = createSlice({
   },
   extraReducers: (builder) => {
     builder.addMatcher(mutations.endpoints.Login.matchFulfilled, (state, { payload }) => {
-      if (payload.login?.__typename) {
-        const { __typename, ...user } = payload.login;
-        state.session = user;
-      } else {
-        state.session = payload.login || null;
-      }
+      state.session = payload.login || null;
     });
     builder.addMatcher(mutations.endpoints.Logout.matchFulfilled, (state) => {
       document.cookie =
@@ -65,12 +60,7 @@ const slice: Slice<IGlobalState> = createSlice({
     builder.addMatcher(
       queries.endpoints.GetSession.matchFulfilled,
       (state, { payload }) => {
-        if (payload.getSession?.__typename) {
-          const { __typename, ...user } = payload.getSession;
-          state.session = user;
-        } else {
-          state.session = payload.getSession || null;
-        }
+        state.session = payload.getSession || null;
         state.loading = false;
       }
     );
