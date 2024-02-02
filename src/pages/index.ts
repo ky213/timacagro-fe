@@ -1,7 +1,7 @@
 export { HomePage } from "./Home";
 export { DashOverviewPage } from "./DashOverview";
 export { UsersMainPage, UserProfile, UserAdd } from "./users";
-export { ProductsPage } from "./Products";
+// TODO: fix // export {} from "./products";
 export { ClientsPage } from "./Clients";
 export { InvoicesPage } from "./Invoices";
 export { RegionsPage } from "./Regions";

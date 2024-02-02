@@ -52,8 +52,6 @@ export type ListClientsQueryVariables = Types.Exact<{
 export type ListClientsQuery = { listClients: { clients: Array<{ id: number, name: string, updatedAt: any, createdAt: any, active: boolean }> } };
 
 export type GetProductQueryVariables = Types.Exact<{
-  page: Types.Scalars['Int']['input'];
-  perPage: Types.Scalars['Int']['input'];
   getProductId: Types.Scalars['ID']['input'];
 }>;
 
@@ -169,7 +167,7 @@ export const ListClientsDocument = `
 }
     `;
 export const GetProductDocument = `
-    query GetProduct($page: Int!, $perPage: Int!, $getProductId: ID!) {
+    query GetProduct($getProductId: ID!) {
   getProduct(id: $getProductId) {
     active
     createdAt

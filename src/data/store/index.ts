@@ -5,12 +5,14 @@ import type { PreloadedState } from "@reduxjs/toolkit";
 import { api } from "../api";
 import globalReducer from "./reducers/global";
 import usersReducer from "./reducers/users";
+import productsReducer from "./reducers/products";
 import { notificationMiddleware } from "./middlewares/notification";
 
 const rootReducer = combineReducers({
   [api.reducerPath]: api.reducer,
   global: globalReducer,
   users: usersReducer,
+  products: productsReducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<IRootState>) => {

@@ -80,7 +80,7 @@ query ListClients($page: Int!, $perPage: Int!) {
 }
 
 #Product
-query GetProduct($page: Int!, $perPage: Int!, $getProductId: ID!) {
+query GetProduct($getProductId: ID!) {
   getProduct(id: $getProductId) {
     active
     createdAt

@@ -14,7 +14,6 @@ import {
   UsersMainPage,
   NotFound,
   DashOverviewPage,
-  ProductsPage,
   ClientsPage,
   InvoicesPage,
   RegionsPage,
@@ -24,6 +23,10 @@ import {
   UserAdd,
   UserProfile,
 } from "src/pages";
+//TODO: fix imports
+import { ProductAdd } from "src/pages/products/ProductAdd";
+import { ProductDetails } from "src/pages/products/ProductDetails";
+import { ProductsMainPage } from "src/pages/products/ProductsMain";
 
 export const router = createBrowserRouter([
   {
@@ -91,7 +94,15 @@ export const router = createBrowserRouter([
           },
           {
             path: "products",
-            Component: ProductsPage,
+            Component: ProductsMainPage,
+          },
+          {
+            path: "products/:id",
+            Component: ProductDetails,
+          },
+          {
+            path: "products/add",
+            Component: ProductAdd,
           },
           {
             path: "clients",
