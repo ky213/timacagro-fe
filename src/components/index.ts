@@ -10,6 +10,10 @@ export { default as LinearProgress } from "@mui/material/LinearProgress";
 export { default as CircularProgress } from "@mui/material/CircularProgress";
 export { default as Container } from "@mui/material/Container";
 export { default as Card } from "@mui/material/Card";
+export { default as CardContent } from "@mui/material/CardContent";
+export { default as Divider } from "@mui/material/Divider";
+export { default as CardActions } from "@mui/material/CardActions";
+export { default as CardHeader } from "@mui/material/CardHeader";
 export { default as InputAdornment } from "@mui/material/InputAdornment";
 export { default as Avatar } from "@mui/material/Avatar";
 export { default as Table } from "@mui/material/Table";
@@ -28,6 +32,7 @@ export { default as FormHelperText } from "@mui/material/FormHelperText";
 export { default as MenuItem } from "@mui/material/MenuItem";
 export { default as Snackbar } from "@mui/material/Snackbar";
 export { default as InputLabel } from "@mui/material/InputLabel";
+export { default as FormLabel } from "@mui/material/FormLabel";
 
 export { ErrorBoundary } from "./ErrorBoundry";
 export { RenderIf } from "./Utils";

@@ -45,7 +45,7 @@ export const ProductsTable = (props: any) => {
                 <TableCell>Label</TableCell>
                 <TableCell>Type</TableCell>
                 <TableCell>Quantity (Tonne)</TableCell>
-                <TableCell>Available (Tonne)</TableCell>
+                <TableCell>Available (%)</TableCell>
                 <TableCell>Points</TableCell>
                 <TableCell>Active</TableCell>
                 <TableCell>Added in</TableCell>

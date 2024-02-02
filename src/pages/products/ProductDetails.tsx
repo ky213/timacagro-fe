@@ -1,37 +1,31 @@
+import { useCallback } from "react";
+import { Unstable_Grid2 as Grid } from "@mui/material";
+import { useAppSelector } from "src/data/store";
+import { useParams } from "react-router-dom";
+import { useGetProductQuery } from "src/data/api/graphql/queries.generated";
 import {
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
-  useCallback,
-  useState,
-} from "react";
-import {
+  Avatar,
   Box,
   Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
-  Divider,
-  TextField,
-  Unstable_Grid2 as Grid,
-  Avatar,
-  Typography,
   Container,
+  Divider,
+  FormLabel,
+  LinearProgress,
   Stack,
-} from "@mui/material";
-import { useAppSelector } from "src/data/store";
-import { useParams } from "react-router-dom";
-import { useGetProductQuery } from "src/data/api/graphql/queries.generated";
-import { Region, Role } from "src/data/types/generated";
+  TextField,
+  Typography,
+} from "src/components";
 
 export const ProductDetails = () => {
   const params = useParams<string>();
   const { currentProduct } = useAppSelector((state) => state.products);
   const { isLoading, isSuccess } = useGetProductQuery({ getProductId: `${params.id}` });
-
+  const available =
+    ((currentProduct?.available || 0) / (currentProduct?.quantity || 1)) * 100;
   const handleChange = useCallback((evenst: any) => {}, []);
 
   const handleSubmit = useCallback((event: { preventDefault: () => void }) => {
@@ -122,6 +116,12 @@ export const ProductDetails = () => {
                             required
                             value={currentProduct?.points}
                           />
+                        </Grid>
+                        <Grid xs={12} md={6}>
+                          <FormLabel>Available</FormLabel>
+                          <br />
+                          {available.toFixed(1)} %
+                          <LinearProgress variant="determinate" value={available} />
                         </Grid>
                       </Grid>
                     </Box>
