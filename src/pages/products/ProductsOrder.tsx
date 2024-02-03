@@ -24,8 +24,12 @@ import { CreateProductInput, Product, ProductType } from "src/data/types/generat
 import { useCreateProductMutation } from "src/data/api/graphql/mutations.generated";
 import { ShoppingBagIcon, ShoppingCartIcon } from "src/components/Icons";
 import { useListProductsQuery } from "src/data/api/graphql/queries.generated";
+import { SelectChangeEvent } from "@mui/material/Select/SelectInput";
 
 export const clients = [
+  {
+    name: "",
+  },
   {
     name: "Client One",
   },
@@ -38,12 +42,13 @@ export const clients = [
 ];
 
 export const ProductsOrderPage = () => {
-  const {
-    list: { products },
-  } = useAppSelector((state) => state.products);
   const { isLoading, isSuccess } = useListProductsQuery({ page: 0, perPage: 1000 });
   const dispatch = useAppDispatch();
   const gotTo = useNavigate();
+  const [productId, setSelectedProduct] = useState<number[]>([]);
+  const {
+    list: { products },
+  } = useAppSelector((state) => state.products);
   const {
     handleSubmit,
     register: registerField,
@@ -52,9 +57,18 @@ export const ProductsOrderPage = () => {
 
   const onSubmit = async (order: any) => {
     try {
+      console.log(order);
     } catch (error) {
       console.log(error);
     }
+  };
+  const handleProductSelect = (event: SelectChangeEvent<typeof productId>) => {
+    const {
+      target: { value },
+    } = event;
+    console.log(value);
+    // @ts-ignore TODO:fix types
+    setSelectedProduct(value);
   };
 
   return (
@@ -95,29 +109,29 @@ export const ProductsOrderPage = () => {
                     </MenuItem>
                   ))}
                 </Select>
-                {Boolean(fieldErrors.type) && (
-                  <FormHelperText color={"danger"}>Must select a tye</FormHelperText>
+                {Boolean(fieldErrors.client) && (
+                  <FormHelperText color={"danger"}>Must select a client</FormHelperText>
                 )}
               </FormControl>
             </Grid>
             <Grid item xs={12} mt={2}>
               <FormControl error={Boolean(fieldErrors.type)} fullWidth>
-                <InputLabel id="role-label">Product</InputLabel>
+                <InputLabel id="product-label">Product</InputLabel>
                 <Select
                   id="product"
                   labelId="product-label"
+                  value={productId}
+                  onChange={handleProductSelect}
                   fullWidth
-                  {...registerField("product", { required: true })}
+                  multiple
                 >
-                  {products.map(({ label, available }) => (
-                    <MenuItem key={label} value={label}>
-                      {label} - instock: {available.toLocaleString()} tonne
+                  {products.map(({ id, label, available }) => (
+                    <MenuItem key={id} value={id} disabled={available <= 0}>
+                      {label} - <strong> {available.toLocaleString()} tonne</strong>
                     </MenuItem>
                   ))}
                 </Select>
-                {Boolean(fieldErrors.type) && (
-                  <FormHelperText color={"danger"}>Must select a product</FormHelperText>
-                )}
+                <FormHelperText color={"danger"}>Select a product</FormHelperText>
               </FormControl>
             </Grid>
             <Button
