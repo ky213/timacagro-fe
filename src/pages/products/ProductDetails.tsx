@@ -92,7 +92,7 @@ export const ProductDetails = () => {
                             name="firstName"
                             onChange={handleChange}
                             required
-                            value={currentProduct?.type}
+                            defaultValue={currentProduct?.type}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
@@ -103,7 +103,7 @@ export const ProductDetails = () => {
                             type="number"
                             onChange={handleChange}
                             required
-                            value={currentProduct?.quantity}
+                            defaultValue={currentProduct?.quantity}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
@@ -114,7 +114,7 @@ export const ProductDetails = () => {
                             type="number"
                             onChange={handleChange}
                             required
-                            value={currentProduct?.points}
+                            defaultValue={currentProduct?.points}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>

@@ -98,7 +98,7 @@ export const UserProfile = () => {
                             name="firstName"
                             onChange={handleChange}
                             required
-                            value={currentUser?.firstName}
+                            defaultValue={currentUser?.firstName}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
@@ -108,7 +108,7 @@ export const UserProfile = () => {
                             name="lastName"
                             onChange={handleChange}
                             required
-                            value={currentUser?.lastName}
+                            defaultValue={currentUser?.lastName}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
@@ -118,7 +118,7 @@ export const UserProfile = () => {
                             name="email"
                             onChange={handleChange}
                             required
-                            value={currentUser?.email}
+                            defaultValue={currentUser?.email}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
@@ -130,7 +130,7 @@ export const UserProfile = () => {
                             required
                             select
                             SelectProps={{ native: true }}
-                            value={currentUser?.role}
+                            defaultValue={currentUser?.role}
                           >
                             {Object.values(Region).map((region) => (
                               <option key={region} value={region}>
@@ -148,7 +148,7 @@ export const UserProfile = () => {
                             required
                             select
                             SelectProps={{ native: true }}
-                            value={currentUser?.role}
+                            defaultValue={currentUser?.role}
                           >
                             {Object.values(Role).map((role) => (
                               <option key={role} value={role}>

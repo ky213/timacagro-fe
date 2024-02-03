@@ -71,6 +71,10 @@ export type Entity = {
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
+export type ImportProductsInput = {
+  products: Array<CreateProductInput>;
+};
+
 export type Invoice = {
   client: Scalars['Int']['output'];
   createdAt: Scalars['DateTime']['output'];
@@ -99,6 +103,7 @@ export type Mutation = {
   deleteProduct: Scalars['Boolean']['output'];
   deleteUser: Scalars['Boolean']['output'];
   forgotPassword?: Maybe<Scalars['String']['output']>;
+  importProducts: Scalars['Boolean']['output'];
   login?: Maybe<User>;
   logout?: Maybe<Scalars['Boolean']['output']>;
   randomize: Scalars['Float']['output'];
@@ -159,6 +164,11 @@ export type MutationDeleteUserArgs = {
 
 export type MutationForgotPasswordArgs = {
   email: Scalars['String']['input'];
+};
+
+
+export type MutationImportProductsArgs = {
+  productsList: ImportProductsInput;
 };
 
 

@@ -124,6 +124,13 @@ export type CreateProductMutationVariables = Types.Exact<{
 
 export type CreateProductMutation = { createProduct: { id: number } };
 
+export type ImportProductsMutationVariables = Types.Exact<{
+  productsList: Types.ImportProductsInput;
+}>;
+
+
+export type ImportProductsMutation = { importProducts: boolean };
+
 export type UpdateProductMutationVariables = Types.Exact<{
   updateProductId: Types.Scalars['ID']['input'];
   productInfo: Types.UpdateProductInput;
@@ -255,6 +262,11 @@ export const CreateProductDocument = `
   }
 }
     `;
+export const ImportProductsDocument = `
+    mutation ImportProducts($productsList: ImportProductsInput!) {
+  importProducts(productsList: $productsList)
+}
+    `;
 export const UpdateProductDocument = `
     mutation UpdateProduct($updateProductId: ID!, $productInfo: UpdateProductInput!) {
   updateProduct(id: $updateProductId, productInfo: $productInfo)
@@ -326,6 +338,9 @@ const injectedRtkApi = api.injectEndpoints({
     CreateProduct: build.mutation<CreateProductMutation, CreateProductMutationVariables>({
       query: (variables) => ({ document: CreateProductDocument, variables })
     }),
+    ImportProducts: build.mutation<ImportProductsMutation, ImportProductsMutationVariables>({
+      query: (variables) => ({ document: ImportProductsDocument, variables })
+    }),
     UpdateProduct: build.mutation<UpdateProductMutation, UpdateProductMutationVariables>({
       query: (variables) => ({ document: UpdateProductDocument, variables })
     }),
@@ -342,5 +357,5 @@ const injectedRtkApi = api.injectEndpoints({
 });
 
 export { injectedRtkApi as api };
-export const { useRandomizeMutation, useLoginMutation, useLogoutMutation, useCreateUserMutation, useUpdateUserMutation, useDeleteUserMutation, useConfirmEmailMutation, useForgotPasswordMutation, useResetPasswordMutation, useCreateClientMutation, useUpdateClientMutation, useDeleteClientMutation, useCreateInvoiceMutation, useUpdateInvoiceMutation, useDeleteInvoiceMutation, useCreateProductMutation, useUpdateProductMutation, useDeleteProductMutation, useReadTextFileMutation, useSaveFileMutation } = injectedRtkApi;
+export const { useRandomizeMutation, useLoginMutation, useLogoutMutation, useCreateUserMutation, useUpdateUserMutation, useDeleteUserMutation, useConfirmEmailMutation, useForgotPasswordMutation, useResetPasswordMutation, useCreateClientMutation, useUpdateClientMutation, useDeleteClientMutation, useCreateInvoiceMutation, useUpdateInvoiceMutation, useDeleteInvoiceMutation, useCreateProductMutation, useImportProductsMutation, useUpdateProductMutation, useDeleteProductMutation, useReadTextFileMutation, useSaveFileMutation } = injectedRtkApi;
 

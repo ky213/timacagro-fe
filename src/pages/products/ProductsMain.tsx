@@ -17,7 +17,7 @@ import { ProductsTable } from "./ProductsTable";
 import { ProductsSearch } from "./ProductSearch";
 import { Input } from "@mui/material";
 import { readFile } from "src/shared/utils/files";
-import { useCreateProductMutation } from "src/data/api/graphql/mutations.generated";
+import { useImportProductsMutation } from "src/data/api/graphql/mutations.generated";
 
 export interface IDashboardProps {}
 
@@ -28,7 +28,7 @@ export const ProductsMainPage = (props: IDashboardProps) => {
   const goTo = useNavigate();
   const { list } = useAppSelector((state) => state.products);
   const fileRef = useRef<HTMLInputElement | undefined>();
-  const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
+  const [importProducts, { isLoading, isSuccess }] = useImportProductsMutation();
   const { refetch } = useListProductsQuery({
     page,
     perPage,
@@ -61,16 +61,17 @@ export const ProductsMainPage = (props: IDashboardProps) => {
 
     file?.click();
 
-    //@ts-ignore
+    //@ts-ignore TODO:fix types
     file.onchange = async ({ target }) => {
       //@ts-ignore
       if (target.files.length) {
         //@ts-ignore
-        const data: CreateProductInput[] = readFile(await target.files[0].arrayBuffer());
-        const prod = data[2];
+        const products: CreateProductInput[] = readFile(
+          //@ts-ignore
+          await target.files[0].arrayBuffer()
+        );
 
-        console.log(prod);
-        createProduct({ productInfo: prod });
+        importProducts({ productsList: { products } });
       }
     };
   };

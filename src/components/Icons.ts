@@ -20,3 +20,5 @@ export { default as PlusIcon } from "@heroicons/react/24/solid/PlusIcon";
 export { default as MagnifyingGlassIcon } from "@heroicons/react/24/solid/MagnifyingGlassIcon";
 export { default as CheckIcon } from "@heroicons/react/24/solid/CheckIcon";
 export { default as SvgIcon } from "@mui/material/SvgIcon";
+export { default as ArrowDownIcon } from "@heroicons/react/24/solid/ArrowDownIcon";
+export { default as ArrowUpIcon } from "@heroicons/react/24/solid/ArrowUpIcon";
