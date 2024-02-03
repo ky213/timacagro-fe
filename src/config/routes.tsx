@@ -28,7 +28,7 @@ import {
 import { ProductAdd } from "src/pages/products/ProductAdd";
 import { ProductDetails } from "src/pages/products/ProductDetails";
 import { ProductsMainPage } from "src/pages/products/ProductsMain";
-import ProductsOrderPage from "src/pages/products/ProductsOrder";
+import { ProductsOrderPage } from "src/pages/products/ProductsOrder";
 
 export const router = createBrowserRouter([
   {

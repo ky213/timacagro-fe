@@ -138,7 +138,7 @@ export const ProductsMainPage = (props: IDashboardProps) => {
                     <PlusIcon />
                   </SvgIcon>
                 }
-                variant="contained"
+                variant="text"
                 onClick={() => goTo("add")}
               >
                 Add
