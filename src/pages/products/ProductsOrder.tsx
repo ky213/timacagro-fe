@@ -16,6 +16,8 @@ import {
   Select,
   MenuItem,
   FormHelperText,
+  RenderIf,
+  Stack,
 } from "src/components";
 
 import { createProduct, resetProducts } from "src/data/store/reducers/products";
@@ -46,6 +48,9 @@ export const ProductsOrderPage = () => {
   const dispatch = useAppDispatch();
   const gotTo = useNavigate();
   const [productId, setSelectedProduct] = useState<number[]>([]);
+  const [exceededQuantity, setExceededQuantity] = useState<{ [key: string]: boolean }>(
+    {}
+  );
   const {
     list: { products },
   } = useAppSelector((state) => state.products);
@@ -69,6 +74,18 @@ export const ProductsOrderPage = () => {
     console.log(value);
     // @ts-ignore TODO:fix types
     setSelectedProduct(value);
+  };
+
+  const handleOnQuantityChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    id: number
+  ) => {
+    const newValue = +event.target.value;
+    const product = products.find((product) => product.id === id);
+
+    if ((product && newValue > product?.available) || newValue < 1)
+      setExceededQuantity({ [id]: true });
+    else setExceededQuantity({ [id]: false });
   };
 
   return (
@@ -95,7 +112,7 @@ export const ProductsOrderPage = () => {
         >
           <Grid container m={"auto"} xs={6} spacing={2} mt={1}>
             <Grid item xs={12} mt={2}>
-              <FormControl error={Boolean(fieldErrors.type)} fullWidth>
+              <FormControl error={Boolean(fieldErrors.client)} fullWidth>
                 <InputLabel id="role-label">Client</InputLabel>
                 <Select
                   id="client"
@@ -115,7 +132,7 @@ export const ProductsOrderPage = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12} mt={2}>
-              <FormControl error={Boolean(fieldErrors.type)} fullWidth>
+              <FormControl error={Boolean(fieldErrors.product)} fullWidth>
                 <InputLabel id="product-label">Product</InputLabel>
                 <Select
                   id="product"
@@ -131,8 +148,44 @@ export const ProductsOrderPage = () => {
                     </MenuItem>
                   ))}
                 </Select>
-                <FormHelperText color={"danger"}>Select a product</FormHelperText>
+                <RenderIf
+                  isTrue={productId.length === 0}
+                  component={
+                    <FormHelperText color={"danger"}>Select a product</FormHelperText>
+                  }
+                />
               </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              {products.map(({ id, label }) => {
+                if (productId.includes(id))
+                  return (
+                    <Grid container xs={12} alignItems={"center"} spacing={1} mb={1}>
+                      <Grid item xs={6} mt={1}>
+                        <Typography variant="h6">{label}</Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          fullWidth
+                          name={label}
+                          type="number"
+                          id="quantity"
+                          label="Quantity (Tonne)"
+                          error={exceededQuantity[id]}
+                          onChange={(event) => handleOnQuantityChange(event, id)}
+                        />
+                        <RenderIf
+                          isTrue={exceededQuantity[id]}
+                          component={
+                            <FormHelperText color="danger">
+                              exceeded available quantity
+                            </FormHelperText>
+                          }
+                        />
+                      </Grid>
+                    </Grid>
+                  );
+              })}
             </Grid>
             <Button
               type="submit"
