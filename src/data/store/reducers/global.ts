@@ -61,7 +61,6 @@ const slice: Slice<IGlobalState> = createSlice({
       queries.endpoints.GetSession.matchFulfilled,
       (state, { payload }) => {
         state.session = payload.getSession || null;
-        state.loading = false;
       }
     );
   },

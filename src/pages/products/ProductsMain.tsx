@@ -15,7 +15,6 @@ import {
 } from "src/components/Icons";
 import { ProductsTable } from "./ProductsTable";
 import { ProductsSearch } from "./ProductSearch";
-import { useSelection } from "src/shared/hooks/use-selection";
 
 export interface IDashboardProps {}
 

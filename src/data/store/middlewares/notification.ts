@@ -15,9 +15,11 @@ export const notificationMiddleware: Middleware =
       enqueueSnackbar(action.error?.message || "Unknown error.", { variant: "error" });
     }
 
-    if (isFulfilled(action) && action.meta.arg?.type !== "query") {
+    if (isFulfilled(action)) {
       dispatch(setSucess({}));
-      enqueueSnackbar("Success ", { variant: "success", autoHideDuration: 2000 });
+
+      if (action.meta.arg?.type !== "query")
+        enqueueSnackbar("Success ", { variant: "success", autoHideDuration: 2000 });
     }
 
     return next(action);

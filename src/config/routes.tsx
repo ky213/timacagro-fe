@@ -161,7 +161,7 @@ async function LoginRedirect({ params }: LoaderFunctionArgs) {
 //TODO: to be refactored
 async function getCurrentSession() {
   var interval: NodeJS.Timer;
-  let count = 40; //check for 2 seconds
+  let count = 10; //check for 0.5 second
 
   return new Promise((resolve) => {
     store.subscribe(() => {

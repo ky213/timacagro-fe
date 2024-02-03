@@ -3,7 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { SideNav } from "./SideNav";
 import { TopNav } from "./TopNav";
-import { Alert, Box, RenderIf, Typography } from "src/components";
+import { Alert, Box, LinearProgress, RenderIf, Typography } from "src/components";
 import { useAppSelector } from "src/data/store";
 
 const SIDE_NAV_WIDTH = 280;
@@ -51,6 +51,7 @@ export const DashboardLayout = (props: any) => {
       <SideNav onClose={() => setOpenNav(false)} open={openNav} />
       <LayoutRoot>
         <LayoutContainer>
+          <RenderIf isTrue={loading} component={<LinearProgress />} />
           <Box pt={5} px={5} justifyContent={"center"}>
             <RenderIf
               isTrue={Boolean(errors)}
