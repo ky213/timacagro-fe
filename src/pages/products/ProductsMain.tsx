@@ -11,6 +11,8 @@ import {
   ArrowDownOnSquareIcon,
   ArrowUpOnSquareIcon,
   PlusIcon,
+  ProductIcon,
+  ShoppingCartIcon,
   SvgIcon,
 } from "src/components/Icons";
 import { ProductsTable } from "./ProductsTable";
@@ -119,6 +121,17 @@ export const ProductsMainPage = (props: IDashboardProps) => {
               </Stack>
             </Stack>
             <div>
+              <Button
+                startIcon={
+                  <SvgIcon fontSize="small">
+                    <ShoppingCartIcon />
+                  </SvgIcon>
+                }
+                variant="contained"
+                onClick={() => goTo("order")}
+              >
+                order
+              </Button>{" "}
               <Button
                 startIcon={
                   <SvgIcon fontSize="small">

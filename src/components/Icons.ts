@@ -4,6 +4,7 @@ export { default as LockClosedIcon } from "@heroicons/react/24/solid/LockClosedI
 export { default as ProductIcon } from "@heroicons/react/24/solid/ShoppingBagIcon";
 export { default as MapIcon } from "@heroicons/react/24/solid/MapIcon";
 export { default as ShoppingBagIcon } from "@heroicons/react/24/solid/ShoppingBagIcon";
+export { default as ShoppingCartIcon } from "@heroicons/react/24/solid/ShoppingCartIcon";
 export { default as UserIcon } from "@heroicons/react/24/solid/UserIcon";
 export { default as UserPlusIcon } from "@heroicons/react/24/solid/UserPlusIcon";
 export { default as UsersIcon } from "@heroicons/react/24/solid/UsersIcon";
