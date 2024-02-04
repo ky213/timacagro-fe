@@ -54,7 +54,7 @@ export const ProductsTable = (props: any) => {
             <TableBody>
               {items.map((product: Product) => {
                 const createdAt = format(product.createdAt, "dd/MM/yyyy");
-                const available = (product.available / product.quantity) * 100;
+                const available = 100 - (product.available / product.quantity) * 100;
 
                 return (
                   <TableRow

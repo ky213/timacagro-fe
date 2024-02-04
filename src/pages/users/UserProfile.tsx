@@ -1,12 +1,4 @@
-import {
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
-  useCallback,
-  useState,
-} from "react";
+import { useCallback } from "react";
 import {
   Box,
   Button,
@@ -24,19 +16,20 @@ import {
   LinearProgress,
   FormLabel,
 } from "@mui/material";
-import { useAppSelector } from "src/data/store";
 import { useParams } from "react-router-dom";
 import { useGetUserQuery } from "src/data/api/graphql/queries.generated";
 import { Region, Role } from "src/data/types/generated";
+import { useAppSelector } from "src/data/store";
 
 export const UserProfile = () => {
-  const params = useParams<string>();
-  const { currentUser } = useAppSelector((state) => state.users);
-  const { isLoading, isSuccess } = useGetUserQuery({ getUserId: params.id || "" });
+  const params = useParams();
+  const { data, isLoading, isSuccess } = useGetUserQuery({ getUserId: params.id || "" });
+  const { currentUser: user } = useAppSelector((state) => state.users);
   const progress = (
-    ((currentUser?.currentPoints || 0) / (currentUser?.targetPoints || 1)) *
+    ((user?.currentPoints || 0) / (user?.targetPoints || 1)) *
     100
   ).toFixed(1);
+
   const handleChange = useCallback((evenst: any) => {}, []);
 
   const handleSubmit = useCallback((event: { preventDefault: () => void }) => {
@@ -70,7 +63,7 @@ export const UserProfile = () => {
                       }}
                     />
                     <Typography gutterBottom variant="h5">
-                      {currentUser?.firstName + " " + currentUser?.lastName}
+                      {user?.firstName + " " + user?.lastName}
                     </Typography>
                     <Typography color="text.secondary" variant="body2">
                       {"Algiers"} {"Algeria"}
@@ -103,7 +96,7 @@ export const UserProfile = () => {
                             name="firstName"
                             onChange={handleChange}
                             required
-                            defaultValue={currentUser?.firstName}
+                            defaultValue={user?.firstName}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
@@ -113,7 +106,7 @@ export const UserProfile = () => {
                             name="lastName"
                             onChange={handleChange}
                             required
-                            defaultValue={currentUser?.lastName}
+                            defaultValue={user?.lastName}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
@@ -123,7 +116,7 @@ export const UserProfile = () => {
                             name="email"
                             onChange={handleChange}
                             required
-                            defaultValue={currentUser?.email}
+                            defaultValue={user?.email}
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
@@ -135,7 +128,7 @@ export const UserProfile = () => {
                             required
                             select
                             SelectProps={{ native: true }}
-                            defaultValue={currentUser?.region}
+                            defaultValue={user?.region}
                           >
                             {Object.values(Region).map((region) => (
                               <option key={region} value={region}>
@@ -153,7 +146,7 @@ export const UserProfile = () => {
                             required
                             select
                             SelectProps={{ native: true }}
-                            defaultValue={currentUser?.role}
+                            defaultValue={user?.role}
                           >
                             {Object.values(Role).map((role) => (
                               <option key={role} value={role}>

@@ -25,7 +25,7 @@ export const ProductDetails = () => {
   const { currentProduct } = useAppSelector((state) => state.products);
   const { isLoading, isSuccess } = useGetProductQuery({ getProductId: `${params.id}` });
   const available =
-    ((currentProduct?.available || 0) / (currentProduct?.quantity || 1)) * 100;
+    100 - ((currentProduct?.available || 0) / (currentProduct?.quantity || 1)) * 100;
   const handleChange = useCallback((evenst: any) => {}, []);
 
   const handleSubmit = useCallback((event: { preventDefault: () => void }) => {
@@ -80,16 +80,16 @@ export const ProductDetails = () => {
             <Grid xs={12} md={6} lg={8}>
               <form autoComplete="off" noValidate onSubmit={handleSubmit}>
                 <Card>
-                  <CardHeader subheader="The information can be edited" title="Profile" />
+                  <CardHeader subheader="The information can be edited" title="Details" />
                   <CardContent sx={{ pt: 0 }}>
                     <Box sx={{ m: -1.5 }}>
                       <Grid container spacing={3}>
                         <Grid xs={12} md={6}>
                           <TextField
                             fullWidth
-                            helperText="Please specify the first name"
-                            label="First name"
-                            name="firstName"
+                            helperText="Please specify a type"
+                            label="Type "
+                            name="type"
                             onChange={handleChange}
                             required
                             defaultValue={currentProduct?.type}

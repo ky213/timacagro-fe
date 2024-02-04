@@ -131,12 +131,13 @@ export const ProductsOrderPage = () => {
         </Typography>
         <Box
           component="form"
-          noValidate
+          display={"flex"}
           justifyContent={"center"}
           onSubmit={handleSubmit(onSubmit)}
           sx={{ mt: 3, width: "100%" }}
+          noValidate
         >
-          <Grid container m={"auto"} xs={6} spacing={2} mt={1}>
+          <Grid container sm={5} spacing={2}>
             <Grid item xs={12} mt={2}>
               <FormControl error={Boolean(fieldErrors.client)} fullWidth>
                 <InputLabel id="role-label">Client</InputLabel>

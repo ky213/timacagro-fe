@@ -9,6 +9,7 @@ import App from "./App";
 import { store } from "src/data/store";
 import { ThemeProvider } from "@mui/material";
 import { createTheme } from "./theme";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
@@ -24,3 +25,5 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
+
+serviceWorkerRegistration.register();
