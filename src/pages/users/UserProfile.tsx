@@ -21,6 +21,8 @@ import {
   Typography,
   Container,
   Stack,
+  LinearProgress,
+  FormLabel,
 } from "@mui/material";
 import { useAppSelector } from "src/data/store";
 import { useParams } from "react-router-dom";
@@ -31,7 +33,10 @@ export const UserProfile = () => {
   const params = useParams<string>();
   const { currentUser } = useAppSelector((state) => state.users);
   const { isLoading, isSuccess } = useGetUserQuery({ getUserId: params.id || "" });
-
+  const progress = (
+    ((currentUser?.currentPoints || 0) / (currentUser?.targetPoints || 1)) *
+    100
+  ).toFixed(1);
   const handleChange = useCallback((evenst: any) => {}, []);
 
   const handleSubmit = useCallback((event: { preventDefault: () => void }) => {
@@ -130,7 +135,7 @@ export const UserProfile = () => {
                             required
                             select
                             SelectProps={{ native: true }}
-                            defaultValue={currentUser?.role}
+                            defaultValue={currentUser?.region}
                           >
                             {Object.values(Region).map((region) => (
                               <option key={region} value={region}>
@@ -156,6 +161,15 @@ export const UserProfile = () => {
                               </option>
                             ))}
                           </TextField>
+                        </Grid>
+                        <Grid xs={12} md={6}>
+                          <FormLabel>Progress</FormLabel>
+                          <br />
+                          {progress} %
+                          <LinearProgress
+                            variant="determinate"
+                            value={Number(progress)}
+                          />
                         </Grid>
                       </Grid>
                     </Box>
