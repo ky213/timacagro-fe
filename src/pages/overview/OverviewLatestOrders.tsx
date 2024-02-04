@@ -17,6 +17,7 @@ import {
 import { SvgIcon } from "src/components/Icons";
 import { Scrollbar } from "src/components/ScrollBar";
 import { SeverityPill } from "src/components/SeverityPill";
+import { useNavigate } from "react-router-dom";
 
 const statusMap = {
   pending: "warning",
@@ -24,8 +25,8 @@ const statusMap = {
   refunded: "error",
 };
 
-export const OverviewLatestOrders = (props: any) => {
-  const { orders = [], sx } = props;
+export const OverviewLatestOrders = ({ orders = [], sx }: any) => {
+  const goTo = useNavigate();
 
   return (
     <Card sx={sx}>
@@ -35,10 +36,10 @@ export const OverviewLatestOrders = (props: any) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Order</TableCell>
-                <TableCell>Customer</TableCell>
+                <TableCell>Client</TableCell>
+                <TableCell>Product</TableCell>
+                <TableCell>Quantity</TableCell>
                 <TableCell sortDirection="desc">Date</TableCell>
-                <TableCell>Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -49,13 +50,8 @@ export const OverviewLatestOrders = (props: any) => {
                   <TableRow hover key={order.id}>
                     <TableCell>{order.ref}</TableCell>
                     <TableCell>{order.customer.name}</TableCell>
+                    <TableCell>{order.amount}</TableCell>
                     <TableCell>{createdAt}</TableCell>
-                    <TableCell>
-                      {/* @ts-ignore */}
-                      <SeverityPill color={statusMap[order.status]}>
-                        {order.status}
-                      </SeverityPill>
-                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -74,6 +70,7 @@ export const OverviewLatestOrders = (props: any) => {
           }
           size="small"
           variant="text"
+          onClick={() => goTo("/dashboard/products")}
         >
           View all
         </Button>

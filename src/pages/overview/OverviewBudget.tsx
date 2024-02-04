@@ -18,9 +18,10 @@ export const OverviewBudget = (props: any) => {
         >
           <Stack spacing={1}>
             <Typography color="text.secondary" variant="overline">
-              Budget
+              Quantity
             </Typography>
             <Typography variant="h4">{value}</Typography>
+            <small>Tonne</small>
           </Stack>
           <Avatar
             sx={{

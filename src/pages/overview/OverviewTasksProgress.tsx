@@ -24,7 +24,7 @@ export const OverviewTasksProgress = (props: any) => {
         >
           <Stack spacing={1}>
             <Typography color="text.secondary" gutterBottom variant="overline">
-              Task Progress
+              Total Progress
             </Typography>
             <Typography variant="h4">{value}%</Typography>
           </Stack>

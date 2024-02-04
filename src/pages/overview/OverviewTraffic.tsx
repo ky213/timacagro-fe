@@ -85,7 +85,7 @@ export const OverviewTraffic = (props: any) => {
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Traffic Source" />
+      <CardHeader title="Top 3 Products" />
       <CardContent>
         <Chart
           height={300}
