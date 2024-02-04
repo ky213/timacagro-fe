@@ -126,6 +126,7 @@ export type CreateProductMutation = { createProduct: { id: number } };
 
 export type ImportProductsMutationVariables = Types.Exact<{
   productsList: Types.ImportProductsInput;
+  userPoints?: Types.InputMaybe<Types.Scalars['Float']['input']>;
 }>;
 
 
@@ -263,8 +264,8 @@ export const CreateProductDocument = `
 }
     `;
 export const ImportProductsDocument = `
-    mutation ImportProducts($productsList: ImportProductsInput!) {
-  importProducts(productsList: $productsList)
+    mutation ImportProducts($productsList: ImportProductsInput!, $userPoints: Float) {
+  importProducts(productsList: $productsList, userPoints: $userPoints)
 }
     `;
 export const UpdateProductDocument = `

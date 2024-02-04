@@ -81,7 +81,7 @@ export const ProductsOrderPage = () => {
         setError("product", { message: "Must select a product" });
         return;
       }
-
+      let userPoints = 0;
       const orderedProducts = products
         .filter(({ id }) => order[id])
         .map((product) => {
@@ -89,11 +89,15 @@ export const ProductsOrderPage = () => {
             ...product,
             available: product.available - order[product.id],
           };
+
           const { id, createdAt, updatedAt, ...rest } = newProduct;
+
+          userPoints += product.points * order[product.id];
+
           return rest;
         });
 
-      importProducts({ productsList: { products: orderedProducts } });
+      importProducts({ productsList: { products: orderedProducts }, userPoints });
     } catch (error) {
       console.log(error);
     }

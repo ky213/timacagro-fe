@@ -88,8 +88,8 @@ mutation CreateProduct($productInfo: CreateProductInput!) {
   }
 }
 
-mutation ImportProducts($productsList: ImportProductsInput!) {
-  importProducts(productsList: $productsList)
+mutation ImportProducts($productsList: ImportProductsInput!, $userPoints: Float) {
+  importProducts(productsList: $productsList, userPoints: $userPoints)
 }
 
 mutation UpdateProduct($updateProductId: ID!, $productInfo: UpdateProductInput!) {

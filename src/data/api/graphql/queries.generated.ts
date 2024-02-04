@@ -8,182 +8,79 @@
  * for this file to be re-created
  */
 
-import * as Types from "../../types/generated";
+import * as Types from '../../types/generated';
 
-import { api } from "src/data/api";
-export type GetDateTimeQueryVariables = Types.Exact<{ [key: string]: never }>;
+import { api } from 'src/data/api';
+export type GetDateTimeQueryVariables = Types.Exact<{ [key: string]: never; }>;
+
 
 export type GetDateTimeQuery = { getDateTime: any };
 
-export type GetSessionQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type GetSessionQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
-export type GetSessionQuery = {
-  getSession?: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    role: Types.Role;
-    currentPoints?: number;
-    targetPoints?: number;
-    region?: Types.Region;
-    active: boolean;
-    emailConfirmed: boolean;
-    createdAt: any;
-    updatedAt: any;
-  };
-};
+
+export type GetSessionQuery = { getSession?: { id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any } };
 
 export type GetUserQueryVariables = Types.Exact<{
-  getUserId: Types.Scalars["ID"]["input"];
+  getUserId: Types.Scalars['ID']['input'];
 }>;
 
-export type GetUserQuery = {
-  getUser?: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    role: Types.Role;
-    currentPoints?: number;
-    targetPoints?: number;
-    region?: Types.Region;
-    active: boolean;
-    emailConfirmed: boolean;
-    createdAt: any;
-    updatedAt: any;
-  };
-};
+
+export type GetUserQuery = { getUser?: { id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any } };
 
 export type ListUsersQueryVariables = Types.Exact<{
-  page: Types.Scalars["Int"]["input"];
-  perPage: Types.Scalars["Int"]["input"];
+  page: Types.Scalars['Int']['input'];
+  perPage: Types.Scalars['Int']['input'];
 }>;
 
-export type ListUsersQuery = {
-  listUsers: {
-    page: number;
-    perPage: number;
-    total: number;
-    users: Array<{
-      id: number;
-      firstName: string;
-      lastName: string;
-      email: string;
-      role: Types.Role;
-      currentPoints?: number;
-      targetPoints?: number;
-      region?: Types.Region;
-      active: boolean;
-      emailConfirmed: boolean;
-      createdAt: any;
-      updatedAt: any;
-    }>;
-  };
-};
+
+export type ListUsersQuery = { listUsers: { page: number, perPage: number, total: number, users: Array<{ id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any }> } };
 
 export type GetClientQueryVariables = Types.Exact<{
-  getClientId: Types.Scalars["ID"]["input"];
+  getClientId: Types.Scalars['ID']['input'];
 }>;
+
 
 export type GetClientQuery = { getClient?: { id: number } };
 
 export type ListClientsQueryVariables = Types.Exact<{
-  page: Types.Scalars["Int"]["input"];
-  perPage: Types.Scalars["Int"]["input"];
+  page: Types.Scalars['Int']['input'];
+  perPage: Types.Scalars['Int']['input'];
 }>;
 
-export type ListClientsQuery = {
-  listClients: {
-    clients: Array<{
-      id: number;
-      name: string;
-      updatedAt: any;
-      createdAt: any;
-      active: boolean;
-    }>;
-  };
-};
+
+export type ListClientsQuery = { listClients: { clients: Array<{ id: number, name: string, updatedAt: any, createdAt: any, active: boolean }> } };
 
 export type GetProductQueryVariables = Types.Exact<{
-  getProductId: Types.Scalars["ID"]["input"];
+  getProductId: Types.Scalars['ID']['input'];
 }>;
 
-export type GetProductQuery = {
-  getProduct?: {
-    id: number;
-    label: string;
-    type: Types.ProductType;
-    quantity: number;
-    available: number;
-    points: number;
-    active: boolean;
-    createdAt: any;
-    updatedAt: any;
-  };
-};
+
+export type GetProductQuery = { getProduct?: { id: number, label: string, type: Types.ProductType, quantity: number, available: number, points: number, active: boolean, createdAt: any, updatedAt: any } };
 
 export type ListProductsQueryVariables = Types.Exact<{
-  page: Types.Scalars["Int"]["input"];
-  perPage: Types.Scalars["Int"]["input"];
+  page: Types.Scalars['Int']['input'];
+  perPage: Types.Scalars['Int']['input'];
 }>;
 
-export type ListProductsQuery = {
-  listProducts: {
-    page: number;
-    perPage: number;
-    total: number;
-    products: Array<{
-      id: number;
-      label: string;
-      type: Types.ProductType;
-      quantity: number;
-      available: number;
-      points: number;
-      active: boolean;
-      createdAt: any;
-      updatedAt: any;
-    }>;
-  };
-};
+
+export type ListProductsQuery = { listProducts: { page: number, perPage: number, total: number, products: Array<{ id: number, label: string, type: Types.ProductType, quantity: number, available: number, points: number, active: boolean, createdAt: any, updatedAt: any }> } };
 
 export type GetInvoiceQueryVariables = Types.Exact<{
-  getInvoiceId: Types.Scalars["ID"]["input"];
+  getInvoiceId: Types.Scalars['ID']['input'];
 }>;
 
-export type GetInvoiceQuery = {
-  getInvoice?: {
-    id: number;
-    number: string;
-    payed: boolean;
-    total: number;
-    updatedAt: any;
-    createdAt: any;
-    client: number;
-  };
-};
+
+export type GetInvoiceQuery = { getInvoice?: { id: number, number: string, payed: boolean, total: number, updatedAt: any, createdAt: any, client: number } };
 
 export type LisInvoicesQueryVariables = Types.Exact<{
-  page: Types.Scalars["Int"]["input"];
-  perPage: Types.Scalars["Int"]["input"];
+  page: Types.Scalars['Int']['input'];
+  perPage: Types.Scalars['Int']['input'];
 }>;
 
-export type LisInvoicesQuery = {
-  listInvoices: {
-    page: number;
-    perPage: number;
-    total: number;
-    invoices: Array<{
-      id: number;
-      createdAt: any;
-      client: number;
-      number: string;
-      payed: boolean;
-      total: number;
-      updatedAt: any;
-    }>;
-  };
-};
+
+export type LisInvoicesQuery = { listInvoices: { page: number, perPage: number, total: number, invoices: Array<{ id: number, createdAt: any, client: number, number: string, payed: boolean, total: number, updatedAt: any }> } };
+
 
 export const GetDateTimeDocument = `
     query GetDateTime {
@@ -339,58 +236,38 @@ export const LisInvoicesDocument = `
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     GetDateTime: build.query<GetDateTimeQuery, GetDateTimeQueryVariables | void>({
-      query: (variables) => ({ document: GetDateTimeDocument, variables }),
+      query: (variables) => ({ document: GetDateTimeDocument, variables })
     }),
     GetSession: build.query<GetSessionQuery, GetSessionQueryVariables | void>({
-      query: (variables) => ({ document: GetSessionDocument, variables }),
+      query: (variables) => ({ document: GetSessionDocument, variables })
     }),
     GetUser: build.query<GetUserQuery, GetUserQueryVariables>({
-      query: (variables) => ({ document: GetUserDocument, variables }),
+      query: (variables) => ({ document: GetUserDocument, variables })
     }),
     ListUsers: build.query<ListUsersQuery, ListUsersQueryVariables>({
-      query: (variables) => ({ document: ListUsersDocument, variables }),
+      query: (variables) => ({ document: ListUsersDocument, variables })
     }),
     GetClient: build.query<GetClientQuery, GetClientQueryVariables>({
-      query: (variables) => ({ document: GetClientDocument, variables }),
+      query: (variables) => ({ document: GetClientDocument, variables })
     }),
     ListClients: build.query<ListClientsQuery, ListClientsQueryVariables>({
-      query: (variables) => ({ document: ListClientsDocument, variables }),
+      query: (variables) => ({ document: ListClientsDocument, variables })
     }),
     GetProduct: build.query<GetProductQuery, GetProductQueryVariables>({
-      query: (variables) => ({ document: GetProductDocument, variables }),
+      query: (variables) => ({ document: GetProductDocument, variables })
     }),
     ListProducts: build.query<ListProductsQuery, ListProductsQueryVariables>({
-      query: (variables) => ({ document: ListProductsDocument, variables }),
+      query: (variables) => ({ document: ListProductsDocument, variables })
     }),
     GetInvoice: build.query<GetInvoiceQuery, GetInvoiceQueryVariables>({
-      query: (variables) => ({ document: GetInvoiceDocument, variables }),
+      query: (variables) => ({ document: GetInvoiceDocument, variables })
     }),
     LisInvoices: build.query<LisInvoicesQuery, LisInvoicesQueryVariables>({
-      query: (variables) => ({ document: LisInvoicesDocument, variables }),
+      query: (variables) => ({ document: LisInvoicesDocument, variables })
     }),
   }),
 });
 
 export { injectedRtkApi as api };
-export const {
-  useGetDateTimeQuery,
-  useLazyGetDateTimeQuery,
-  useGetSessionQuery,
-  useLazyGetSessionQuery,
-  useGetUserQuery,
-  useLazyGetUserQuery,
-  useListUsersQuery,
-  useLazyListUsersQuery,
-  useGetClientQuery,
-  useLazyGetClientQuery,
-  useListClientsQuery,
-  useLazyListClientsQuery,
-  useGetProductQuery,
-  useLazyGetProductQuery,
-  useListProductsQuery,
-  useLazyListProductsQuery,
-  useGetInvoiceQuery,
-  useLazyGetInvoiceQuery,
-  useLisInvoicesQuery,
-  useLazyLisInvoicesQuery,
-} = injectedRtkApi;
+export const { useGetDateTimeQuery, useLazyGetDateTimeQuery, useGetSessionQuery, useLazyGetSessionQuery, useGetUserQuery, useLazyGetUserQuery, useListUsersQuery, useLazyListUsersQuery, useGetClientQuery, useLazyGetClientQuery, useListClientsQuery, useLazyListClientsQuery, useGetProductQuery, useLazyGetProductQuery, useListProductsQuery, useLazyListProductsQuery, useGetInvoiceQuery, useLazyGetInvoiceQuery, useLisInvoicesQuery, useLazyLisInvoicesQuery } = injectedRtkApi;
+
