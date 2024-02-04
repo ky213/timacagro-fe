@@ -5,3 +5,10 @@ subscription RandomNumber {
 subscription TestConnection {
   testConnection
 }
+
+subscription OrderProduct {
+  orderProducts {
+    available
+    label
+  }
+}

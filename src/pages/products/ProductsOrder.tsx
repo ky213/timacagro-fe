@@ -94,8 +94,6 @@ export const ProductsOrderPage = () => {
         });
 
       importProducts({ productsList: { products: orderedProducts } });
-
-      console.log(order, orderedProducts);
     } catch (error) {
       console.log(error);
     }

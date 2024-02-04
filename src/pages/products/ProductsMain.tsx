@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "src/data/store";
 import { CreateProductInput, Product } from "src/data/types/generated";
-import { useListProductsQuery } from "src/data/api/graphql/queries.generated";
+import { useListProductsQuery } from "src/data/api/enhanced";
 import { resetProducts } from "src/data/store/reducers/products";
 import { Button, Container, Stack, Typography, Box } from "src/components";
 import {

@@ -217,6 +217,11 @@ export type MutationUpdateUserArgs = {
   userInfo: UpdateUserInput;
 };
 
+export type OrderProductsOutput = {
+  available: Scalars['Float']['output'];
+  label: Scalars['String']['output'];
+};
+
 export type Pagination = {
   page: Scalars['Int']['output'];
   perPage: Scalars['Int']['output'];
@@ -324,6 +329,7 @@ export enum Role {
 }
 
 export type Subscription = {
+  orderProducts: Array<OrderProductsOutput>;
   randomNumber: Scalars['Float']['output'];
   testConnection: Scalars['Int']['output'];
 };

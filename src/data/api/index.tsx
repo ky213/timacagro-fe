@@ -8,7 +8,7 @@ const client = new GraphQLClient(`${API_URL}`, { credentials: "include" });
 
 //TODO:Set timeout
 export const api = createApi({
-  tagTypes: ["User"],
+  tagTypes: ["User", "Product"],
   refetchOnMountOrArgChange: true,
   baseQuery: graphqlRequestBaseQuery({
     client,
@@ -18,5 +18,5 @@ export const api = createApi({
       };
     },
   }),
-  endpoints: () => ({}),
+  endpoints: (build) => ({}),
 });
