@@ -23,10 +23,14 @@ import {
 import { createProduct, resetProducts } from "src/data/store/reducers/products";
 import { IRootState, useAppDispatch, useAppSelector } from "src/data/store";
 import { CreateProductInput, Product, ProductType } from "src/data/types/generated";
-import { useCreateProductMutation } from "src/data/api/graphql/mutations.generated";
+import {
+  useCreateProductMutation,
+  useImportProductsMutation,
+} from "src/data/api/graphql/mutations.generated";
 import { ShoppingBagIcon, ShoppingCartIcon } from "src/components/Icons";
 import { useListProductsQuery } from "src/data/api/graphql/queries.generated";
 import { SelectChangeEvent } from "@mui/material/Select/SelectInput";
+import { resetGlobalState } from "src/data/store/reducers/global";
 
 export const clients = [
   {
@@ -44,48 +48,68 @@ export const clients = [
 ];
 
 export const ProductsOrderPage = () => {
-  const { isLoading, isSuccess } = useListProductsQuery({ page: 0, perPage: 1000 });
+  const data = useListProductsQuery({ page: 0, perPage: 1000 });
   const dispatch = useAppDispatch();
   const gotTo = useNavigate();
-  const [productId, setSelectedProduct] = useState<number[]>([]);
-  const [exceededQuantity, setExceededQuantity] = useState<{ [key: string]: boolean }>(
-    {}
-  );
+  const [selectedProducts, setSelectedProduct] = useState<number[]>([]);
+  const [importProducts, { isLoading, isSuccess }] = useImportProductsMutation();
+
   const {
     list: { products },
   } = useAppSelector((state) => state.products);
+  const { loading, success } = useAppSelector((state) => state.global);
   const {
     handleSubmit,
     register: registerField,
-    formState: { errors: fieldErrors, touchedFields },
+    formState: { errors: fieldErrors },
+    setError,
+    clearErrors,
   } = useForm();
+
+  useEffect(() => {
+    if (!isLoading && isSuccess) gotTo(-1);
+
+    return () => {
+      dispatch(resetProducts());
+      dispatch(resetGlobalState({}));
+    };
+  }, [isLoading, isSuccess]);
 
   const onSubmit = async (order: any) => {
     try {
-      console.log(order);
+      if (selectedProducts.length === 0) {
+        setError("product", { message: "Must select a product" });
+        return;
+      }
+
+      const orderedProducts = products
+        .filter(({ id }) => order[id])
+        .map((product) => {
+          const newProduct = {
+            ...product,
+            available: product.available - order[product.id],
+          };
+          const { id, createdAt, updatedAt, ...rest } = newProduct;
+          return rest;
+        });
+
+      importProducts({ productsList: { products: orderedProducts } });
+
+      console.log(order, orderedProducts);
     } catch (error) {
       console.log(error);
     }
   };
-  const handleProductSelect = (event: SelectChangeEvent<typeof productId>) => {
+
+  //TODO:to be refactored
+  const handleProductSelect = (event: SelectChangeEvent<typeof selectedProducts>) => {
     const {
       target: { value },
     } = event;
-    console.log(value);
-    // @ts-ignore TODO:fix types
-    setSelectedProduct(value);
-  };
-
-  const handleOnQuantityChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    id: number
-  ) => {
-    const newValue = +event.target.value;
-    const product = products.find((product) => product.id === id);
-
-    if ((product && newValue > product?.available) || newValue < 1)
-      setExceededQuantity({ [id]: true });
-    else setExceededQuantity({ [id]: false });
+    if (typeof value !== "string") {
+      setSelectedProduct(value);
+      clearErrors(["product"]);
+    }
   };
 
   return (
@@ -137,7 +161,7 @@ export const ProductsOrderPage = () => {
                 <Select
                   id="product"
                   labelId="product-label"
-                  value={productId}
+                  value={selectedProducts}
                   onChange={handleProductSelect}
                   fullWidth
                   multiple
@@ -149,7 +173,7 @@ export const ProductsOrderPage = () => {
                   ))}
                 </Select>
                 <RenderIf
-                  isTrue={productId.length === 0}
+                  isTrue={Boolean(fieldErrors["product"])}
                   component={
                     <FormHelperText color={"danger"}>Select a product</FormHelperText>
                   }
@@ -157,8 +181,8 @@ export const ProductsOrderPage = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              {products.map(({ id, label }) => {
-                if (productId.includes(id))
+              {products.map(({ id, label, available }) => {
+                if (selectedProducts.includes(id))
                   return (
                     <Grid container xs={12} alignItems={"center"} spacing={1} mb={1}>
                       <Grid item xs={6} mt={1}>
@@ -167,15 +191,19 @@ export const ProductsOrderPage = () => {
                       <Grid item xs={6}>
                         <TextField
                           fullWidth
-                          name={label}
                           type="number"
                           id="quantity"
                           label="Quantity (Tonne)"
-                          error={exceededQuantity[id]}
-                          onChange={(event) => handleOnQuantityChange(event, id)}
+                          error={Boolean(fieldErrors[`${id}`])}
+                          {...registerField(`${id}`, {
+                            valueAsNumber: true,
+                            required: true,
+                            max: available,
+                            min: 1,
+                          })}
                         />
                         <RenderIf
-                          isTrue={exceededQuantity[id]}
+                          isTrue={Boolean(fieldErrors[id])}
                           component={
                             <FormHelperText color="danger">
                               exceeded available quantity
@@ -192,7 +220,7 @@ export const ProductsOrderPage = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              disabled={Boolean(isLoading)}
+              disabled={Boolean(loading)}
             >
               Submit
             </Button>
