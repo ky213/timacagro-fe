@@ -23,8 +23,8 @@ import {
   UserAdd,
   UserProfile,
 } from "src/pages";
-
 //TODO: fix imports
+import { OverviewPage } from "src/pages/overview/OverviewPage";
 import { ProductAdd } from "src/pages/products/ProductAdd";
 import { ProductDetails } from "src/pages/products/ProductDetails";
 import { ProductsMainPage } from "src/pages/products/ProductsMain";
@@ -80,7 +80,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "overview",
-            Component: DashOverviewPage,
+            Component: OverviewPage,
           },
           {
             path: "users",

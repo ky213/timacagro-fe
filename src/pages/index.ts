@@ -1,5 +1,5 @@
 export { HomePage } from "./Home";
-export { DashOverviewPage } from "./DashOverview";
+export { OverviewPage as DashOverviewPage } from "./overview/OverviewPage";
 export { UsersMainPage, UserProfile, UserAdd } from "./users";
 // TODO: fix // export {} from "./products";
 export { ClientsPage } from "./Clients";
