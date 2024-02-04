@@ -1,18 +1,32 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Divider, MenuItem, MenuList, Popover, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  MenuItem,
+  MenuList,
+  Popover,
+  Stack,
+  Typography,
+} from "src/components";
 
 import { useAppSelector } from "src/data/store";
+import { useLogoutMutation } from "src/data/api/graphql/mutations.generated";
 
 export const AccountPopover = (props: { anchorEl: any; onClose: any; open: any }) => {
   const { anchorEl, onClose, open } = props;
   const gotTo = useNavigate();
   const user = useAppSelector((state) => state.global.session);
+  const [logout, { isLoading, isSuccess }] = useLogoutMutation();
 
-  const handleSignOut = useCallback(() => {
-    onClose?.();
-    gotTo("/auth/login");
-  }, [onClose, gotTo]);
+  const handleSignOut = () => {
+    logout();
+  };
+
+  useEffect(() => {
+    if (!isLoading && isSuccess) gotTo("/");
+  }, [isLoading, isSuccess]);
 
   return (
     <Popover
@@ -31,10 +45,18 @@ export const AccountPopover = (props: { anchorEl: any; onClose: any; open: any }
           px: 2,
         }}
       >
-        <Typography variant="overline">Account</Typography>
-        <Typography color="text.secondary" variant="body2">
-          {`${user?.firstName} ${user?.lastName}`}
-        </Typography>
+        <Button
+          onClick={() => gotTo(`/dashboard/users/${user?.id}`)}
+          fullWidth
+          sx={{ textAlign: "left" }}
+        >
+          <Stack direction={"column"}>
+            <Typography variant="overline">Account</Typography>
+            <Typography color="text.secondary" variant="body2">
+              {`${user?.firstName} ${user?.lastName}`}
+            </Typography>
+          </Stack>
+        </Button>
       </Box>
       <Divider />
       <MenuList

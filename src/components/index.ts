@@ -33,6 +33,8 @@ export { default as MenuItem } from "@mui/material/MenuItem";
 export { default as Snackbar } from "@mui/material/Snackbar";
 export { default as InputLabel } from "@mui/material/InputLabel";
 export { default as FormLabel } from "@mui/material/FormLabel";
+export { default as Popover } from "@mui/material/Popover";
+export { default as MenuList } from "@mui/material/MenuList";
 
 export { ErrorBoundary } from "./ErrorBoundry";
 export { RenderIf } from "./Utils";

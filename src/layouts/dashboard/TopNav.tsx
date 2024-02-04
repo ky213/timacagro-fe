@@ -116,7 +116,7 @@ export const TopNav = (props: { onNavOpen: any }) => {
       <AccountPopover
         anchorEl={accountPopover.anchorRef.current}
         open={accountPopover.open}
-        onClose={logout}
+        onClose={accountPopover.handleClose}
       />
     </>
   );
