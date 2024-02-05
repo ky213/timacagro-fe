@@ -9,6 +9,7 @@ import {
 import { ErrorBoundary } from "src/components";
 import { store } from "src/data/store";
 import { MainLayout, AuthLayout, DashboardLayout } from "src/layouts";
+import { ConfirmEmailPage } from "src/pages/ConfirmEmailPage";
 import {
   HomePage,
   UsersMainPage,
@@ -59,6 +60,11 @@ export const router = createBrowserRouter([
       {
         path: "register",
         Component: RegisterPage,
+        errorElement: <ErrorBoundary />,
+      },
+      {
+        path: "confirm-email",
+        Component: ConfirmEmailPage,
         errorElement: <ErrorBoundary />,
       },
       {
