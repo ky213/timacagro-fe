@@ -326,6 +326,7 @@ export enum Role {
   Admin = 'ADMIN',
   Atc = 'ATC',
   Commerce = 'COMMERCE',
+  Dr = 'DR',
   Sales = 'SALES'
 }
 

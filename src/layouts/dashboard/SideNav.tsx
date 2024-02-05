@@ -5,9 +5,11 @@ import "simplebar-react/dist/simplebar.min.css";
 import { Logo, Scrollbar } from "src/components";
 import { items } from "./Config";
 import { SideNavItem } from "./SideNavItem";
+import { useAppSelector } from "src/data/store";
 
 export const SideNav = (props: { open: any; onClose: any }) => {
   const { open, onClose } = props;
+  const { session } = useAppSelector((state) => state.global);
   const { pathname } = useLocation();
   //@ts-ignore TODO:fix types
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
@@ -62,19 +64,22 @@ export const SideNav = (props: { open: any; onClose: any }) => {
               m: 0,
             }}
           >
-            {items.map((item) => {
-              return (
-                <SideNavItem
-                  active={pathname === item.path}
-                  disabled={item.disabled}
-                  external={item.external}
-                  icon={item.icon}
-                  key={item.title}
-                  path={item.path}
-                  title={item.title}
-                />
-              );
-            })}
+            {items
+              //@ts-ignore
+              // .filter(({ role }) => !role?.includes(session?.role))
+              .map((item) => {
+                return (
+                  <SideNavItem
+                    active={pathname === item.path}
+                    disabled={item.disabled}
+                    external={item.external}
+                    icon={item.icon}
+                    key={item.title}
+                    path={item.path}
+                    title={item.title}
+                  />
+                );
+              })}
           </Stack>
         </Box>
         <Divider sx={{ borderColor: "neutral.700", mt: "auto" }} />

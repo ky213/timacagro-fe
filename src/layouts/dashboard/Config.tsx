@@ -9,6 +9,7 @@ import {
   SvgIcon,
   CurrencyDollarIcon,
 } from "src/components/Icons";
+import { Role } from "src/data/types/generated";
 
 export interface SideMenuItem {
   active?: boolean;
@@ -18,6 +19,7 @@ export interface SideMenuItem {
   key?: string;
   path: string;
   title: string;
+  role?: Role[];
 }
 
 export const items: SideMenuItem[] = [
@@ -33,6 +35,7 @@ export const items: SideMenuItem[] = [
   {
     title: "Users",
     path: "users",
+    role: [Role.Admin],
     icon: (
       <SvgIcon fontSize="small">
         <UsersIcon />
@@ -60,6 +63,7 @@ export const items: SideMenuItem[] = [
   {
     title: "Invoices",
     path: "invoices",
+    role: [Role.Admin, Role.Sales, Role.Commerce],
     icon: (
       <SvgIcon fontSize="small">
         <CurrencyDollarIcon />
@@ -69,6 +73,7 @@ export const items: SideMenuItem[] = [
   {
     title: "Regions",
     path: "regions",
+    role: [Role.Admin, Role.Sales, Role.Commerce, Role.Dr],
     icon: (
       <SvgIcon fontSize="small">
         <MapIcon />
