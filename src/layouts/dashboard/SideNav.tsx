@@ -68,17 +68,15 @@ export const SideNav = (props: { open: any; onClose: any }) => {
               .filter(({ role }) => !role || role.includes(`${session?.role}`))
               .map((item) => {
                 return (
-                  <>
-                    <SideNavItem
-                      active={pathname === item.path}
-                      disabled={item.disabled}
-                      external={item.external}
-                      icon={item.icon}
-                      key={item.title}
-                      path={item.path}
-                      title={item.title}
-                    />
-                  </>
+                  <SideNavItem
+                    active={pathname === item.path}
+                    disabled={item.disabled}
+                    external={item.external}
+                    icon={item.icon}
+                    key={item.title}
+                    path={item.path}
+                    title={item.title}
+                  />
                 );
               })}
           </Stack>

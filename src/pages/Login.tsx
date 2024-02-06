@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { Box, Button, Link, Stack, TextField, Typography } from "src/components";
@@ -9,11 +9,16 @@ import {
 } from "src/data/api/graphql/mutations.generated";
 import { resetGlobalState } from "src/data/store/reducers/global";
 import { useDispatch } from "react-redux";
+import { useAppSelector } from "src/data/store";
+import { useLazyGetSessionQuery } from "src/data/api/graphql/queries.generated";
 
 export const LoginPage = () => {
+  const { session, loading, success } = useAppSelector((state) => state.global);
+  const [login] = useLoginMutation();
+  const [refetchSession, {}] = useLazyGetSessionQuery();
   const dispatch = useDispatch();
   const goTo = useNavigate();
-  const [login, { isLoading, isSuccess }] = useLoginMutation();
+  const [params] = useSearchParams();
   const {
     register: registerField,
     handleSubmit,
@@ -21,12 +26,17 @@ export const LoginPage = () => {
   } = useForm<LoginMutationVariables>();
 
   useEffect(() => {
-    if (isSuccess && !isLoading) goTo("/dashboard/overview");
+    if (session) goTo(params.get("from") || "/");
+    else refetchSession();
 
     return () => {
       dispatch(resetGlobalState({}));
     };
-  }, [isSuccess]);
+  }, []);
+
+  useEffect(() => {
+    if (success && !loading) goTo("/dashboard/overview");
+  }, [success]);
 
   return (
     <Box
@@ -92,7 +102,7 @@ export const LoginPage = () => {
             sx={{ mt: 3 }}
             type="submit"
             variant="contained"
-            disabled={isLoading}
+            disabled={loading}
           >
             Login
           </Button>

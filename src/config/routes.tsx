@@ -54,7 +54,6 @@ export const router = createBrowserRouter([
       {
         path: "login",
         Component: LoginPage,
-        loader: LoginRedirect,
         errorElement: <ErrorBoundary />,
       },
       {
@@ -148,7 +147,7 @@ export const router = createBrowserRouter([
 
 //TODO: set RBAC
 async function PrivateRoute({ request }: LoaderFunctionArgs) {
-  const session = await getCurrentSession();
+  const { session } = store.getState().global;
 
   if (!session) {
     let params = new URLSearchParams();
@@ -157,46 +156,4 @@ async function PrivateRoute({ request }: LoaderFunctionArgs) {
   }
 
   return null;
-}
-
-async function LoginRedirect({ params }: LoaderFunctionArgs) {
-  const session = await getCurrentSession();
-
-  if (session) {
-    const to = params?.from || "/";
-
-    return redirect(to);
-  }
-
-  return null;
-}
-//TODO: to be refactored
-async function getCurrentSession() {
-  var interval: NodeJS.Timer;
-  let count = 10; //check for 0.5 second
-
-  return new Promise((resolve) => {
-    store.subscribe(() => {
-      const { session, loading, success, errors } = store.getState().global;
-
-      if (success) resolve(session);
-      if (errors) resolve(null);
-    });
-
-    interval = setInterval(() => {
-      const { session, loading, success, errors } = store.getState().global;
-
-      if (session) {
-        clearInterval(interval);
-        resolve(session);
-      }
-
-      if (count <= 0) {
-        clearInterval(interval);
-        resolve(null);
-      }
-
-      count--;
-    }, 50);
-  });
 }
