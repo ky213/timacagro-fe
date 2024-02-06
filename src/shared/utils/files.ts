@@ -1,4 +1,4 @@
-import { CreateProductInput, Product } from "src/data/types/generated";
+import { CreateProductInput } from "src/data/types/generated";
 import { read, utils } from "xlsx";
 
 export type DataType = CreateProductInput;

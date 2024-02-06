@@ -51,8 +51,7 @@ const slice: Slice<IGlobalState> = createSlice({
       state.session = payload.login || null;
     });
     builder.addMatcher(mutations.endpoints.Logout.matchFulfilled, (state) => {
-      document.cookie =
-        "connect.sid" + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+      document.cookie = "connect.sid=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 
       state.session = null;
     });

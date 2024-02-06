@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { LockOutlined } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
   Grid,
@@ -24,10 +23,10 @@ import {
   InputLabel,
 } from "src/components";
 
-import { createUser, resetUsers } from "src/data/store/reducers/users";
-import { EMAIL_REG_EXR, PHONE_REG_EXR } from "src/config/constants";
-import { IRootState, useAppDispatch, useAppSelector } from "src/data/store";
-import { CreateUserInput, Region, Role, User } from "src/data/types/generated";
+import { resetUsers } from "src/data/store/reducers/users";
+import { EMAIL_REG_EXR } from "src/config/constants";
+import { useAppDispatch } from "src/data/store";
+import { CreateUserInput, Region, Role } from "src/data/types/generated";
 import { useCreateUserMutation } from "src/data/api/graphql/mutations.generated";
 
 export const UserAdd = () => {
