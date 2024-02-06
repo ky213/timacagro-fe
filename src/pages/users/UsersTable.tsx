@@ -5,7 +5,6 @@ import {
   Avatar,
   Box,
   Card,
-  CheckBox,
   Stack,
   Table,
   TableBody,
@@ -21,7 +20,7 @@ import {
 import { User } from "src/data/types/generated";
 import { CheckIcon } from "src/components/Icons";
 import { useNavigate } from "react-router-dom";
-import { type } from "os";
+
 //TODO: set props type
 export const UsersTable = (props: any) => {
   const {

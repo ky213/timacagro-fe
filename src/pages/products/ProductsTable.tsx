@@ -21,7 +21,7 @@ import {
 import { Product } from "src/data/types/generated";
 import { CheckIcon } from "src/components/Icons";
 import { useNavigate } from "react-router-dom";
-import { type } from "os";
+
 //TODO: set props type
 export const ProductsTable = (props: any) => {
   const {
