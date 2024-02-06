@@ -1,4 +1,3 @@
-//@ts-ignore //TODO: find library types
 import SimpleBar from "simplebar-react";
 import { styled } from "@mui/material/styles";
 

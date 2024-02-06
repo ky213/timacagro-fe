@@ -9,6 +9,7 @@ import {
   SvgIcon,
   Tooltip,
   useMediaQuery,
+  Theme,
 } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
@@ -24,8 +25,8 @@ const TOP_NAV_HEIGHT = 64;
 
 export const TopNav = (props: { onNavOpen: any }) => {
   const { onNavOpen } = props;
-  //@ts-ignore //TODO:fix theme types
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+
+  const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
   const accountPopover = usePopover();
   const goTo = useNavigate();
   const [logout, { isLoading, isSuccess }] = useLogoutMutation();
