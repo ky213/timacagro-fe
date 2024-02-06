@@ -1,11 +1,10 @@
-//@ts-nocheck //TODO:fix types
-import { Theme, createTheme as createMuiTheme } from "@mui/material";
+import { createTheme as createMuiTheme } from "@mui/material";
 import { createPalette } from "./create-palette";
 import { createComponents } from "./create-components";
 import { createShadows } from "./create-shadows";
 import { createTypography } from "./create-typography";
 
-export function createTheme(): Theme {
+export function createTheme() {
   const palette = createPalette();
   const components = createComponents({ palette });
   const shadows = createShadows();

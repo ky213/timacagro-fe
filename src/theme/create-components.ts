@@ -1,10 +1,12 @@
 import {
+  Components,
   createTheme,
   filledInputClasses,
   inputLabelClasses,
   outlinedInputClasses,
   paperClasses,
   tableCellClasses,
+  Theme,
   ThemeOptions,
 } from "@mui/material";
 import { CustomPaletteOptions } from "./create-palette";
@@ -14,7 +16,7 @@ const muiTheme = createTheme();
 
 export function createComponents(
   config: ThemeOptions & { palette: CustomPaletteOptions }
-) {
+): Components<Omit<Theme, "components">> {
   const palette = config.palette;
 
   return {
