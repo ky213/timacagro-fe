@@ -5,6 +5,8 @@ import { error, indigo, info, neutral, success, warning } from "./colors";
 
 export interface CustomPaletteOptions extends PaletteOptions {
   neutral: typeof neutral;
+  primary: typeof indigo;
+  error: typeof error;
 }
 
 export function createPalette(): CustomPaletteOptions {

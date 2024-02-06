@@ -1,4 +1,3 @@
-//@ts-nocheck //TODO:fix types
 import {
   createTheme,
   filledInputClasses,
@@ -8,12 +7,15 @@ import {
   tableCellClasses,
   ThemeOptions,
 } from "@mui/material";
+import { CustomPaletteOptions } from "./create-palette";
 
 // Used only to create transitions
 const muiTheme = createTheme();
 
-export function createComponents(config: ThemeOptions) {
-  const { palette } = config;
+export function createComponents(
+  config: ThemeOptions & { palette: CustomPaletteOptions }
+) {
+  const palette = config.palette;
 
   return {
     MuiAvatar: {

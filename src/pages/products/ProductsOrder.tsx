@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { LockOutlined } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+
+import { resetProducts } from "src/data/store/reducers/products";
+import { useAppDispatch, useAppSelector } from "src/data/store";
+import { useImportProductsMutation } from "src/data/api/graphql/mutations.generated";
+import { ShoppingCartIcon } from "src/components/Icons";
+import { useListProductsQuery } from "src/data/api/graphql/queries.generated";
+import { SelectChangeEvent } from "@mui/material/Select/SelectInput";
+import { resetGlobalState } from "src/data/store/reducers/global";
 import {
   Container,
   Grid,
@@ -17,20 +23,7 @@ import {
   MenuItem,
   FormHelperText,
   RenderIf,
-  Stack,
 } from "src/components";
-
-import { createProduct, resetProducts } from "src/data/store/reducers/products";
-import { IRootState, useAppDispatch, useAppSelector } from "src/data/store";
-import { CreateProductInput, Product, ProductType } from "src/data/types/generated";
-import {
-  useCreateProductMutation,
-  useImportProductsMutation,
-} from "src/data/api/graphql/mutations.generated";
-import { ShoppingBagIcon, ShoppingCartIcon } from "src/components/Icons";
-import { useListProductsQuery } from "src/data/api/graphql/queries.generated";
-import { SelectChangeEvent } from "@mui/material/Select/SelectInput";
-import { resetGlobalState } from "src/data/store/reducers/global";
 
 export const clients = [
   {
