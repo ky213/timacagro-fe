@@ -19,7 +19,7 @@ export interface SideMenuItem {
   key?: string;
   path: string;
   title: string;
-  role?: Role[];
+  role?: string[];
 }
 
 export const items: SideMenuItem[] = [
@@ -35,7 +35,7 @@ export const items: SideMenuItem[] = [
   {
     title: "Users",
     path: "users",
-    role: [Role.Admin],
+    role: [Role.Admin, Role.Dr],
     icon: (
       <SvgIcon fontSize="small">
         <UsersIcon />
