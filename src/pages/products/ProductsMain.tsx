@@ -29,7 +29,6 @@ export const ProductsMainPage = (props: IDashboardProps) => {
   const dispatch = useDispatch();
   const goTo = useNavigate();
   const { list } = useAppSelector((state) => state.products);
-  const fileRef = useRef<HTMLInputElement | undefined>();
   const [importProducts, { isLoading, isSuccess }] = useImportProductsMutation();
   const { refetch } = useListProductsQuery({
     page,
@@ -57,25 +56,17 @@ export const ProductsMainPage = (props: IDashboardProps) => {
     },
     []
   );
-  const handleImport = () => {
-    //@ts-ignore
-    const file = fileRef.current;
 
-    file?.click();
+  const handleImport = async ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
+    if (target.files?.length) {
+      const products: CreateProductInput[] = readFile(
+        await target.files[0].arrayBuffer()
+      );
 
-    //@ts-ignore TODO:fix types
-    file.onchange = async ({ target }) => {
-      //@ts-ignore
-      if (target.files.length) {
-        //@ts-ignore
-        const products: CreateProductInput[] = readFile(
-          //@ts-ignore
-          await target.files[0].arrayBuffer()
-        );
-
-        importProducts({ productsList: { products } });
-      }
-    };
+      importProducts({ productsList: { products } });
+    }
   };
 
   return (
@@ -88,8 +79,6 @@ export const ProductsMainPage = (props: IDashboardProps) => {
       }}
     >
       {" "}
-      {/* @ts-ignore //TODO: fix types */}
-      <input type="file" ref={fileRef} accept=".xlsx, .csv" hidden />
       <Container maxWidth="xl" sx={{ mt: 0, pt: 0 }}>
         <Stack spacing={3}>
           <Stack direction="row" justifyContent="space-between" spacing={4}>
@@ -98,15 +87,21 @@ export const ProductsMainPage = (props: IDashboardProps) => {
               <Stack alignItems="center" direction="row" spacing={1}>
                 <br />
                 <Button
+                  component="label"
                   color="inherit"
                   startIcon={
                     <SvgIcon fontSize="small">
                       <ArrowUpOnSquareIcon />
                     </SvgIcon>
                   }
-                  onClick={handleImport}
                 >
                   Import
+                  <input
+                    type="file"
+                    accept=".xlsx, .csv"
+                    hidden
+                    onChange={handleImport}
+                  />
                 </Button>
                 <Button
                   color="inherit"
