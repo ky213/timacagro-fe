@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { LockOutlined } from "@mui/icons-material";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+
+import { resetProducts } from "src/data/store/reducers/products";
+import { useAppDispatch } from "src/data/store";
+import { CreateProductInput, ProductType } from "src/data/types/generated";
+import { useCreateProductMutation } from "src/data/api/graphql/mutations.generated";
+import { ShoppingBagIcon } from "src/components/Icons";
 import {
   Container,
   Grid,
@@ -18,12 +22,6 @@ import {
   FormHelperText,
 } from "src/components";
 
-import { createProduct, resetProducts } from "src/data/store/reducers/products";
-import { IRootState, useAppDispatch, useAppSelector } from "src/data/store";
-import { CreateProductInput, Product, ProductType } from "src/data/types/generated";
-import { useCreateProductMutation } from "src/data/api/graphql/mutations.generated";
-import { ShoppingBagIcon } from "src/components/Icons";
-
 export const ProductAdd = () => {
   const [createProduct, { isLoading, isSuccess }] = useCreateProductMutation();
   const dispatch = useAppDispatch();
@@ -31,7 +29,7 @@ export const ProductAdd = () => {
   const {
     handleSubmit,
     register: registerField,
-    formState: { errors: fieldErrors, touchedFields },
+    formState: { errors: fieldErrors },
   } = useForm<CreateProductInput>();
 
   const onSubmit = async (newProduct: CreateProductInput) => {

@@ -14,7 +14,6 @@ import {
   HomePage,
   UsersMainPage,
   NotFound,
-  DashOverviewPage,
   ClientsPage,
   InvoicesPage,
   RegionsPage,
@@ -23,13 +22,12 @@ import {
   RegisterPage,
   UserAdd,
   UserProfile,
+  ProductsMainPage,
+  ProductDetails,
+  ProductAdd,
+  ProductsOrderPage,
+  OverviewPage,
 } from "src/pages";
-//TODO: fix imports
-import { OverviewPage } from "src/pages/overview/OverviewPage";
-import { ProductAdd } from "src/pages/products/ProductAdd";
-import { ProductDetails } from "src/pages/products/ProductDetails";
-import { ProductsMainPage } from "src/pages/products/ProductsMain";
-import { ProductsOrderPage } from "src/pages/products/ProductsOrder";
 
 export const router = createBrowserRouter([
   {
