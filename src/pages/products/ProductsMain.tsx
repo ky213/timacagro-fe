@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "src/data/store";
-import { CreateProductInput, Product } from "src/data/types/generated";
+import { CreateProductInput } from "src/data/types/generated";
 import { useListProductsQuery } from "src/data/api/enhanced";
 import { resetProducts } from "src/data/store/reducers/products";
 import { Button, Container, Stack, Typography, Box } from "src/components";
@@ -11,13 +11,11 @@ import {
   ArrowDownOnSquareIcon,
   ArrowUpOnSquareIcon,
   PlusIcon,
-  ProductIcon,
   ShoppingCartIcon,
   SvgIcon,
 } from "src/components/Icons";
 import { ProductsTable } from "./ProductsTable";
 import { ProductsSearch } from "./ProductSearch";
-import { Input } from "@mui/material";
 import { readFile } from "src/shared/utils/files";
 import { useImportProductsMutation } from "src/data/api/graphql/mutations.generated";
 
@@ -41,7 +39,7 @@ export const ProductsMainPage = (props: IDashboardProps) => {
     return () => {
       dispatch(resetProducts());
     };
-  }, [isLoading, isSuccess]);
+  }, [isLoading, isSuccess, dispatch, refetch]);
 
   const handlePageChange = useCallback(
     (_event: any, value: React.SetStateAction<number>) => {

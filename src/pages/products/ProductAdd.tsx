@@ -50,7 +50,7 @@ export const ProductAdd = () => {
     return () => {
       dispatch(resetProducts());
     };
-  }, [isLoading, isSuccess]);
+  }, [isLoading, isSuccess, dispatch, gotTo]);
 
   return (
     <Container component="main" maxWidth="xs">

@@ -1,23 +1,14 @@
-import React, { FC, PropsWithChildren, useEffect } from "react";
+import React, { FC, PropsWithChildren } from "react";
 import { Outlet, useNavigate, Link as RouterLink } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { AppBar, Toolbar, Typography, Link, Stack } from "@mui/material";
-import UsersIcon from "@mui/icons-material/People";
-import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-
-import { IRootState } from "src/data/store";
 
 export interface IMainLAyoutProps extends PropsWithChildren {}
 
 export const MainLayout: FC<IMainLAyoutProps> = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const gotTo = useNavigate();
-
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleClose = () => {
     setAnchorEl(null);

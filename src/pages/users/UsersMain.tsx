@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "src/data/store";
-import { User } from "src/data/types/generated";
 import { useListUsersQuery } from "src/data/api/graphql/queries.generated";
 import { resetUsers } from "src/data/store/reducers/users";
 import { Button, Container, Stack, Typography, Box } from "src/components";
@@ -15,7 +14,6 @@ import {
 } from "src/components/Icons";
 import { UsersTable } from "./UsersTable";
 import { UsersSearch } from "./UsersSearch";
-import { useSelection } from "src/shared/hooks/use-selection";
 
 export interface IDashboardProps {}
 
@@ -25,7 +23,8 @@ export const UsersMainPage = (props: IDashboardProps) => {
   const dispatch = useDispatch();
   const goTo = useNavigate();
   const { list } = useAppSelector((state) => state.users);
-  const data = useListUsersQuery({
+
+  useListUsersQuery({
     page,
     perPage,
   });
@@ -34,7 +33,7 @@ export const UsersMainPage = (props: IDashboardProps) => {
     return () => {
       dispatch(resetUsers());
     };
-  }, []);
+  });
 
   const handlePageChange = useCallback(
     (_event: any, value: React.SetStateAction<number>) => {

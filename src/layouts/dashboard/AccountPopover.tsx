@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -26,7 +26,7 @@ export const AccountPopover = (props: { anchorEl: any; onClose: any; open: any }
 
   useEffect(() => {
     if (!isLoading && isSuccess) gotTo("/");
-  }, [isLoading, isSuccess]);
+  }, [isLoading, isSuccess, gotTo]);
 
   return (
     <Popover

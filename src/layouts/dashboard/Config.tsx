@@ -1,8 +1,6 @@
 import {
   ChartBarIcon,
   CogIcon,
-  LockClosedIcon,
-  MapIcon,
   ShoppingBagIcon,
   UserIcon,
   UsersIcon,
@@ -70,16 +68,16 @@ export const items: SideMenuItem[] = [
       </SvgIcon>
     ),
   },
-  {
-    title: "Regions",
-    path: "regions",
-    role: [Role.Admin, Role.Sales, Role.Commerce, Role.Dr],
-    icon: (
-      <SvgIcon fontSize="small">
-        <MapIcon />
-      </SvgIcon>
-    ),
-  },
+  // {
+  //   title: "Regions",
+  //   path: "regions",
+  //   role: [Role.Admin, Role.Sales, Role.Commerce, Role.Dr],
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <MapIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
   {
     title: "Settings",
     path: "settings",

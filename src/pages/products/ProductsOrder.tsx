@@ -41,7 +41,6 @@ export const clients = [
 ];
 
 export const ProductsOrderPage = () => {
-  const data = useListProductsQuery({ page: 0, perPage: 1000 });
   const dispatch = useAppDispatch();
   const gotTo = useNavigate();
   const [selectedProducts, setSelectedProduct] = useState<number[]>([]);
@@ -50,7 +49,7 @@ export const ProductsOrderPage = () => {
   const {
     list: { products },
   } = useAppSelector((state) => state.products);
-  const { loading, success } = useAppSelector((state) => state.global);
+  const { loading } = useAppSelector((state) => state.global);
   const {
     handleSubmit,
     register: registerField,
@@ -59,6 +58,8 @@ export const ProductsOrderPage = () => {
     clearErrors,
   } = useForm();
 
+  useListProductsQuery({ page: 0, perPage: 1000 });
+
   useEffect(() => {
     if (!isLoading && isSuccess) gotTo(-1);
 
@@ -66,7 +67,7 @@ export const ProductsOrderPage = () => {
       dispatch(resetProducts());
       dispatch(resetGlobalState({}));
     };
-  }, [isLoading, isSuccess]);
+  }, [isLoading, isSuccess, dispatch, gotTo]);
 
   const onSubmit = async (order: any) => {
     try {
@@ -209,6 +210,8 @@ export const ProductsOrderPage = () => {
                       </Grid>
                     </Grid>
                   );
+
+                return null;
               })}
             </Grid>
             <Button

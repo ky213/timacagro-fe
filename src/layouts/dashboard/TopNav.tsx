@@ -29,7 +29,7 @@ export const TopNav = (props: { onNavOpen: any }) => {
   const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
   const accountPopover = usePopover();
   const goTo = useNavigate();
-  const [logout, { isLoading, isSuccess }] = useLogoutMutation();
+  const [, { isLoading, isSuccess }] = useLogoutMutation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export const TopNav = (props: { onNavOpen: any }) => {
 
       goTo("/");
     }
-  }, [isSuccess]);
+  }, [isSuccess, isLoading, dispatch, goTo]);
 
   return (
     <>

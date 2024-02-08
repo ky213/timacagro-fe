@@ -15,7 +15,7 @@ import { useLazyGetSessionQuery } from "src/data/api/graphql/queries.generated";
 export const LoginPage = () => {
   const { session, loading, success } = useAppSelector((state) => state.global);
   const [login] = useLoginMutation();
-  const [refetchSession, {}] = useLazyGetSessionQuery();
+  const [refetchSession] = useLazyGetSessionQuery();
   const dispatch = useDispatch();
   const goTo = useNavigate();
   const [params] = useSearchParams();
@@ -32,11 +32,11 @@ export const LoginPage = () => {
     return () => {
       dispatch(resetGlobalState({}));
     };
-  }, []);
+  }, [dispatch, goTo, session, params, refetchSession]);
 
   useEffect(() => {
     if (success && !loading) goTo("/dashboard/overview");
-  }, [success]);
+  }, [success, loading, goTo]);
 
   return (
     <Box

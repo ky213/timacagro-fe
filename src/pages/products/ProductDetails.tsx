@@ -1,8 +1,6 @@
 import { useCallback } from "react";
 import { Unstable_Grid2 as Grid } from "@mui/material";
 import { useAppSelector } from "src/data/store";
-import { useParams } from "react-router-dom";
-import { useGetProductQuery } from "src/data/api/graphql/queries.generated";
 import {
   Avatar,
   Box,
@@ -21,9 +19,7 @@ import {
 } from "src/components";
 
 export const ProductDetails = () => {
-  const params = useParams<string>();
   const { currentProduct } = useAppSelector((state) => state.products);
-  const { isLoading, isSuccess } = useGetProductQuery({ getProductId: `${params.id}` });
   const available =
     100 - ((currentProduct?.available || 0) / (currentProduct?.quantity || 1)) * 100;
   const handleChange = useCallback((evenst: any) => {}, []);

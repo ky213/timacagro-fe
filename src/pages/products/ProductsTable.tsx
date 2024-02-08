@@ -1,11 +1,9 @@
 import { format } from "date-fns";
 
-import { getInitials } from "src/shared/utils";
 import {
   Avatar,
   Box,
   Card,
-  CheckBox,
   Stack,
   Table,
   TableBody,

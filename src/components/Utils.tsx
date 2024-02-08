@@ -1,4 +1,4 @@
-import React, { ReactElement, PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 
 export interface RenderIfProps extends PropsWithChildren {
   isTrue: boolean;

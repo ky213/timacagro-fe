@@ -9,18 +9,18 @@ export const ConfirmEmailPage = () => {
   const [query] = useSearchParams();
   const dispatch = useDispatch();
   const goTo = useNavigate();
-  const [confirmEmail, { isLoading, isSuccess, isError }] = useConfirmEmailMutation();
+  const [confirmEmail, { isLoading, isSuccess }] = useConfirmEmailMutation();
 
   useEffect(() => {
     confirmEmail({ token: `${query.get("token")}` });
     return () => {
       dispatch(resetGlobalState({}));
     };
-  }, []);
+  }, [confirmEmail, dispatch, query]);
 
   useEffect(() => {
     if (!isLoading && isSuccess) goTo("/auth/login");
-  }, [isLoading, isSuccess]);
+  }, [isLoading, isSuccess, goTo]);
 
   return (
     <Box

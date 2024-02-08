@@ -16,14 +16,7 @@ import {
 
 import { SvgIcon } from "src/components/Icons";
 import { Scrollbar } from "src/components/ScrollBar";
-import { SeverityPill } from "src/components/SeverityPill";
 import { useNavigate } from "react-router-dom";
-
-const statusMap = {
-  pending: "warning",
-  delivered: "success",
-  refunded: "error",
-};
 
 export const OverviewLatestOrders = ({ orders = [], sx }: any) => {
   const goTo = useNavigate();

@@ -10,16 +10,10 @@ import {
   Typography,
   TextField,
   Button,
-  Link,
-  FormControlLabel,
-  Checkbox,
   Select,
   FormControl,
   FormHelperText,
   MenuItem,
-  Alert,
-  LinearProgress,
-  Snackbar,
   InputLabel,
 } from "src/components";
 
@@ -36,7 +30,7 @@ export const UserAdd = () => {
   const {
     handleSubmit,
     register: registerField,
-    formState: { errors: fieldErrors, touchedFields },
+    formState: { errors: fieldErrors },
   } = useForm<CreateUserInput>();
 
   const onSubmit = async (newUser: CreateUserInput) => {
@@ -57,7 +51,7 @@ export const UserAdd = () => {
     return () => {
       dispatch(resetUsers());
     };
-  }, [isLoading, isSuccess]);
+  }, [isLoading, isSuccess, dispatch, gotTo]);
 
   return (
     <Container component="main" maxWidth="xs">

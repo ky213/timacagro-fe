@@ -16,14 +16,10 @@ import {
   LinearProgress,
   FormLabel,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
-import { useGetUserQuery } from "src/data/api/graphql/queries.generated";
 import { Region, Role } from "src/data/types/generated";
 import { useAppSelector } from "src/data/store";
 
 export const UserProfile = () => {
-  const params = useParams();
-  const { data, isLoading, isSuccess } = useGetUserQuery({ getUserId: params.id || "" });
   const { currentUser: user } = useAppSelector((state) => state.users);
   const progress = (
     ((user?.currentPoints || 0) / (user?.targetPoints || 1)) *

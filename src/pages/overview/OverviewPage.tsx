@@ -1,15 +1,11 @@
-import { subDays, subHours } from "date-fns";
 import { Box, Container, Unstable_Grid2 as Grid } from "@mui/material";
 import { OverviewBudget } from "./OverviewBudget";
 import { OverviewLatestOrders } from "./OverviewLatestOrders";
-import { OverviewLatestProducts } from "./OverviewLatestProducts";
 import { OverviewSales } from "./OverviewSales";
 import { OverviewTasksProgress } from "./OverviewTasksProgress";
 import { OverviewTotalCustomers } from "./OverviewTotalCustomers";
 import { OverviewTotalProfit } from "./OverviewTotalProfit";
 import { OverviewTraffic } from "./OverviewTraffic";
-
-const now = new Date();
 
 export const OverviewPage = () => (
   <>
