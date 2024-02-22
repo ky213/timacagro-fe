@@ -21,10 +21,10 @@ export type TestConnectionSubscriptionVariables = Types.Exact<{ [key: string]: n
 
 export type TestConnectionSubscription = { testConnection: number };
 
-export type OrderProductSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
+export type OrderCreatedSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type OrderProductSubscription = { orderProducts: Array<{ available: number, label: string }> };
+export type OrderCreatedSubscription = { orderCreated: { id: number } };
 
 
 export const RandomNumberDocument = `
@@ -37,11 +37,10 @@ export const TestConnectionDocument = `
   testConnection
 }
     `;
-export const OrderProductDocument = `
-    subscription OrderProduct {
-  orderProducts {
-    available
-    label
+export const OrderCreatedDocument = `
+    subscription OrderCreated {
+  orderCreated {
+    id
   }
 }
     `;

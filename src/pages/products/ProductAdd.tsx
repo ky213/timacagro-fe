@@ -34,7 +34,6 @@ export const ProductAdd = () => {
 
   const onSubmit = async (newProduct: CreateProductInput) => {
     try {
-      newProduct.active = true;
       newProduct.quantity = Number(newProduct.quantity);
       newProduct.available = Number(newProduct.quantity);
       newProduct.points = Number(newProduct.points);

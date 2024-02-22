@@ -1,24 +1,24 @@
+import { API_URL } from "src/config/constants";
 import { api as queries } from "./graphql/queries.generated";
+import { OrderCreatedDocument } from "./graphql/subscriptions.generated";
 
 queries.enhanceEndpoints({
   endpoints: {
     ListProducts: {
       async onCacheEntryAdded(_args, { dispatch }) {
-        const url = new URL("http://localhost:4000/graphql");
-        url.searchParams.append(
-          "query",
-          "subscription OrderProduct {orderProducts {available label}}"
-        );
+        const url = new URL(API_URL);
 
-        const source = new EventSource(url);
+        url.searchParams.append("query", OrderCreatedDocument);
 
-        source.addEventListener("next", ({ data }) => {
+        const source: EventSource = new EventSource(url, { withCredentials: true });
+
+        source.addEventListener("message", ({ data }) => {
           //   TODO: refactor
           dispatch(queries.endpoints.ListProducts.initiate({ page: 0, perPage: 1000 }));
         });
 
-        source.addEventListener("error", (e) => {
-          console.error(e);
+        source.addEventListener<"error">("error", (e) => {
+          console.log("SEE Error: ", e);
         });
 
         source.addEventListener("complete", () => {

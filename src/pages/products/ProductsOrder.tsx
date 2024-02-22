@@ -60,14 +60,14 @@ export const ProductsOrderPage = () => {
 
   useListProductsQuery({ page: 0, perPage: 1000 });
 
-  useEffect(() => {
-    if (!isLoading && isSuccess) gotTo(-1);
+  // useEffect(() => {
+  //   if (!isLoading && isSuccess) gotTo(-1);
 
-    return () => {
-      dispatch(resetProducts());
-      dispatch(resetGlobalState({}));
-    };
-  }, [isLoading, isSuccess, dispatch, gotTo]);
+  //   return () => {
+  //     dispatch(resetProducts());
+  //     dispatch(resetGlobalState({}));
+  //   };
+  // }, [isLoading, isSuccess, dispatch, gotTo]);
 
   const onSubmit = async (order: any) => {
     try {
@@ -91,7 +91,7 @@ export const ProductsOrderPage = () => {
           return rest;
         });
 
-      importProducts({ productsList: { products: orderedProducts }, userPoints });
+      importProducts({ productsList: orderedProducts });
     } catch (error) {
       console.log(error);
     }

@@ -35,9 +35,6 @@ export const UserAdd = () => {
 
   const onSubmit = async (newUser: CreateUserInput) => {
     try {
-      //TODO: refactor
-      newUser.active = true;
-      newUser.password = "1qwerty";
       newUser.targetPoints = Number(newUser.targetPoints || 0);
       createUser({ userInfo: newUser });
     } catch (error) {

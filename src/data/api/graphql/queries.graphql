@@ -88,7 +88,6 @@ query GetProduct($getProductId: ID!) {
     quantity
     available
     points
-    active
     createdAt
     updatedAt
   }
@@ -106,7 +105,6 @@ query ListProducts($page: Int!, $perPage: Int!) {
       quantity
       available
       points
-      active
       createdAt
       updatedAt
     }

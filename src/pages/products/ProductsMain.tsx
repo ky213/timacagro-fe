@@ -63,7 +63,7 @@ export const ProductsMainPage = (props: IDashboardProps) => {
         await target.files[0].arrayBuffer()
       );
 
-      importProducts({ productsList: { products } });
+      importProducts({ productsList: products });
     }
   };
 

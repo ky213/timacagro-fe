@@ -13,11 +13,9 @@ import {
   TableRow,
   Typography,
   Scrollbar,
-  RenderIf,
   LinearProgress,
 } from "src/components";
 import { Product } from "src/data/types/generated";
-import { CheckIcon } from "src/components/Icons";
 import { useNavigate } from "react-router-dom";
 
 //TODO: set props type
@@ -76,12 +74,6 @@ export const ProductsTable = (props: any) => {
                       <LinearProgress variant="determinate" value={available} />
                     </TableCell>
                     <TableCell>{product.points.toLocaleString()}</TableCell>
-                    <TableCell>
-                      <RenderIf
-                        isTrue={product.active}
-                        component={<CheckIcon height={20} />}
-                      />
-                    </TableCell>
                     <TableCell>{createdAt}</TableCell>
                   </TableRow>
                 );

@@ -74,29 +74,29 @@ export type ResetPasswordMutationVariables = Types.Exact<{
 export type ResetPasswordMutation = { resetPassword?: boolean };
 
 export type CreateClientMutationVariables = Types.Exact<{
-  productInfo: Types.CreateClientInput;
+  clientInfo: Types.CreateClientInput;
 }>;
 
 
 export type CreateClientMutation = { createClient: { id: number } };
 
 export type UpdateClientMutationVariables = Types.Exact<{
-  updateClientId: Types.Scalars['ID']['input'];
-  productInfo: Types.UpdateClientInput;
+  updateClientId: Types.Scalars['Int']['input'];
+  clientInfo: Types.UpdateClientInput;
 }>;
 
 
 export type UpdateClientMutation = { updateClient: boolean };
 
 export type DeleteClientMutationVariables = Types.Exact<{
-  deleteClientId: Types.Scalars['ID']['input'];
+  deleteClientId: Types.Scalars['Int']['input'];
 }>;
 
 
 export type DeleteClientMutation = { deleteClient: boolean };
 
 export type CreateInvoiceMutationVariables = Types.Exact<{
-  productInfo: Types.CreateInvoiceInput;
+  invoiceInfo: Types.CreateInvoiceInput;
 }>;
 
 
@@ -104,7 +104,7 @@ export type CreateInvoiceMutation = { createInvoice: { id: number } };
 
 export type UpdateInvoiceMutationVariables = Types.Exact<{
   updateInvoiceId: Types.Scalars['ID']['input'];
-  productInfo: Types.UpdateInvoiceInput;
+  invoiceInfo: Types.UpdateInvoiceInput;
 }>;
 
 
@@ -125,12 +125,11 @@ export type CreateProductMutationVariables = Types.Exact<{
 export type CreateProductMutation = { createProduct: { id: number } };
 
 export type ImportProductsMutationVariables = Types.Exact<{
-  productsList: Types.ImportProductsInput;
-  userPoints?: Types.InputMaybe<Types.Scalars['Float']['input']>;
+  productsList: Array<Types.CreateProductInput> | Types.CreateProductInput;
 }>;
 
 
-export type ImportProductsMutation = { importProducts: boolean };
+export type ImportProductsMutation = { importProducts: Array<{ id: number }> };
 
 export type UpdateProductMutationVariables = Types.Exact<{
   updateProductId: Types.Scalars['ID']['input'];
@@ -223,32 +222,32 @@ export const ResetPasswordDocument = `
 }
     `;
 export const CreateClientDocument = `
-    mutation CreateClient($productInfo: CreateClientInput!) {
-  createClient(productInfo: $productInfo) {
+    mutation CreateClient($clientInfo: CreateClientInput!) {
+  createClient(clientInfo: $clientInfo) {
     id
   }
 }
     `;
 export const UpdateClientDocument = `
-    mutation UpdateClient($updateClientId: ID!, $productInfo: UpdateClientInput!) {
-  updateClient(id: $updateClientId, productInfo: $productInfo)
+    mutation UpdateClient($updateClientId: Int!, $clientInfo: UpdateClientInput!) {
+  updateClient(id: $updateClientId, clientInfo: $clientInfo)
 }
     `;
 export const DeleteClientDocument = `
-    mutation DeleteClient($deleteClientId: ID!) {
+    mutation DeleteClient($deleteClientId: Int!) {
   deleteClient(id: $deleteClientId)
 }
     `;
 export const CreateInvoiceDocument = `
-    mutation CreateInvoice($productInfo: CreateInvoiceInput!) {
-  createInvoice(productInfo: $productInfo) {
+    mutation CreateInvoice($invoiceInfo: CreateInvoiceInput!) {
+  createInvoice(invoiceInfo: $invoiceInfo) {
     id
   }
 }
     `;
 export const UpdateInvoiceDocument = `
-    mutation UpdateInvoice($updateInvoiceId: ID!, $productInfo: UpdateInvoiceInput!) {
-  updateInvoice(id: $updateInvoiceId, productInfo: $productInfo)
+    mutation UpdateInvoice($updateInvoiceId: ID!, $invoiceInfo: UpdateInvoiceInput!) {
+  updateInvoice(id: $updateInvoiceId, invoiceInfo: $invoiceInfo)
 }
     `;
 export const DeleteInvoiceDocument = `
@@ -264,8 +263,10 @@ export const CreateProductDocument = `
 }
     `;
 export const ImportProductsDocument = `
-    mutation ImportProducts($productsList: ImportProductsInput!, $userPoints: Float) {
-  importProducts(productsList: $productsList, userPoints: $userPoints)
+    mutation ImportProducts($productsList: [CreateProductInput!]!) {
+  importProducts(productsList: $productsList) {
+    id
+  }
 }
     `;
 export const UpdateProductDocument = `

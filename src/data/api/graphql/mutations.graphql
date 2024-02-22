@@ -52,29 +52,29 @@ mutation ResetPassword($newPassword: String!, $token: String!) {
 }
 
 #Client
-mutation CreateClient($productInfo: CreateClientInput!) {
-  createClient(productInfo: $productInfo) {
+mutation CreateClient($clientInfo: CreateClientInput!) {
+  createClient(clientInfo: $clientInfo) {
     id
   }
 }
 
-mutation UpdateClient($updateClientId: ID!, $productInfo: UpdateClientInput!) {
-  updateClient(id: $updateClientId, productInfo: $productInfo)
+mutation UpdateClient($updateClientId: Int!, $clientInfo: UpdateClientInput!) {
+  updateClient(id: $updateClientId, clientInfo: $clientInfo)
 }
 
-mutation DeleteClient($deleteClientId: ID!) {
+mutation DeleteClient($deleteClientId: Int!) {
   deleteClient(id: $deleteClientId)
 }
 
 #Invoice
-mutation CreateInvoice($productInfo: CreateInvoiceInput!) {
-  createInvoice(productInfo: $productInfo) {
+mutation CreateInvoice($invoiceInfo: CreateInvoiceInput!) {
+  createInvoice(invoiceInfo: $invoiceInfo) {
     id
   }
 }
 
-mutation UpdateInvoice($updateInvoiceId: ID!, $productInfo: UpdateInvoiceInput!) {
-  updateInvoice(id: $updateInvoiceId, productInfo: $productInfo)
+mutation UpdateInvoice($updateInvoiceId: ID!, $invoiceInfo: UpdateInvoiceInput!) {
+  updateInvoice(id: $updateInvoiceId, invoiceInfo: $invoiceInfo)
 }
 
 mutation DeleteInvoice($deleteInvoiceId: ID!) {
@@ -88,8 +88,10 @@ mutation CreateProduct($productInfo: CreateProductInput!) {
   }
 }
 
-mutation ImportProducts($productsList: ImportProductsInput!, $userPoints: Float) {
-  importProducts(productsList: $productsList, userPoints: $userPoints)
+mutation ImportProducts($productsList: [CreateProductInput!]!) {
+  importProducts(productsList: $productsList) {
+    id
+  }
 }
 
 mutation UpdateProduct($updateProductId: ID!, $productInfo: UpdateProductInput!) {

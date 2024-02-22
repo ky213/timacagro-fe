@@ -19,10 +19,15 @@ export type Scalars = {
 export type Client = {
   active: Scalars['Boolean']['output'];
   createdAt: Scalars['DateTime']['output'];
-  files: Array<Maybe<Scalars['String']['output']>>;
   id: Scalars['Int']['output'];
   name: Scalars['String']['output'];
+  orders?: Maybe<Array<Maybe<Order>>>;
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type ClientFileRead = {
+  content: Scalars['String']['output'];
+  extension: Scalars['String']['output'];
 };
 
 export type ClientsList = Pagination & {
@@ -33,19 +38,23 @@ export type ClientsList = Pagination & {
 };
 
 export type CreateClientInput = {
-  files: Array<InputMaybe<Scalars['String']['input']>>;
+  files: Array<Scalars['File']['input']>;
   name: Scalars['String']['input'];
 };
 
 export type CreateInvoiceInput = {
-  client: Scalars['String']['input'];
+  client: Scalars['Int']['input'];
   number: Scalars['String']['input'];
   payed: Scalars['Boolean']['input'];
   total: Scalars['Float']['input'];
 };
 
+export type CreateOrderInput = {
+  clientId: Scalars['Int']['input'];
+  items: Array<OrderItemInput>;
+};
+
 export type CreateProductInput = {
-  active: Scalars['Boolean']['input'];
   available: Scalars['Float']['input'];
   label: Scalars['String']['input'];
   points: Scalars['Int']['input'];
@@ -54,12 +63,9 @@ export type CreateProductInput = {
 };
 
 export type CreateUserInput = {
-  active: Scalars['Boolean']['input'];
-  currentPoints?: InputMaybe<Scalars['Int']['input']>;
   email: Scalars['String']['input'];
   firstName: Scalars['String']['input'];
   lastName: Scalars['String']['input'];
-  password: Scalars['String']['input'];
   region?: InputMaybe<Region>;
   role: Role;
   targetPoints?: InputMaybe<Scalars['Int']['input']>;
@@ -69,10 +75,6 @@ export type Entity = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['ID']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type ImportProductsInput = {
-  products: Array<CreateProductInput>;
 };
 
 export type Invoice = {
@@ -96,6 +98,7 @@ export type Mutation = {
   confirmEmail?: Maybe<Scalars['Boolean']['output']>;
   createClient: Client;
   createInvoice: Invoice;
+  createOrder: Order;
   createProduct: Product;
   createUser: User;
   deleteClient: Scalars['Boolean']['output'];
@@ -103,12 +106,16 @@ export type Mutation = {
   deleteProduct: Scalars['Boolean']['output'];
   deleteUser: Scalars['Boolean']['output'];
   forgotPassword?: Maybe<Scalars['String']['output']>;
-  importProducts: Scalars['Boolean']['output'];
+  importProducts: Array<Product>;
   login?: Maybe<User>;
   logout?: Maybe<Scalars['Boolean']['output']>;
   randomize: Scalars['Float']['output'];
   readTextFile: Scalars['String']['output'];
   resetPassword?: Maybe<Scalars['Boolean']['output']>;
+  restoreClient: Scalars['Boolean']['output'];
+  restoreInvoice: Scalars['Boolean']['output'];
+  restoreProduct: Scalars['Boolean']['output'];
+  restoreUser: Scalars['Boolean']['output'];
   saveFile: Scalars['Boolean']['output'];
   updateClient: Scalars['Boolean']['output'];
   updateInvoice: Scalars['Boolean']['output'];
@@ -123,12 +130,17 @@ export type MutationConfirmEmailArgs = {
 
 
 export type MutationCreateClientArgs = {
-  productInfo: CreateClientInput;
+  clientInfo: CreateClientInput;
 };
 
 
 export type MutationCreateInvoiceArgs = {
-  productInfo: CreateInvoiceInput;
+  invoiceInfo: CreateInvoiceInput;
+};
+
+
+export type MutationCreateOrderArgs = {
+  orderInfo: CreateOrderInput;
 };
 
 
@@ -143,7 +155,7 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationDeleteClientArgs = {
-  id: Scalars['ID']['input'];
+  id: Scalars['Int']['input'];
 };
 
 
@@ -168,8 +180,7 @@ export type MutationForgotPasswordArgs = {
 
 
 export type MutationImportProductsArgs = {
-  productsList: ImportProductsInput;
-  userPoints?: InputMaybe<Scalars['Float']['input']>;
+  productsList: Array<CreateProductInput>;
 };
 
 
@@ -190,20 +201,40 @@ export type MutationResetPasswordArgs = {
 };
 
 
+export type MutationRestoreClientArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type MutationRestoreInvoiceArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type MutationRestoreProductArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type MutationRestoreUserArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
 export type MutationSaveFileArgs = {
   file: Scalars['File']['input'];
 };
 
 
 export type MutationUpdateClientArgs = {
-  id: Scalars['ID']['input'];
-  productInfo: UpdateClientInput;
+  clientInfo: UpdateClientInput;
+  id: Scalars['Int']['input'];
 };
 
 
 export type MutationUpdateInvoiceArgs = {
   id: Scalars['ID']['input'];
-  productInfo: UpdateInvoiceInput;
+  invoiceInfo: UpdateInvoiceInput;
 };
 
 
@@ -218,9 +249,30 @@ export type MutationUpdateUserArgs = {
   userInfo: UpdateUserInput;
 };
 
-export type OrderProductsOutput = {
-  available: Scalars['Float']['output'];
-  label: Scalars['String']['output'];
+export type Order = {
+  client: Client;
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['Int']['output'];
+  items: Array<OrderItem>;
+  updatedAt: Scalars['DateTime']['output'];
+  user: User;
+};
+
+export type OrderItem = {
+  product: Product;
+  quantity: Scalars['Float']['output'];
+};
+
+export type OrderItemInput = {
+  productId: Scalars['Int']['input'];
+  quantity: Scalars['Float']['input'];
+};
+
+export type OrdersList = Pagination & {
+  orders: Array<Maybe<Order>>;
+  page: Scalars['Int']['output'];
+  perPage: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
 };
 
 export type Pagination = {
@@ -230,7 +282,6 @@ export type Pagination = {
 };
 
 export type Product = {
-  active: Scalars['Boolean']['output'];
   available: Scalars['Float']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['Int']['output'];
@@ -256,13 +307,16 @@ export type ProductsList = Pagination & {
 
 export type Query = {
   getClient?: Maybe<Client>;
+  getClientFiles: Array<ClientFileRead>;
   getDateTime: Scalars['DateTime']['output'];
   getInvoice?: Maybe<Invoice>;
+  getOrder?: Maybe<Order>;
   getProduct?: Maybe<Product>;
   getSession?: Maybe<User>;
   getUser?: Maybe<User>;
   listClients: ClientsList;
   listInvoices: InvoicesList;
+  listOrders: OrdersList;
   listProducts: ProductsList;
   listUsers: UsersList;
 };
@@ -273,8 +327,18 @@ export type QueryGetClientArgs = {
 };
 
 
+export type QueryGetClientFilesArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
 export type QueryGetInvoiceArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryGetOrderArgs = {
+  id: Scalars['Int']['input'];
 };
 
 
@@ -295,6 +359,12 @@ export type QueryListClientsArgs = {
 
 
 export type QueryListInvoicesArgs = {
+  page: Scalars['Int']['input'];
+  perPage: Scalars['Int']['input'];
+};
+
+
+export type QueryListOrdersArgs = {
   page: Scalars['Int']['input'];
   perPage: Scalars['Int']['input'];
 };
@@ -331,26 +401,25 @@ export enum Role {
 }
 
 export type Subscription = {
-  orderProducts: Array<OrderProductsOutput>;
+  orderCreated: Order;
+  productsImported: Array<Product>;
   randomNumber: Scalars['Float']['output'];
   testConnection: Scalars['Int']['output'];
 };
 
 export type UpdateClientInput = {
-  active?: InputMaybe<Scalars['Boolean']['input']>;
-  files?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  files?: InputMaybe<Array<InputMaybe<Scalars['File']['input']>>>;
   name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateInvoiceInput = {
-  client: Scalars['String']['input'];
+  client: Scalars['Int']['input'];
   number: Scalars['String']['input'];
   payed: Scalars['Boolean']['input'];
   total: Scalars['Float']['input'];
 };
 
 export type UpdateProductInput = {
-  active?: InputMaybe<Scalars['Boolean']['input']>;
   available?: InputMaybe<Scalars['Float']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   points?: InputMaybe<Scalars['Int']['input']>;
@@ -379,6 +448,7 @@ export type User = {
   firstName: Scalars['String']['output'];
   id: Scalars['Int']['output'];
   lastName: Scalars['String']['output'];
+  orders?: Maybe<Array<Maybe<Order>>>;
   password?: Maybe<Scalars['String']['output']>;
   region?: Maybe<Region>;
   role: Role;

@@ -6,9 +6,8 @@ subscription TestConnection {
   testConnection
 }
 
-subscription OrderProduct {
-  orderProducts {
-    available
-    label
+subscription OrderCreated {
+  orderCreated {
+    id
   }
 }
