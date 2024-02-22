@@ -31,6 +31,7 @@ import {
   RenderIf,
 } from "src/components";
 import { resetClients } from "src/data/store/reducers/clients";
+import { OrderItemInput } from "src/data/types/generated";
 
 export const ProductsOrderPage = () => {
   const dispatch = useAppDispatch();
@@ -46,6 +47,7 @@ export const ProductsOrderPage = () => {
     clearErrors,
   } = useForm();
 
+  // TODO: set scroll pagination
   useListClientsQuery({ page: 0, perPage: 1000 });
   useListProductsQuery({ page: 0, perPage: 1000 });
 
@@ -59,41 +61,36 @@ export const ProductsOrderPage = () => {
     };
   }, [isLoading, isSuccess, dispatch, gotTo]);
 
-  const onSubmit = async (order: any) => {
+  const onSubmit = async ({ client, clientId, ...rest }: any) => {
     try {
       if (selectedProducts.length === 0) {
         setError("product", { message: "Must select a product" });
         return;
       }
-      let userPoints = 0;
-      const orderedProducts = products.list.products
-        .filter(({ id }) => order[id])
-        .map((product) => {
-          const newProduct = {
-            ...product,
-            available: product.available - order[product.id],
-          };
 
-          const { id, createdAt, updatedAt, ...rest } = newProduct;
+      const items: OrderItemInput[] = Object.entries(rest).map(
+        ([productId, quantity]) => ({
+          productId: Number(productId),
+          quantity: Number(quantity),
+        })
+      );
 
-          userPoints += product.points * order[product.id];
-
-          return rest;
-        });
+      createOrder({
+        orderInfo: {
+          clientId,
+          items,
+        },
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
-  //TODO:to be refactored
-  const handleProductSelect = (event: SelectChangeEvent<typeof selectedProducts>) => {
-    const {
-      target: { value },
-    } = event;
-    if (typeof value !== "string") {
-      setSelectedProduct(value);
-      clearErrors(["product"]);
-    }
+  const handleProductSelect = ({
+    target,
+  }: SelectChangeEvent<typeof selectedProducts>) => {
+    setSelectedProduct(target.value as number[]);
+    clearErrors(["product"]);
   };
 
   return (
@@ -121,13 +118,13 @@ export const ProductsOrderPage = () => {
         >
           <Grid container sm={5} spacing={2}>
             <Grid item xs={12} mt={2}>
-              <FormControl error={Boolean(fieldErrors.client)} fullWidth>
-                <InputLabel id="role-label">Client</InputLabel>
+              <FormControl error={Boolean(fieldErrors.clientId)} fullWidth>
+                <InputLabel id="clientId-label">Client</InputLabel>
                 <Select
-                  id="client"
-                  labelId="client-label"
+                  id="clientId"
+                  labelId="clientId-label"
                   fullWidth
-                  {...registerField("client", { required: true })}
+                  {...registerField("clientId", { required: true })}
                 >
                   {clients.list.clients.map(({ id, name }) => (
                     <MenuItem key={id} value={id}>
@@ -135,7 +132,7 @@ export const ProductsOrderPage = () => {
                     </MenuItem>
                   ))}
                 </Select>
-                {Boolean(fieldErrors.client) && (
+                {Boolean(fieldErrors.clientId) && (
                   <FormHelperText color={"danger"}>Must select a client</FormHelperText>
                 )}
               </FormControl>

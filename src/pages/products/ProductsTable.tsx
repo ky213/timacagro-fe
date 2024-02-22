@@ -40,10 +40,9 @@ export const ProductsTable = (props: any) => {
               <TableRow>
                 <TableCell>Label</TableCell>
                 <TableCell>Type</TableCell>
-                <TableCell>Quantity (Tonne)</TableCell>
+                <TableCell>Available (Tonne)</TableCell>
                 <TableCell>Available (%)</TableCell>
                 <TableCell>Points</TableCell>
-                <TableCell>Active</TableCell>
                 <TableCell>Added in</TableCell>
               </TableRow>
             </TableHead>
@@ -68,7 +67,7 @@ export const ProductsTable = (props: any) => {
                       </Stack>
                     </TableCell>
                     <TableCell>{product.type}</TableCell>
-                    <TableCell>{product.quantity.toLocaleString()}</TableCell>
+                    <TableCell>{product.available.toLocaleString()}</TableCell>
                     <TableCell>
                       {available.toFixed(1)} %
                       <LinearProgress variant="determinate" value={available} />
