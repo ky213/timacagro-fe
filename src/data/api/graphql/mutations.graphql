@@ -102,6 +102,13 @@ mutation DeleteProduct($deleteProductId: ID!) {
   deleteProduct(id: $deleteProductId)
 }
 
+#Order
+mutation CreateOrder($orderInfo: CreateOrderInput!) {
+  createOrder(orderInfo: $orderInfo) {
+    id
+  }
+}
+
 #File
 mutation ReadTextFile($file: File!) {
   readTextFile(file: $file)

@@ -5,16 +5,15 @@ import { OrderCreatedDocument } from "./graphql/subscriptions.generated";
 queries.enhanceEndpoints({
   endpoints: {
     ListProducts: {
-      async onCacheEntryAdded(_args, { dispatch }) {
+      async onCacheEntryAdded({ page, perPage }, { dispatch }) {
         const url = new URL(API_URL);
 
         url.searchParams.append("query", OrderCreatedDocument);
 
         const source: EventSource = new EventSource(url, { withCredentials: true });
 
-        source.addEventListener("message", ({ data }) => {
-          //   TODO: refactor
-          dispatch(queries.endpoints.ListProducts.initiate({ page: 0, perPage: 1000 }));
+        source.addEventListener("message", () => {
+          dispatch(queries.endpoints.ListProducts.initiate({ page, perPage }));
         });
 
         source.addEventListener<"error">("error", (e) => {

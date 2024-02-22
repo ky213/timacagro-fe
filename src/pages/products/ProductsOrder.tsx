@@ -4,9 +4,15 @@ import { useNavigate } from "react-router-dom";
 
 import { resetProducts } from "src/data/store/reducers/products";
 import { useAppDispatch, useAppSelector } from "src/data/store";
-import { useImportProductsMutation } from "src/data/api/graphql/mutations.generated";
+import {
+  useCreateOrderMutation,
+  useImportProductsMutation,
+} from "src/data/api/graphql/mutations.generated";
 import { ShoppingCartIcon } from "src/components/Icons";
-import { useListProductsQuery } from "src/data/api/graphql/queries.generated";
+import {
+  useListClientsQuery,
+  useListProductsQuery,
+} from "src/data/api/graphql/queries.generated";
 import { SelectChangeEvent } from "@mui/material/Select/SelectInput";
 import { resetGlobalState } from "src/data/store/reducers/global";
 import {
@@ -24,32 +30,14 @@ import {
   FormHelperText,
   RenderIf,
 } from "src/components";
-
-export const clients = [
-  {
-    name: "",
-  },
-  {
-    name: "Client One",
-  },
-  {
-    name: "Client Two",
-  },
-  {
-    name: "Client Three",
-  },
-];
+import { resetClients } from "src/data/store/reducers/clients";
 
 export const ProductsOrderPage = () => {
   const dispatch = useAppDispatch();
   const gotTo = useNavigate();
   const [selectedProducts, setSelectedProduct] = useState<number[]>([]);
-  const [importProducts, { isLoading, isSuccess }] = useImportProductsMutation();
-
-  const {
-    list: { products },
-  } = useAppSelector((state) => state.products);
-  const { loading } = useAppSelector((state) => state.global);
+  const { global, products, clients } = useAppSelector((state) => state);
+  const [createOrder, { isSuccess, isLoading }] = useCreateOrderMutation();
   const {
     handleSubmit,
     register: registerField,
@@ -58,16 +46,18 @@ export const ProductsOrderPage = () => {
     clearErrors,
   } = useForm();
 
+  useListClientsQuery({ page: 0, perPage: 1000 });
   useListProductsQuery({ page: 0, perPage: 1000 });
 
-  // useEffect(() => {
-  //   if (!isLoading && isSuccess) gotTo(-1);
+  useEffect(() => {
+    if (!isLoading && isSuccess) gotTo(-1);
 
-  //   return () => {
-  //     dispatch(resetProducts());
-  //     dispatch(resetGlobalState({}));
-  //   };
-  // }, [isLoading, isSuccess, dispatch, gotTo]);
+    return () => {
+      dispatch(resetProducts());
+      dispatch(resetClients());
+      dispatch(resetGlobalState({}));
+    };
+  }, [isLoading, isSuccess, dispatch, gotTo]);
 
   const onSubmit = async (order: any) => {
     try {
@@ -76,7 +66,7 @@ export const ProductsOrderPage = () => {
         return;
       }
       let userPoints = 0;
-      const orderedProducts = products
+      const orderedProducts = products.list.products
         .filter(({ id }) => order[id])
         .map((product) => {
           const newProduct = {
@@ -90,8 +80,6 @@ export const ProductsOrderPage = () => {
 
           return rest;
         });
-
-      importProducts({ productsList: orderedProducts });
     } catch (error) {
       console.log(error);
     }
@@ -141,8 +129,8 @@ export const ProductsOrderPage = () => {
                   fullWidth
                   {...registerField("client", { required: true })}
                 >
-                  {clients.map(({ name }) => (
-                    <MenuItem key={name} value={name}>
+                  {clients.list.clients.map(({ id, name }) => (
+                    <MenuItem key={id} value={id}>
                       {name}
                     </MenuItem>
                   ))}
@@ -163,7 +151,7 @@ export const ProductsOrderPage = () => {
                   fullWidth
                   multiple
                 >
-                  {products.map(({ id, label, available }) => (
+                  {products.list.products.map(({ id, label, available }) => (
                     <MenuItem key={id} value={id} disabled={available <= 0}>
                       {label} - <strong> {available.toLocaleString()} tonne</strong>
                     </MenuItem>
@@ -178,7 +166,7 @@ export const ProductsOrderPage = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              {products.map(({ id, label, available }) => {
+              {products.list.products.map(({ id, label, available }) => {
                 if (selectedProducts.includes(id))
                   return (
                     <Grid container xs={12} alignItems={"center"} spacing={1} mb={1}>
@@ -219,7 +207,7 @@ export const ProductsOrderPage = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              disabled={Boolean(loading)}
+              disabled={Boolean(global.loading)}
             >
               Submit
             </Button>

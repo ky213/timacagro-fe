@@ -6,6 +6,7 @@ import { api } from "../api";
 import globalReducer from "./reducers/global";
 import usersReducer from "./reducers/users";
 import productsReducer from "./reducers/products";
+import clientsReducer from "./reducers/clients";
 import { notificationMiddleware } from "./middlewares/notification";
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   global: globalReducer,
   users: usersReducer,
   products: productsReducer,
+  clients: clientsReducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<IRootState>) => {

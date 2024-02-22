@@ -64,11 +64,18 @@ query ListUsers($page: Int!, $perPage: Int!) {
 query GetClient($getClientId: ID!) {
   getClient(id: $getClientId) {
     id
+    name
+    active
+    createdAt
+    updatedAt
   }
 }
 
 query ListClients($page: Int!, $perPage: Int!) {
   listClients(page: $page, perPage: $perPage) {
+    page
+    perPage
+    total
     clients {
       id
       name
