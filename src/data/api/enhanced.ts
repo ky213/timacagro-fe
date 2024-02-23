@@ -12,7 +12,7 @@ queries.enhanceEndpoints({
 
         const source: EventSource = new EventSource(url, { withCredentials: true });
 
-        source.addEventListener("message", () => {
+        source.addEventListener("next", () => {
           dispatch(queries.endpoints.ListProducts.initiate({ page, perPage }));
         });
 

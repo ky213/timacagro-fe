@@ -4,10 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { resetProducts } from "src/data/store/reducers/products";
 import { useAppDispatch, useAppSelector } from "src/data/store";
-import {
-  useCreateOrderMutation,
-  useImportProductsMutation,
-} from "src/data/api/graphql/mutations.generated";
+import { useCreateOrderMutation } from "src/data/api/graphql/mutations.generated";
 import { ShoppingCartIcon } from "src/components/Icons";
 import {
   useListClientsQuery,
