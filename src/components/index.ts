@@ -36,6 +36,7 @@ export { default as FormLabel } from "@mui/material/FormLabel";
 export { default as Popover } from "@mui/material/Popover";
 export { default as MenuList } from "@mui/material/MenuList";
 
+export { LoadingProgress, LoadingFailed } from "./Loaders";
 export { ErrorBoundary } from "./ErrorBoundry";
 export { RenderIf } from "./Utils";
 

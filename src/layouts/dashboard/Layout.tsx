@@ -6,12 +6,10 @@ import { TopNav } from "./TopNav";
 import {
   Alert,
   Box,
-  Button,
-  CircularProgress,
   LinearProgress,
-  Link,
+  LoadingFailed,
+  LoadingProgress,
   RenderIf,
-  Stack,
   Typography,
 } from "src/components";
 import { useAppSelector } from "src/data/store";
@@ -53,43 +51,9 @@ export const DashboardLayout = (props: any) => {
     handlePathnameChange();
   }, [pathname]);
 
-  if (isLoading)
-    return (
-      <Box
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        height={"90vh"}
-      >
-        <Stack>
-          <CircularProgress color="primary" size="50px" />
+  if (isLoading) return <LoadingProgress />;
 
-          <Typography ml={-2} mt={3} variant="h5">
-            loading...
-          </Typography>
-        </Stack>
-      </Box>
-    );
-
-  if (isError)
-    return (
-      <Box
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        height={"90vh"}
-      >
-        <Stack>
-          <Typography ml={-2} mt={3} variant="h5">
-            Error initializing!
-          </Typography>
-
-          <Link component={Button} variant="body2" href="/">
-            Go Back
-          </Link>
-        </Stack>
-      </Box>
-    );
+  if (isError) return <LoadingFailed />;
 
   return (
     <>
