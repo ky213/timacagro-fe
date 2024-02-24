@@ -3,8 +3,19 @@ import { Outlet, useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { SideNav } from "./SideNav";
 import { TopNav } from "./TopNav";
-import { Alert, Box, LinearProgress, RenderIf, Typography } from "src/components";
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  LinearProgress,
+  Link,
+  RenderIf,
+  Stack,
+  Typography,
+} from "src/components";
 import { useAppSelector } from "src/data/store";
+import { useGetSessionQuery } from "src/data/api/graphql/queries.generated";
 
 const SIDE_NAV_WIDTH = 280;
 
@@ -27,6 +38,7 @@ const LayoutContainer = styled("div")({
 
 export const DashboardLayout = (props: any) => {
   const { errors, loading } = useAppSelector((state) => state.global);
+  const { isLoading, isError } = useGetSessionQuery();
 
   const { pathname } = useLocation();
   const [openNav, setOpenNav] = useState(false);
@@ -37,13 +49,47 @@ export const DashboardLayout = (props: any) => {
     }
   }, [openNav]);
 
-  useEffect(
-    () => {
-      handlePathnameChange();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [pathname]
-  );
+  useEffect(() => {
+    handlePathnameChange();
+  }, [pathname]);
+
+  if (isLoading)
+    return (
+      <Box
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        height={"90vh"}
+      >
+        <Stack>
+          <CircularProgress color="primary" size="50px" />
+
+          <Typography ml={-2} mt={3} variant="h5">
+            loading...
+          </Typography>
+        </Stack>
+      </Box>
+    );
+
+  if (isError)
+    return (
+      <Box
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        height={"90vh"}
+      >
+        <Stack>
+          <Typography ml={-2} mt={3} variant="h5">
+            Error initializing!
+          </Typography>
+
+          <Link component={Button} variant="body2" href="/">
+            Go Back
+          </Link>
+        </Stack>
+      </Box>
+    );
 
   return (
     <>

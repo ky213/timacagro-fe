@@ -16,9 +16,7 @@ queries.enhanceEndpoints({
           dispatch(queries.endpoints.ListProducts.initiate({ page, perPage }));
         });
 
-        source.addEventListener<"error">("error", (e) => {
-          console.log("SEE Error: ", e);
-        });
+        source.addEventListener<"error">("error", (e) => {});
 
         source.addEventListener("complete", () => {
           source.close();

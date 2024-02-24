@@ -1,11 +1,27 @@
 import * as React from "react";
-import { Outlet, NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Outlet, NavLink, useNavigate, useSearchParams } from "react-router-dom";
 
 import { Box, Typography, Grid, LinearProgress, Alert, RenderIf } from "src/components";
+import { useLazyGetSessionQuery } from "src/data/api/graphql/queries.generated";
 import { useAppSelector } from "src/data/store";
+import { resetGlobalState } from "src/data/store/reducers/global";
 
 export const AuthLayout = (props: any) => {
-  const { errors, loading } = useAppSelector((state) => state.global);
+  const { errors, loading, session } = useAppSelector((state) => state.global);
+  const goTo = useNavigate();
+  const [params] = useSearchParams();
+  const dispatch = useDispatch();
+  const [refetchSession] = useLazyGetSessionQuery();
+
+  React.useEffect(() => {
+    if (session) goTo(params.get("from") || "/");
+    else refetchSession();
+
+    return () => {
+      dispatch(resetGlobalState({}));
+    };
+  }, [dispatch, goTo, session, params, refetchSession]);
 
   return (
     <Box
