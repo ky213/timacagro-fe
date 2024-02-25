@@ -21,7 +21,7 @@ query GetSession {
 }
 
 # User
-query GetUser($getUserId: ID!) {
+query GetUser($getUserId: Int!) {
   getUser(id: $getUserId) {
     id
     firstName

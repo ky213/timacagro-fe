@@ -1,5 +1,5 @@
-import { useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { default as Grid } from "@mui/material/Unstable_Grid2";
 
 import { Region, Role } from "src/data/types/generated";
@@ -19,28 +19,50 @@ import {
   Stack,
   LinearProgress,
   FormLabel,
+  ConfirmDeleteEntity,
 } from "src/components";
 import { useGetUserQuery } from "src/data/api/graphql/queries.generated";
+import { useDeleteUserMutation } from "src/data/api/graphql/mutations.generated";
+import { useDispatch } from "react-redux";
+import { resetUsers } from "src/data/store/reducers/users";
 
 export const UserProfile = () => {
+  const [openDeleteUserDialog, setopenDeleteUserDialog] = useState<boolean>(false);
   const params = useParams();
+  const goTo = useNavigate();
+  const dispatch = useDispatch();
+  const [deleteUser, { isSuccess: isDeleted }] = useDeleteUserMutation();
 
-  useGetUserQuery({ getUserId: `${params.id}` });
+  useGetUserQuery({ getUserId: Number(params.id) });
 
-  const { currentUser: user } = useAppSelector((state) => state.users);
+  const { currentUser: user, loading } = useAppSelector((state) => state.users);
+  const handleChange = useCallback((evenst: any) => {}, []);
+
   const progress = (
     ((user?.currentPoints || 0) / (user?.targetPoints || 1)) *
     100
   ).toFixed(1);
 
-  const handleChange = useCallback((evenst: any) => {}, []);
-
   const handleSubmit = useCallback((event: { preventDefault: () => void }) => {
     event.preventDefault();
   }, []);
 
+  const handleCloseDialog = (ok: boolean) => {
+    if (ok) deleteUser({ deleteUserId: Number(params.id) });
+    else setopenDeleteUserDialog(false);
+  };
+
+  useEffect(() => {
+    if (isDeleted) goTo(-1);
+
+    return () => {
+      dispatch(resetUsers());
+    };
+  }, [isDeleted]);
+
   return (
     <Container maxWidth="lg">
+      <ConfirmDeleteEntity open={openDeleteUserDialog} onClose={handleCloseDialog} />
       <Stack spacing={3}>
         <div>
           <Typography variant="h4">Account</Typography>
@@ -173,7 +195,11 @@ export const UserProfile = () => {
                   <Divider />
                   <CardActions sx={{ justifyContent: "flex-end" }}>
                     <Button variant="contained">Save details</Button>
-                    <Button variant="outlined" color="error">
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => setopenDeleteUserDialog(true)}
+                    >
                       Delete user
                     </Button>
                   </CardActions>

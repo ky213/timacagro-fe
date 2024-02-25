@@ -37,7 +37,7 @@ export type CreateUserMutationVariables = Types.Exact<{
 export type CreateUserMutation = { createUser: { id: number } };
 
 export type UpdateUserMutationVariables = Types.Exact<{
-  updateUserId: Types.Scalars['ID']['input'];
+  updateUserId: Types.Scalars['Int']['input'];
   userInfo: Types.UpdateUserInput;
 }>;
 
@@ -45,7 +45,7 @@ export type UpdateUserMutationVariables = Types.Exact<{
 export type UpdateUserMutation = { updateUser: boolean };
 
 export type DeleteUserMutationVariables = Types.Exact<{
-  deleteUserId: Types.Scalars['ID']['input'];
+  deleteUserId: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -204,12 +204,12 @@ export const CreateUserDocument = `
 }
     `;
 export const UpdateUserDocument = `
-    mutation UpdateUser($updateUserId: ID!, $userInfo: UpdateUserInput!) {
+    mutation UpdateUser($updateUserId: Int!, $userInfo: UpdateUserInput!) {
   updateUser(id: $updateUserId, userInfo: $userInfo)
 }
     `;
 export const DeleteUserDocument = `
-    mutation DeleteUser($deleteUserId: ID!) {
+    mutation DeleteUser($deleteUserId: Int!) {
   deleteUser(id: $deleteUserId)
 }
     `;

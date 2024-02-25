@@ -22,7 +22,7 @@ export type GetSessionQueryVariables = Types.Exact<{ [key: string]: never; }>;
 export type GetSessionQuery = { getSession?: { id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any } };
 
 export type GetUserQueryVariables = Types.Exact<{
-  getUserId: Types.Scalars['ID']['input'];
+  getUserId: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -106,7 +106,7 @@ export const GetSessionDocument = `
 }
     `;
 export const GetUserDocument = `
-    query GetUser($getUserId: ID!) {
+    query GetUser($getUserId: Int!) {
   getUser(id: $getUserId) {
     id
     firstName

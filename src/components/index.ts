@@ -38,6 +38,7 @@ export { default as MenuList } from "@mui/material/MenuList";
 
 export { LoadingProgress, LoadingFailed } from "./Loaders";
 export { ErrorBoundary } from "./ErrorBoundry";
+export { ConfirmDeleteEntity } from "./DeleteEntity";
 export { RenderIf } from "./Utils";
 
 export * from "./Logo";

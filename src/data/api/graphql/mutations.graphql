@@ -31,11 +31,11 @@ mutation CreateUser($userInfo: CreateUserInput!) {
   }
 }
 
-mutation UpdateUser($updateUserId: ID!, $userInfo: UpdateUserInput!) {
+mutation UpdateUser($updateUserId: Int!, $userInfo: UpdateUserInput!) {
   updateUser(id: $updateUserId, userInfo: $userInfo)
 }
 
-mutation DeleteUser($deleteUserId: ID!) {
+mutation DeleteUser($deleteUserId: Int!) {
   deleteUser(id: $deleteUserId)
 }
 
