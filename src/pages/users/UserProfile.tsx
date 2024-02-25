@@ -1,4 +1,9 @@
 import { useCallback } from "react";
+import { useParams } from "react-router-dom";
+import { default as Grid } from "@mui/material/Unstable_Grid2";
+
+import { Region, Role } from "src/data/types/generated";
+import { useAppSelector } from "src/data/store";
 import {
   Box,
   Button,
@@ -8,18 +13,20 @@ import {
   CardHeader,
   Divider,
   TextField,
-  Unstable_Grid2 as Grid,
   Avatar,
   Typography,
   Container,
   Stack,
   LinearProgress,
   FormLabel,
-} from "@mui/material";
-import { Region, Role } from "src/data/types/generated";
-import { useAppSelector } from "src/data/store";
+} from "src/components";
+import { useGetUserQuery } from "src/data/api/graphql/queries.generated";
 
 export const UserProfile = () => {
+  const params = useParams();
+
+  useGetUserQuery({ getUserId: `${params.id}` });
+
   const { currentUser: user } = useAppSelector((state) => state.users);
   const progress = (
     ((user?.currentPoints || 0) / (user?.targetPoints || 1)) *
@@ -117,12 +124,12 @@ export const UserProfile = () => {
                         </Grid>
                         <Grid xs={12} md={6}>
                           <TextField
+                            select
                             fullWidth
+                            required
                             label="Region"
                             name="region"
                             onChange={handleChange}
-                            required
-                            select
                             SelectProps={{ native: true }}
                             defaultValue={user?.region}
                           >
