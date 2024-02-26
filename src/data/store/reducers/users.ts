@@ -39,6 +39,13 @@ const slice = createSlice({
       }
     );
 
+    builder.addMatcher(
+      queries.endpoints.SearchUser.matchFulfilled,
+      (state, { payload }) => {
+        state.list = { ...state.list, users: payload.searchUser };
+      }
+    );
+
     builder.addMatcher(queries.endpoints.GetUser.matchFulfilled, (state, { payload }) => {
       state.currentUser = payload.getUser || null;
     });

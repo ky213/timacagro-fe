@@ -22,7 +22,7 @@ export const UsersMainPage = (props: IDashboardProps) => {
   const dispatch = useDispatch();
   const goTo = useNavigate();
 
-  const { data } = useListUsersQuery({
+  useListUsersQuery({
     page,
     perPage,
   });
@@ -31,7 +31,7 @@ export const UsersMainPage = (props: IDashboardProps) => {
     return () => {
       dispatch(resetUsers());
     };
-  });
+  }, []);
 
   const handlePageChange = useCallback(
     (_event: any, value: React.SetStateAction<number>) => {
@@ -99,8 +99,6 @@ export const UsersMainPage = (props: IDashboardProps) => {
           </Stack>
           <UsersSearch />
           <UsersTable
-            count={data?.listUsers.total}
-            items={data?.listUsers.users}
             onPageChange={handlePageChange}
             onRowsPerPageChange={handleRowsPerPageChange}
             page={page}

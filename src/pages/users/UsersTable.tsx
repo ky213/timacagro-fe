@@ -20,17 +20,20 @@ import {
 import { User } from "src/data/types/generated";
 import { CheckIcon } from "src/components/Icons";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "src/data/store";
 
 //TODO: set props type
 export const UsersTable = (props: any) => {
   const {
-    count = 0,
-    items = [],
     onPageChange = () => {},
     onRowsPerPageChange,
     page = 0,
     rowsPerPage = 0,
   } = props;
+
+  const {
+    list: { users: items, total: count },
+  } = useAppSelector((state) => state.users);
 
   const goTo = useNavigate();
 

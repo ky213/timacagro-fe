@@ -36,6 +36,13 @@ export type ListUsersQueryVariables = Types.Exact<{
 
 export type ListUsersQuery = { listUsers: { page: number, perPage: number, total: number, users: Array<{ id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any }> } };
 
+export type SearchUserQueryVariables = Types.Exact<{
+  searchQuery: Types.Scalars['String']['input'];
+}>;
+
+
+export type SearchUserQuery = { searchUser: Array<{ id: number, firstName: string, lastName: string, email: string, role: Types.Role, currentPoints?: number, targetPoints?: number, region?: Types.Region, active: boolean, emailConfirmed: boolean, createdAt: any, updatedAt: any }> };
+
 export type GetClientQueryVariables = Types.Exact<{
   getClientId: Types.Scalars['ID']['input'];
 }>;
@@ -146,6 +153,24 @@ export const ListUsersDocument = `
   }
 }
     `;
+export const SearchUserDocument = `
+    query SearchUser($searchQuery: String!) {
+  searchUser(searchQuery: $searchQuery) {
+    id
+    firstName
+    lastName
+    email
+    role
+    currentPoints
+    targetPoints
+    region
+    active
+    emailConfirmed
+    createdAt
+    updatedAt
+  }
+}
+    `;
 export const GetClientDocument = `
     query GetClient($getClientId: ID!) {
   getClient(id: $getClientId) {
@@ -252,6 +277,9 @@ const injectedRtkApi = api.injectEndpoints({
     ListUsers: build.query<ListUsersQuery, ListUsersQueryVariables>({
       query: (variables) => ({ document: ListUsersDocument, variables })
     }),
+    SearchUser: build.query<SearchUserQuery, SearchUserQueryVariables>({
+      query: (variables) => ({ document: SearchUserDocument, variables })
+    }),
     GetClient: build.query<GetClientQuery, GetClientQueryVariables>({
       query: (variables) => ({ document: GetClientDocument, variables })
     }),
@@ -274,5 +302,5 @@ const injectedRtkApi = api.injectEndpoints({
 });
 
 export { injectedRtkApi as api };
-export const { useGetDateTimeQuery, useLazyGetDateTimeQuery, useGetSessionQuery, useLazyGetSessionQuery, useGetUserQuery, useLazyGetUserQuery, useListUsersQuery, useLazyListUsersQuery, useGetClientQuery, useLazyGetClientQuery, useListClientsQuery, useLazyListClientsQuery, useGetProductQuery, useLazyGetProductQuery, useListProductsQuery, useLazyListProductsQuery, useGetInvoiceQuery, useLazyGetInvoiceQuery, useLisInvoicesQuery, useLazyLisInvoicesQuery } = injectedRtkApi;
+export const { useGetDateTimeQuery, useLazyGetDateTimeQuery, useGetSessionQuery, useLazyGetSessionQuery, useGetUserQuery, useLazyGetUserQuery, useListUsersQuery, useLazyListUsersQuery, useSearchUserQuery, useLazySearchUserQuery, useGetClientQuery, useLazyGetClientQuery, useListClientsQuery, useLazyListClientsQuery, useGetProductQuery, useLazyGetProductQuery, useListProductsQuery, useLazyListProductsQuery, useGetInvoiceQuery, useLazyGetInvoiceQuery, useLisInvoicesQuery, useLazyLisInvoicesQuery } = injectedRtkApi;
 

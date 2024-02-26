@@ -60,6 +60,23 @@ query ListUsers($page: Int!, $perPage: Int!) {
   }
 }
 
+query SearchUser($searchQuery: String!) {
+  searchUser(searchQuery: $searchQuery) {
+    id
+    firstName
+    lastName
+    email
+    role
+    currentPoints
+    targetPoints
+    region
+    active
+    emailConfirmed
+    createdAt
+    updatedAt
+  }
+}
+
 # Client
 query GetClient($getClientId: ID!) {
   getClient(id: $getClientId) {

@@ -319,6 +319,7 @@ export type Query = {
   listOrders: OrdersList;
   listProducts: ProductsList;
   listUsers: UsersList;
+  searchUser: Array<Maybe<User>>;
 };
 
 
@@ -379,6 +380,11 @@ export type QueryListProductsArgs = {
 export type QueryListUsersArgs = {
   page: Scalars['Int']['input'];
   perPage: Scalars['Int']['input'];
+};
+
+
+export type QuerySearchUserArgs = {
+  searchQuery: Scalars['String']['input'];
 };
 
 export enum Region {
