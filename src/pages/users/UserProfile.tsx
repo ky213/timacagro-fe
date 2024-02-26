@@ -1,9 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { default as Grid } from "@mui/material/Unstable_Grid2";
 
-import { Region, Role } from "src/data/types/generated";
+import { Region, Role, User } from "src/data/types/generated";
 import { useAppSelector } from "src/data/store";
+import { useGetUserQuery } from "src/data/api/graphql/queries.generated";
+import {
+  useDeleteUserMutation,
+  useUpdateUserMutation,
+} from "src/data/api/graphql/mutations.generated";
+import { resetUsers } from "src/data/store/reducers/users";
 import {
   Box,
   Button,
@@ -21,44 +28,54 @@ import {
   FormLabel,
   ConfirmDeleteEntity,
 } from "src/components";
-import { useGetUserQuery } from "src/data/api/graphql/queries.generated";
-import { useDeleteUserMutation } from "src/data/api/graphql/mutations.generated";
-import { useDispatch } from "react-redux";
-import { resetUsers } from "src/data/store/reducers/users";
+import { useForm } from "react-hook-form";
+import { EMAIL_REG_EXR } from "src/config/constants";
 
 export const UserProfile = () => {
-  const [openDeleteUserDialog, setopenDeleteUserDialog] = useState<boolean>(false);
+  const [openDeleteUserDialog, setOpenDeleteUserDialog] = useState<boolean>(false);
   const params = useParams();
   const goTo = useNavigate();
   const dispatch = useDispatch();
   const [deleteUser, { isSuccess: isDeleted }] = useDeleteUserMutation();
-
-  useGetUserQuery({ getUserId: Number(params.id) });
-
-  const { currentUser: user, loading } = useAppSelector((state) => state.users);
-  const handleChange = useCallback((evenst: any) => {}, []);
+  const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
+  useGetUserQuery({
+    getUserId: Number(params.id),
+  });
+  const { currentUser: user } = useAppSelector((state) => state.users);
+  const {
+    handleSubmit,
+    register: registerField,
+    formState: { errors: fieldErrors },
+  } = useForm<User>();
 
   const progress = (
     ((user?.currentPoints || 0) / (user?.targetPoints || 1)) *
     100
   ).toFixed(1);
 
-  const handleSubmit = useCallback((event: { preventDefault: () => void }) => {
-    event.preventDefault();
-  }, []);
+  useEffect(() => {
+    if (isDeleted) goTo(-1);
+  }, [isDeleted]);
+
+  useEffect(
+    () => () => {
+      dispatch(resetUsers());
+    },
+    []
+  );
 
   const handleCloseDialog = (ok: boolean) => {
     if (ok) deleteUser({ deleteUserId: Number(params.id) });
-    else setopenDeleteUserDialog(false);
+    else setOpenDeleteUserDialog(false);
   };
 
-  useEffect(() => {
-    if (isDeleted) goTo(-1);
+  const onSubmit = async (userData: User) => {
+    const { id, createdAt, updatedAt, ...userInfo } = userData;
 
-    return () => {
-      dispatch(resetUsers());
-    };
-  }, [isDeleted]);
+    updateUser({ updateUserId: Number(user?.id), userInfo });
+  };
+
+  if (!user) return null;
 
   return (
     <Container maxWidth="lg">
@@ -107,7 +124,7 @@ export const UserProfile = () => {
               </Card>
             </Grid>
             <Grid xs={12} md={6} lg={8}>
-              <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+              <form autoComplete="off" noValidate onSubmit={handleSubmit(onSubmit)}>
                 <Card>
                   <CardHeader subheader="The information can be edited" title="Profile" />
                   <CardContent sx={{ pt: 0 }}>
@@ -116,44 +133,52 @@ export const UserProfile = () => {
                         <Grid xs={12} md={6}>
                           <TextField
                             fullWidth
-                            helperText="Please specify the first name"
                             label="First name"
-                            name="firstName"
-                            onChange={handleChange}
-                            required
-                            defaultValue={user?.firstName}
+                            defaultValue={user.firstName}
+                            {...registerField("firstName", { required: true })}
+                            error={Boolean(fieldErrors.firstName)}
+                            helperText={
+                              Boolean(fieldErrors.firstName) && "This field is required"
+                            }
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
                           <TextField
                             fullWidth
                             label="Last name"
-                            name="lastName"
-                            onChange={handleChange}
-                            required
-                            defaultValue={user?.lastName}
+                            defaultValue={user.lastName}
+                            {...registerField("lastName", {
+                              required: true,
+                            })}
+                            error={Boolean(fieldErrors.lastName)}
+                            helperText={
+                              Boolean(fieldErrors.lastName) && "This field is required"
+                            }
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
                           <TextField
                             fullWidth
+                            defaultValue={user.email}
                             label="Email Address"
-                            name="email"
-                            onChange={handleChange}
-                            required
-                            defaultValue={user?.email}
+                            {...registerField("email", {
+                              pattern: EMAIL_REG_EXR,
+                              required: true,
+                            })}
+                            error={Boolean(fieldErrors.email)}
+                            helperText={
+                              Boolean(fieldErrors.email) && " A valid email is required"
+                            }
                           />
                         </Grid>
                         <Grid xs={12} md={6}>
                           <TextField
                             select
                             fullWidth
-                            required
                             label="Region"
-                            name="region"
-                            onChange={handleChange}
+                            defaultValue={user.region}
                             SelectProps={{ native: true }}
-                            defaultValue={user?.region}
+                            {...registerField("region", { required: true })}
                           >
                             {Object.values(Region).map((region) => (
                               <option key={region} value={region}>
@@ -164,14 +189,12 @@ export const UserProfile = () => {
                         </Grid>
                         <Grid xs={12} md={6}>
                           <TextField
+                            select
                             fullWidth
                             label="Role"
-                            name="role"
-                            onChange={handleChange}
-                            required
-                            select
+                            defaultValue={user.role}
                             SelectProps={{ native: true }}
-                            defaultValue={user?.role}
+                            {...registerField("role", { required: true })}
                           >
                             {Object.values(Role).map((role) => (
                               <option key={role} value={role}>
@@ -194,11 +217,17 @@ export const UserProfile = () => {
                   </CardContent>
                   <Divider />
                   <CardActions sx={{ justifyContent: "flex-end" }}>
-                    <Button variant="contained">Save details</Button>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      disabled={Boolean(isUpdating)}
+                    >
+                      Save details
+                    </Button>
                     <Button
                       variant="outlined"
                       color="error"
-                      onClick={() => setopenDeleteUserDialog(true)}
+                      onClick={() => setOpenDeleteUserDialog(true)}
                     >
                       Delete user
                     </Button>
