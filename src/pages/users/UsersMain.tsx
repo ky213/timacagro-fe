@@ -5,12 +5,7 @@ import { useDispatch } from "react-redux";
 import { useListUsersQuery } from "src/data/api/graphql/queries.generated";
 import { resetUsers } from "src/data/store/reducers/users";
 import { Button, Container, Stack, Typography, Box } from "src/components";
-import {
-  ArrowDownOnSquareIcon,
-  ArrowUpOnSquareIcon,
-  PlusIcon,
-  SvgIcon,
-} from "src/components/Icons";
+import { PlusIcon, SvgIcon } from "src/components/Icons";
 import { UsersTable } from "./UsersTable";
 import { UsersSearch } from "./UsersSearch";
 
@@ -52,36 +47,13 @@ export const UsersMainPage = (props: IDashboardProps) => {
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8,
       }}
     >
       <Container maxWidth="xl">
         <Stack spacing={3}>
           <Stack direction="row" justifyContent="space-between" spacing={4}>
             <Stack spacing={1}>
-              <Typography variant="h4">Users</Typography>
-              <Stack alignItems="center" direction="row" spacing={1}>
-                <Button
-                  color="inherit"
-                  startIcon={
-                    <SvgIcon fontSize="small">
-                      <ArrowUpOnSquareIcon />
-                    </SvgIcon>
-                  }
-                >
-                  Import
-                </Button>
-                <Button
-                  color="inherit"
-                  startIcon={
-                    <SvgIcon fontSize="small">
-                      <ArrowDownOnSquareIcon />
-                    </SvgIcon>
-                  }
-                >
-                  Export
-                </Button>
-              </Stack>
+              <Typography variant="h5">Users</Typography>
             </Stack>
             <div>
               <Button
